@@ -32,7 +32,7 @@ public class MyEndpoint {
     @ApiMethod(name = "registerUser")
     public User registerUser(User user) throws ConflictException, NotFoundException {
         if(user.getId() != null){
-            if(getUser(user.getId()) != null){
+            if(findRecord(user.getId()) != null){
                 throw new ConflictException("User already exists");
             }
             else{
@@ -43,28 +43,28 @@ public class MyEndpoint {
     }
 
     /**
-     * This updates an existing <code>Quote</code> object.
+     * This updates an existing <code>User</code> object.
      * @param user The object to be added.
      * @return The object to be updated.
      */
     @ApiMethod(name = "updateUser")
     public User updateUser(User user)throws NotFoundException {
-        if (getUser(user.getId()) == null) {
-            throw new NotFoundException("User Record does not exist");
+        if (findRecord(user.getId()) == null) {
+            throw new NotFoundException("User Record does not exist.. can't be updated");
         }
         ofy().save().entity(user).now();
         return user;
     }
 
     /**
-     * This deletes an existing <code>Quote</code> object.
+     * This deletes an existing <code>User</code> object.
      * @param id The id of the object to be deleted.
      */
     @ApiMethod(name = "removeUser")
     public void removeUser(@Named("id") String id) throws NotFoundException {
-        User user = getUser(id);
+        User user = findRecord(id);
         if(user == null) {
-            throw new NotFoundException("User Record does not exist");
+            throw new NotFoundException("User Record does not exist.. can't be removed");
         }
         ofy().delete().entity(user).now();
     }
@@ -76,6 +76,12 @@ public class MyEndpoint {
             throw new NotFoundException("User Record does not exist");
         }
         return user;
+    }
+
+    //Private method to retrieve a <code>User</code> record
+    private User findRecord(String id) {
+        return ofy().load().type(User.class).id(id).now();
+//or return ofy().load().type(User.class).filter("id",id).first.now();
     }
 
 }

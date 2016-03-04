@@ -83,6 +83,10 @@ public class MyEndpoint {
         ofy().delete().entity(user).now();
     }
 
+    /**
+     * This fetches an existing <code>User</code> object.
+     * @param id The id of the object to be deleted.
+     */
     @ApiMethod(name = "getUser")
     public User getUser(@Named("id") String id) throws NotFoundException {
         User user = ofy().load().type(User.class).id(id).now();

@@ -49,8 +49,22 @@ public class MyEndpoint {
      */
     @ApiMethod(name = "updateUser")
     public User updateUser(User user)throws NotFoundException {
-        if (findRecord(user.getId()) == null) {
+        User savedUser = findRecord(user.getId());
+        if (savedUser == null) {
             throw new NotFoundException("User Record does not exist.. can't be updated");
+        }else{
+            if(user.getName() == null || user.getName().trim().isEmpty()){
+                user.setName(savedUser.getName());
+            }
+            if(user.getAddress() == null || user.getAddress().trim().isEmpty()){
+                user.setAddress(savedUser.getAddress());
+            }
+            if(user.getContact1() == null || user.getContact1().trim().isEmpty()){
+                user.setContact1(savedUser.getContact1());
+            }
+            if(user.getContact2() == null || user.getContact2().trim().isEmpty()){
+                user.setContact2(savedUser.getContact2());
+            }
         }
         ofy().save().entity(user).now();
         return user;

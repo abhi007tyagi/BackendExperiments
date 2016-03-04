@@ -9,9 +9,12 @@ package com.tyagiabhinav.backend;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
+import com.google.api.server.spi.config.Named;
 import com.google.api.server.spi.response.ConflictException;
+import com.google.api.server.spi.response.NotFoundException;
 
-import static com.googlecode.objectify.ObjectifyService.ofy;
+import static com.tyagiabhinav.backend.OfyService.ofy;
+
 
 /** An endpoint class we are exposing */
 @Api(
@@ -27,10 +30,10 @@ public class MyEndpoint {
 
     /** A simple endpoint method that takes a name and says Hi back */
     @ApiMethod(name = "registerUser")
-    public User registerUser(User user) throws ConflictException {
+    public User registerUser(User user) throws ConflictException, NotFoundException {
         if(user.getId() != null){
-            if(findRecord(user.getId()) != null){
-                throw new ConflictException("Object already exists");
+            if(getUser(user.getId()) != null){
+                throw new ConflictException("User already exists");
             }
             else{
                 ofy().save().entity(user).now();
@@ -39,9 +42,40 @@ public class MyEndpoint {
         return user;
     }
 
-    //Private method to retrieve a <code>User</code> record
-    private User findRecord(String id) {
-        return ofy().load().type(User.class).id(id).now();
+    /**
+     * This updates an existing <code>Quote</code> object.
+     * @param user The object to be added.
+     * @return The object to be updated.
+     */
+    @ApiMethod(name = "updateUser")
+    public User updateUser(User user)throws NotFoundException {
+        if (getUser(user.getId()) == null) {
+            throw new NotFoundException("User Record does not exist");
+        }
+        ofy().save().entity(user).now();
+        return user;
+    }
+
+    /**
+     * This deletes an existing <code>Quote</code> object.
+     * @param id The id of the object to be deleted.
+     */
+    @ApiMethod(name = "removeUser")
+    public void removeUser(@Named("id") String id) throws NotFoundException {
+        User user = getUser(id);
+        if(user == null) {
+            throw new NotFoundException("User Record does not exist");
+        }
+        ofy().delete().entity(user).now();
+    }
+
+    @ApiMethod(name = "getUser")
+    public User getUser(@Named("id") String id) throws NotFoundException {
+        User user = ofy().load().type(User.class).id(id).now();
+        if(user == null){
+            throw new NotFoundException("User Record does not exist");
+        }
+        return user;
     }
 
 }

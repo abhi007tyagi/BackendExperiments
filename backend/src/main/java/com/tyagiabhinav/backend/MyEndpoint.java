@@ -10,8 +10,16 @@ import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.config.Named;
+import com.google.api.server.spi.config.Nullable;
+import com.google.api.server.spi.response.CollectionResponse;
 import com.google.api.server.spi.response.ConflictException;
 import com.google.api.server.spi.response.NotFoundException;
+import com.google.appengine.api.datastore.Cursor;
+import com.google.appengine.api.datastore.QueryResultIterator;
+import com.googlecode.objectify.cmd.Query;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.tyagiabhinav.backend.OfyService.ofy;
 
@@ -27,6 +35,38 @@ import static com.tyagiabhinav.backend.OfyService.ofy;
   )
 )
 public class MyEndpoint {
+
+
+    @ApiMethod(name = "listUsers")
+    public CollectionResponse<User> listQuote(@Nullable @Named("cursor") String cursorString,
+                                               @Nullable @Named("count") Integer count) {
+
+        Query<User> query = ofy().load().type(User.class);
+        if (count != null) query.limit(count);
+        if (cursorString != null && cursorString != "") {
+            query = query.startAt(Cursor.fromWebSafeString(cursorString));
+        }
+
+        List<User> users = new ArrayList<User>();
+        QueryResultIterator<User> iterator = query.iterator();
+        int num = 0;
+        while (iterator.hasNext()) {
+            users.add(iterator.next());
+            if (count != null) {
+                num++;
+                if (num == count) break;
+            }
+        }
+
+        //Find the next cursor
+        if (cursorString != null && cursorString != "") {
+            Cursor cursor = iterator.getCursor();
+            if (cursor != null) {
+                cursorString = cursor.toWebSafeString();
+            }
+        }
+        return CollectionResponse.<User>builder().setItems(users).setNextPageToken(cursorString).build();
+    }
 
     /** A simple endpoint method that takes a name and says Hi back */
     @ApiMethod(name = "registerUser")
@@ -99,7 +139,7 @@ public class MyEndpoint {
     //Private method to retrieve a <code>User</code> record
     private User findRecord(String id) {
         return ofy().load().type(User.class).id(id).now();
-//or return ofy().load().type(User.class).filter("id",id).first.now();
+        //or return ofy().load().type(User.class).filter("id",id).first.now();
     }
 
 }

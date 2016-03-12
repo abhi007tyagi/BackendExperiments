@@ -246,8 +246,35 @@ public class MyEndpoint {
             if(invitation.getVenueZip() == null || invitation.getVenueZip().trim().isEmpty()){
                 invitation.setVenueZip(savedInvitation.getVenueZip());
             }
-            if(invitation.getInvitee() == null){
-                invitation.setInvitee(savedInvitation.getInvitee());
+            if(invitation.getInvitee() != null){
+                User savedUser = savedInvitation.getInvitee();
+                User user = invitation.getInvitee();
+                if(user.getName() == null || user.getName().trim().isEmpty()){
+                    user.setName(savedUser.getName());
+                }
+                if(user.getContact() == null || user.getContact().trim().isEmpty()){
+                    user.setContact(savedUser.getContact());
+                }
+                if(user.getAdd1() == null || user.getAdd1().trim().isEmpty()){
+                    user.setAdd1(savedUser.getAdd1());
+                }
+                if(user.getAdd2() == null || user.getAdd2().trim().isEmpty()){
+                    user.setAdd2(savedUser.getAdd2());
+                }
+                if(user.getCity() == null || user.getCity().trim().isEmpty()){
+                    user.setCity(savedUser.getCity());
+                }
+                if(user.getState() == null || user.getState().trim().isEmpty()){
+                    user.setState(savedUser.getState());
+                }
+                if(user.getCountry() == null || user.getCountry().trim().isEmpty()){
+                    user.setCountry(savedUser.getCountry());
+                }
+                if(user.getZip() == null || user.getZip().trim().isEmpty()){
+                    user.setZip(savedUser.getZip());
+                }
+
+                invitation.setInvitee(user);
             }
         }
         ofy().save().entity(invitation).now();

@@ -11,7 +11,7 @@
         <!--<item name="colorControlActivated">@color/colorAccent</item>-->
         <!--<item name="colorControlHighlight">@color/colorAccent</item>-->
 
-        <item name="textColor">@color/colorPrimary</item>
+        <!--<item name="textColor">@color/colorPrimary</item>-->
 
         <item name="colorButtonNormal">@color/colorAccent</item>
 

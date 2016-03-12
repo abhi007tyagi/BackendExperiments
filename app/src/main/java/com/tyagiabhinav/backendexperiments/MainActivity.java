@@ -11,7 +11,7 @@ import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
 import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 import com.tyagiabhinav.backend.backendService.BackendService;
-import com.tyagiabhinav.backend.backendService.model.User;
+import com.tyagiabhinav.backend.backendService.model.Invitation;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         new EndpointsAsyncTask(this).execute();
     }
 
-    class EndpointsAsyncTask extends AsyncTask<Void, Void, List<User>> {
+    class EndpointsAsyncTask extends AsyncTask<Void, Void, List<Invitation>> {
         private BackendService backendService = null;
         private Context context;
 
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        protected List<User> doInBackground(Void... params) {
+        protected List<Invitation> doInBackground(Void... params) {
             if(backendService == null) { // Only do this once
                 BackendService.Builder builder = new BackendService.Builder(AndroidHttp.newCompatibleTransport(),
                         new AndroidJsonFactory(), null)
@@ -55,20 +55,20 @@ public class MainActivity extends AppCompatActivity {
             }
 
             try {
-                return backendService.listUsers().execute().getItems();
+                return backendService.listInvitations().execute().getItems();
             } catch (IOException e) {
                 return Collections.EMPTY_LIST;
             }
         }
 
         @Override
-        protected void onPostExecute(List<User> result) {
+        protected void onPostExecute(List<Invitation> result) {
             StringBuilder data = new StringBuilder();
-            for (User user : result) {
-                data.append("Name: "+user.getName()+"\n");
-                data.append("Address: "+user.getAddress()+"\n");
-                data.append("Contact1: "+user.getContact1()+"\n");
-                data.append("Contact2: "+user.getContact2()+"\n");
+            for (Invitation user : result) {
+//                data.append("Name: "+user.getName()+"\n");
+//                data.append("Address: "+user.getAddress()+"\n");
+//                data.append("Contact1: "+user.getContact1()+"\n");
+//                data.append("Contact2: "+user.getContact2()+"\n");
                 data.append("\n\n");
             }
             dataView.setText(data.toString());

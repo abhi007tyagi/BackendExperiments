@@ -37,21 +37,139 @@ import static com.tyagiabhinav.backend.OfyService.ofy;
 public class MyEndpoint {
 
 
-    @ApiMethod(name = "listUsers")
-    public CollectionResponse<User> listQuote(@Nullable @Named("cursor") String cursorString,
-                                               @Nullable @Named("count") Integer count) {
+//    @ApiMethod(name = "listUsers")
+//    public CollectionResponse<User> listUser(@Nullable @Named("cursor") String cursorString,
+//                                               @Nullable @Named("count") Integer count) {
+//
+//        Query<User> query = ofy().load().type(User.class);
+//        if (count != null) query.limit(count);
+//        if (cursorString != null && cursorString != "") {
+//            query = query.startAt(Cursor.fromWebSafeString(cursorString));
+//        }
+//
+//        List<User> users = new ArrayList<User>();
+//        QueryResultIterator<User> iterator = query.iterator();
+//        int num = 0;
+//        while (iterator.hasNext()) {
+//            users.add(iterator.next());
+//            if (count != null) {
+//                num++;
+//                if (num == count) break;
+//            }
+//        }
+//
+//        //Find the next cursor
+//        if (cursorString != null && cursorString != "") {
+//            Cursor cursor = iterator.getCursor();
+//            if (cursor != null) {
+//                cursorString = cursor.toWebSafeString();
+//            }
+//        }
+//        return CollectionResponse.<User>builder().setItems(users).setNextPageToken(cursorString).build();
+//    }
+//
+//    @ApiMethod(name = "registerUser")
+//    public User registerUser(User user) throws ConflictException, NotFoundException {
+//        if(user.getEmail() != null){
+//            if(findUserRecord(user.getEmail()) != null){
+//                throw new ConflictException("User already exists");
+//            }
+//            else{
+//                ofy().save().entity(user).now();
+//            }
+//        }
+//        return user;
+//    }
+//
+//    /**
+//     * This updates an existing <code>User</code> object.
+//     * @param user The object to be added.
+//     * @return The object to be updated.
+//     */
+//    @ApiMethod(name = "updateUser")
+//    public User updateUser(User user)throws NotFoundException {
+//        User savedUser = findUserRecord(user.getEmail());
+//        if (savedUser == null) {
+//            throw new NotFoundException("User Record does not exist.. can't be updated");
+//        }else{
+//            if(user.getName() == null || user.getName().trim().isEmpty()){
+//                user.setName(savedUser.getName());
+//            }
+//            if(user.getContact() == null || user.getContact().trim().isEmpty()){
+//                user.setContact(savedUser.getContact());
+//            }
+//            if(user.getAdd1() == null || user.getAdd1().trim().isEmpty()){
+//                user.setAdd1(savedUser.getAdd1());
+//            }
+//            if(user.getAdd2() == null || user.getAdd2().trim().isEmpty()){
+//                user.setAdd2(savedUser.getAdd2());
+//            }
+//            if(user.getCity() == null || user.getCity().trim().isEmpty()){
+//                user.setCity(savedUser.getCity());
+//            }
+//            if(user.getState() == null || user.getState().trim().isEmpty()){
+//                user.setState(savedUser.getState());
+//            }
+//            if(user.getCountry() == null || user.getCountry().trim().isEmpty()){
+//                user.setCountry(savedUser.getCountry());
+//            }
+//            if(user.getZip() == null || user.getZip().trim().isEmpty()){
+//                user.setZip(savedUser.getZip());
+//            }
+//        }
+//        ofy().save().entity(user).now();
+//        return user;
+//    }
+//
+//    /**
+//     * This deletes an existing <code>User</code> object.
+//     * @param id The id of the object to be deleted.
+//     */
+//    @ApiMethod(name = "removeUser")
+//    public void removeUser(@Named("id") String id) throws NotFoundException {
+//        User user = findUserRecord(id);
+//        if(user == null) {
+//            throw new NotFoundException("User Record does not exist.. can't be removed");
+//        }
+//        ofy().delete().entity(user).now();
+//    }
+//
+//    /**
+//     * This fetches an existing <code>User</code> object.
+//     * @param id The id of the object to be deleted.
+//     */
+//    @ApiMethod(name = "getUser")
+//    public User getUser(@Named("id") String id) throws NotFoundException {
+//        User user = ofy().load().type(User.class).id(id).now();
+//        if(user == null){
+//            throw new NotFoundException("User Record does not exist");
+//        }
+//        return user;
+//    }
+//
+//    //Private method to retrieve a <code>User</code> record
+//    private User findUserRecord(String id) {
+//        return ofy().load().type(User.class).id(id).now();
+//        //or return ofy().load().type(User.class).filter("id",id).first.now();
+//    }
 
-        Query<User> query = ofy().load().type(User.class);
+
+
+    @ApiMethod(name = "listInvitations")
+    public CollectionResponse<Invitation> listInvitations(@Nullable @Named("cursor") String cursorString,
+                                             @Nullable @Named("count") Integer count) {
+
+        Query<Invitation> query = ofy().load().type(Invitation.class);
         if (count != null) query.limit(count);
         if (cursorString != null && cursorString != "") {
             query = query.startAt(Cursor.fromWebSafeString(cursorString));
         }
 
-        List<User> users = new ArrayList<User>();
-        QueryResultIterator<User> iterator = query.iterator();
+        List<Invitation> invitations = new ArrayList<Invitation>();
+        QueryResultIterator<Invitation> iterator = query.iterator();
         int num = 0;
         while (iterator.hasNext()) {
-            users.add(iterator.next());
+            invitations.add(iterator.next());
             if (count != null) {
                 num++;
                 if (num == count) break;
@@ -65,96 +183,106 @@ public class MyEndpoint {
                 cursorString = cursor.toWebSafeString();
             }
         }
-        return CollectionResponse.<User>builder().setItems(users).setNextPageToken(cursorString).build();
+        return CollectionResponse.<Invitation>builder().setItems(invitations).setNextPageToken(cursorString).build();
     }
 
-    /** A simple endpoint method that takes a name and says Hi back */
-    @ApiMethod(name = "registerUser")
-    public User registerUser(User user) throws ConflictException, NotFoundException {
-        if(user.getEmail() != null){
-            if(findUserRecord(user.getEmail()) != null){
-                throw new ConflictException("User already exists");
+    @ApiMethod(name = "registerInvitation")
+    public Invitation registerInvitation(Invitation invitation) throws ConflictException, NotFoundException {
+        if(invitation.getId() != null){
+            if(findInvitationRecord(invitation.getId()) != null){
+                throw new ConflictException("Invitation already exists");
             }
             else{
-                ofy().save().entity(user).now();
+                ofy().save().entity(invitation).now();
             }
         }
-        return user;
+        return invitation;
     }
 
     /**
-     * This updates an existing <code>User</code> object.
-     * @param user The object to be added.
+     * This updates an existing <code>Invitation</code> object.
+     * @param invitation The object to be added.
      * @return The object to be updated.
      */
-    @ApiMethod(name = "updateUser")
-    public User updateUser(User user)throws NotFoundException {
-        User savedUser = findUserRecord(user.getEmail());
-        if (savedUser == null) {
-            throw new NotFoundException("User Record does not exist.. can't be updated");
+    @ApiMethod(name = "updateInvitation")
+    public Invitation updateInvitation(Invitation invitation)throws NotFoundException {
+        Invitation savedInvitation = findInvitationRecord(invitation.getId());
+        if (savedInvitation == null) {
+            throw new NotFoundException("Invitation Record does not exist.. can't be updated");
         }else{
-            if(user.getName() == null || user.getName().trim().isEmpty()){
-                user.setName(savedUser.getName());
+            if(invitation.getTitle() == null || invitation.getTitle().trim().isEmpty()){
+                invitation.setTitle(savedInvitation.getTitle());
             }
-            if(user.getName() == null || user.getName().trim().isEmpty()){
-                user.setName(savedUser.getName());
+            if(invitation.getType() == null || invitation.getType().trim().isEmpty()){
+                invitation.setType(savedInvitation.getType());
             }
-            if(user.getContact() == null || user.getContact().trim().isEmpty()){
-                user.setContact(savedUser.getContact());
+            if(invitation.getMessage() == null || invitation.getMessage().trim().isEmpty()){
+                invitation.setMessage(savedInvitation.getMessage());
             }
-            if(user.getAdd1() == null || user.getAdd1().trim().isEmpty()){
-                user.setAdd1(savedUser.getAdd1());
+            if(invitation.getWebsite() == null || invitation.getWebsite().trim().isEmpty()){
+                invitation.setWebsite(savedInvitation.getWebsite());
             }
-            if(user.getAdd2() == null || user.getAdd2().trim().isEmpty()){
-                user.setAdd2(savedUser.getAdd2());
+            if(invitation.getVenueName() == null || invitation.getVenueName().trim().isEmpty()){
+                invitation.setVenueName(savedInvitation.getVenueName());
             }
-            if(user.getCity() == null || user.getCity().trim().isEmpty()){
-                user.setCity(savedUser.getCity());
+            if(invitation.getVenueEmail() == null || invitation.getVenueEmail().trim().isEmpty()){
+                invitation.setVenueEmail(savedInvitation.getVenueEmail());
             }
-            if(user.getState() == null || user.getState().trim().isEmpty()){
-                user.setState(savedUser.getState());
+            if(invitation.getVenueAdd1() == null || invitation.getVenueAdd1().trim().isEmpty()){
+                invitation.setVenueAdd1(savedInvitation.getVenueAdd1());
             }
-            if(user.getCountry() == null || user.getCountry().trim().isEmpty()){
-                user.setCountry(savedUser.getCountry());
+            if(invitation.getVenueAdd2() == null || invitation.getVenueAdd2().trim().isEmpty()){
+                invitation.setVenueAdd2(savedInvitation.getVenueAdd2());
             }
-            if(user.getZip() == null || user.getZip().trim().isEmpty()){
-                user.setZip(savedUser.getZip());
+            if(invitation.getVenueCity() == null || invitation.getVenueCity().trim().isEmpty()){
+                invitation.setVenueCity(savedInvitation.getVenueCity());
+            }
+            if(invitation.getVenueState() == null || invitation.getVenueState().trim().isEmpty()){
+                invitation.setVenueState(savedInvitation.getVenueState());
+            }
+            if(invitation.getVenueCountry() == null || invitation.getVenueCountry().trim().isEmpty()){
+                invitation.setVenueCountry(savedInvitation.getVenueCountry());
+            }
+            if(invitation.getVenueZip() == null || invitation.getVenueZip().trim().isEmpty()){
+                invitation.setVenueZip(savedInvitation.getVenueZip());
+            }
+            if(invitation.getInvitee() == null){
+                invitation.setInvitee(savedInvitation.getInvitee());
             }
         }
-        ofy().save().entity(user).now();
-        return user;
+        ofy().save().entity(invitation).now();
+        return invitation;
     }
 
     /**
-     * This deletes an existing <code>User</code> object.
+     * This deletes an existing <code>Invitation</code> object.
      * @param id The id of the object to be deleted.
      */
-    @ApiMethod(name = "removeUser")
-    public void removeUser(@Named("id") String id) throws NotFoundException {
-        User user = findUserRecord(id);
-        if(user == null) {
-            throw new NotFoundException("User Record does not exist.. can't be removed");
+    @ApiMethod(name = "removeInvitation")
+    public void removeInvitation(@Named("id") String id) throws NotFoundException {
+        Invitation invitation = findInvitationRecord(id);
+        if(invitation == null) {
+            throw new NotFoundException("Invitation Record does not exist.. can't be removed");
         }
-        ofy().delete().entity(user).now();
+        ofy().delete().entity(invitation).now();
     }
 
     /**
-     * This fetches an existing <code>User</code> object.
+     * This fetches an existing <code>Invitation</code> object.
      * @param id The id of the object to be deleted.
      */
-    @ApiMethod(name = "getUser")
-    public User getUser(@Named("id") String id) throws NotFoundException {
-        User user = ofy().load().type(User.class).id(id).now();
-        if(user == null){
-            throw new NotFoundException("User Record does not exist");
+    @ApiMethod(name = "getInvitation")
+    public Invitation getInvitation(@Named("id") String id) throws NotFoundException {
+        Invitation invitation = ofy().load().type(Invitation.class).id(id).now();
+        if(invitation == null){
+            throw new NotFoundException("Invitation Record does not exist");
         }
-        return user;
+        return invitation;
     }
 
-    //Private method to retrieve a <code>User</code> record
-    private User findUserRecord(String id) {
-        return ofy().load().type(User.class).id(id).now();
-        //or return ofy().load().type(User.class).filter("id",id).first.now();
+    //Private method to retrieve a <code>Invitation</code> record
+    private Invitation findInvitationRecord(String id) {
+        return ofy().load().type(Invitation.class).id(id).now();
     }
 
 }

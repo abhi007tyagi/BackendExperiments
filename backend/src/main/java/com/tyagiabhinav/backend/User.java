@@ -11,28 +11,36 @@ import com.googlecode.objectify.annotation.Id;
 public class User {
 
     @Id
-    String id;
+    String email;
     String name;
-    String contact1;
-    String contact2;
-    String address;
+    String contact;
+    String add1;
+    String add2;
+    String city;
+    String state;
+    String country;
+    String zip;
 
     public User(){}
 
-    public User(String email, String name, String contact1, String contact2, String address){
-        this.id = email;
+    public User(String email, String name, String contact, String add1, String add2, String city, String state, String country, String zip){
+        this.email = email;
         this.name = name;
-        this.contact1 = contact1;
-        this.contact2 = contact2;
-        this.address = address;
+        this.contact = contact;
+        this.add1 = add1;
+        this.add2 = add2;
+        this.city = city;
+        this.state = state;
+        this.country = country;
+        this.zip = zip;
     }
 
-    public String getId() {
-        return id;
+    public String getEmail() {
+        return email;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getName() {
@@ -43,27 +51,59 @@ public class User {
         this.name = name;
     }
 
-    public String getContact1() {
-        return contact1;
+    public String getContact() {
+        return contact;
     }
 
-    public void setContact1(String contact1) {
-        this.contact1 = contact1;
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 
-    public String getContact2() {
-        return contact2;
+    public String getAdd1() {
+        return add1;
     }
 
-    public void setContact2(String contact2) {
-        this.contact2 = contact2;
+    public void setAdd1(String add1) {
+        this.add1 = add1;
     }
 
-    public String getAddress() {
-        return address;
+    public String getAdd2() {
+        return add2;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAdd2(String add2) {
+        this.add2 = add2;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public void setZip(String zip) {
+        this.zip = zip;
     }
 }

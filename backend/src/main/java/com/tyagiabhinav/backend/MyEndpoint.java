@@ -71,8 +71,8 @@ public class MyEndpoint {
     /** A simple endpoint method that takes a name and says Hi back */
     @ApiMethod(name = "registerUser")
     public User registerUser(User user) throws ConflictException, NotFoundException {
-        if(user.getId() != null){
-            if(findRecord(user.getId()) != null){
+        if(user.getEmail() != null){
+            if(findUserRecord(user.getEmail()) != null){
                 throw new ConflictException("User already exists");
             }
             else{
@@ -89,21 +89,36 @@ public class MyEndpoint {
      */
     @ApiMethod(name = "updateUser")
     public User updateUser(User user)throws NotFoundException {
-        User savedUser = findRecord(user.getId());
+        User savedUser = findUserRecord(user.getEmail());
         if (savedUser == null) {
             throw new NotFoundException("User Record does not exist.. can't be updated");
         }else{
             if(user.getName() == null || user.getName().trim().isEmpty()){
                 user.setName(savedUser.getName());
             }
-            if(user.getAddress() == null || user.getAddress().trim().isEmpty()){
-                user.setAddress(savedUser.getAddress());
+            if(user.getName() == null || user.getName().trim().isEmpty()){
+                user.setName(savedUser.getName());
             }
-            if(user.getContact1() == null || user.getContact1().trim().isEmpty()){
-                user.setContact1(savedUser.getContact1());
+            if(user.getContact() == null || user.getContact().trim().isEmpty()){
+                user.setContact(savedUser.getContact());
             }
-            if(user.getContact2() == null || user.getContact2().trim().isEmpty()){
-                user.setContact2(savedUser.getContact2());
+            if(user.getAdd1() == null || user.getAdd1().trim().isEmpty()){
+                user.setAdd1(savedUser.getAdd1());
+            }
+            if(user.getAdd2() == null || user.getAdd2().trim().isEmpty()){
+                user.setAdd2(savedUser.getAdd2());
+            }
+            if(user.getCity() == null || user.getCity().trim().isEmpty()){
+                user.setCity(savedUser.getCity());
+            }
+            if(user.getState() == null || user.getState().trim().isEmpty()){
+                user.setState(savedUser.getState());
+            }
+            if(user.getCountry() == null || user.getCountry().trim().isEmpty()){
+                user.setCountry(savedUser.getCountry());
+            }
+            if(user.getZip() == null || user.getZip().trim().isEmpty()){
+                user.setZip(savedUser.getZip());
             }
         }
         ofy().save().entity(user).now();
@@ -116,7 +131,7 @@ public class MyEndpoint {
      */
     @ApiMethod(name = "removeUser")
     public void removeUser(@Named("id") String id) throws NotFoundException {
-        User user = findRecord(id);
+        User user = findUserRecord(id);
         if(user == null) {
             throw new NotFoundException("User Record does not exist.. can't be removed");
         }
@@ -137,7 +152,7 @@ public class MyEndpoint {
     }
 
     //Private method to retrieve a <code>User</code> record
-    private User findRecord(String id) {
+    private User findUserRecord(String id) {
         return ofy().load().type(User.class).id(id).now();
         //or return ofy().load().type(User.class).filter("id",id).first.now();
     }

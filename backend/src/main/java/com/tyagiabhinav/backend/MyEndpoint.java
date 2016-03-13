@@ -17,6 +17,7 @@ import com.google.api.server.spi.response.NotFoundException;
 import com.google.appengine.api.datastore.Cursor;
 import com.google.appengine.api.datastore.QueryResultIterator;
 import com.googlecode.objectify.cmd.Query;
+import com.tyagiabhinav.IDGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -188,13 +189,15 @@ public class MyEndpoint {
 
     @ApiMethod(name = "registerInvitation")
     public Invitation registerInvitation(Invitation invitation) throws ConflictException, NotFoundException {
+        invitation.setId(IDGenerator.getRandomID());
         if(invitation.getId() != null){
-            if(findInvitationRecord(invitation.getId()) != null){
-                throw new ConflictException("Invitation already exists");
+            while(findInvitationRecord(invitation.getId()) != null){
+//                throw new ConflictException("Invitation already exists");
+                invitation.setId(IDGenerator.getRandomID());
             }
-            else{
+//            else{
                 ofy().save().entity(invitation).now();
-            }
+//            }
         }
         return invitation;
     }
@@ -245,6 +248,12 @@ public class MyEndpoint {
             }
             if(invitation.getVenueZip() == null || invitation.getVenueZip().trim().isEmpty()){
                 invitation.setVenueZip(savedInvitation.getVenueZip());
+            }
+            if(invitation.getLatitude() == null || invitation.getLatitude().trim().isEmpty()){
+                invitation.setLatitude(savedInvitation.getLatitude());
+            }
+            if(invitation.getLongitude() == null || invitation.getLongitude().trim().isEmpty()){
+                invitation.setLongitude(savedInvitation.getLongitude());
             }
             if(invitation.getInvitee() != null){
                 User savedUser = savedInvitation.getInvitee();

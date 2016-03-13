@@ -222,6 +222,12 @@ public class MyEndpoint {
             if(invitation.getMessage() == null || invitation.getMessage().trim().isEmpty()){
                 invitation.setMessage(savedInvitation.getMessage());
             }
+            if(invitation.getTime() == null || invitation.getTime().trim().isEmpty()){
+                invitation.setTime(savedInvitation.getTime());
+            }
+            if(invitation.getDate() == null || invitation.getDate().trim().isEmpty()){
+                invitation.setDate(savedInvitation.getDate());
+            }
             if(invitation.getWebsite() == null || invitation.getWebsite().trim().isEmpty()){
                 invitation.setWebsite(savedInvitation.getWebsite());
             }

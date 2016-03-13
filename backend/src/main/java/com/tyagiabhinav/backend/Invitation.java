@@ -16,6 +16,8 @@ public class Invitation {
     String type;
     String message;
     User invitee;
+    String time;
+    String date;
     String website;
     String venueName;
     String venueEmail;
@@ -68,6 +70,22 @@ public class Invitation {
 
     public void setInvitee(User invitee) {
         this.invitee = invitee;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getWebsite() {

@@ -66,6 +66,8 @@ public class BackgroundService  extends IntentService{
                     Invitation invitation = ((Invite)getApplication()).getInvitation();//intent.getParcelableExtra(INVITATION);
                     String inviteId = backendService.registerInvitation(invitation).execute().getId();
                     Log.d(LOG_TAG, "Generated Invitation Id --> " + inviteId);
+                    invitation.setId(inviteId);
+//                    saveToDB(invitation, true);
                     Bundle bundle = new Bundle();
                     bundle.putString(INVITATION_ID,inviteId);
                     receiver.send(action,bundle);
@@ -79,6 +81,7 @@ public class BackgroundService  extends IntentService{
                     Invitation invitation = backendService.getInvitation(invitationId).execute();
                     Log.d(LOG_TAG, "Fetched Invitation --> " + invitation.getTitle());
                     receiver.send(action, Bundle.EMPTY);
+//                    saveToDB(invitation, false);
                     ((Invite)getApplication()).setInvitation(invitation);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -89,6 +92,50 @@ public class BackgroundService  extends IntentService{
         }
 
     }
+
+//    private void saveToDB(Invitation invitation, boolean isSelf){
+//        Log.d(LOG_TAG, "Save to DB");
+//        ContentValues inviteValues = new ContentValues();
+//        inviteValues.put(InviteEntry.COL_ID, invitation.getId());
+//        inviteValues.put(InviteEntry.COL_TITLE, invitation.getTitle());
+//        inviteValues.put(InviteEntry.COL_TYPE, invitation.getType());
+//        inviteValues.put(InviteEntry.COL_MESSAGE, invitation.getMessage());
+//        inviteValues.put(InviteEntry.COL_TIME, invitation.getTime());
+//        inviteValues.put(InviteEntry.COL_DATE, invitation.getDate());
+//        inviteValues.put(InviteEntry.COL_WEBSITE, invitation.getWebsite());
+//        inviteValues.put(InviteEntry.COL_VENUE_NAME, invitation.getVenueName());
+//        inviteValues.put(InviteEntry.COL_VENUE_EMAIL, invitation.getVenueEmail());
+//        inviteValues.put(InviteEntry.COL_VENUE_CONTACT, invitation.getVenueContact());
+//        inviteValues.put(InviteEntry.COL_VENUE_ADD1, invitation.getVenueAdd1());
+//        inviteValues.put(InviteEntry.COL_VENUE_ADD2, invitation.getVenueAdd2());
+//        inviteValues.put(InviteEntry.COL_VENUE_CITY, invitation.getVenueCity());
+//        inviteValues.put(InviteEntry.COL_VENUE_STATE, invitation.getVenueState());
+//        inviteValues.put(InviteEntry.COL_VENUE_COUNTRY, invitation.getVenueCountry());
+//        inviteValues.put(InviteEntry.COL_VENUE_ZIP, invitation.getVenueZip());
+//        inviteValues.put(InviteEntry.COL_VENUE_LATITUDE, invitation.getLatitude());
+//        inviteValues.put(InviteEntry.COL_VENUE_LONGITUDE, invitation.getLongitude());
+//
+//        ContentValues userValues = new ContentValues();
+//        userValues.put(UserEntry.COL_USER_EMAIL, invitation.getVenueEmail());
+//        userValues.put(UserEntry.COL_USER_NAME, invitation.getVenueName());
+//        userValues.put(UserEntry.COL_USER_CONTACT, invitation.getVenueContact());
+//        userValues.put(UserEntry.COL_USER_ADD1, invitation.getVenueAdd1());
+//        userValues.put(UserEntry.COL_USER_ADD2, invitation.getVenueAdd2());
+//        userValues.put(UserEntry.COL_USER_CITY, invitation.getVenueCity());
+//        userValues.put(UserEntry.COL_USER_STATE, invitation.getVenueState());
+//        userValues.put(UserEntry.COL_USER_COUNTRY, invitation.getVenueCountry());
+//        userValues.put(UserEntry.COL_USER_ZIP, invitation.getVenueZip());
+//        if(isSelf){
+//            userValues.put(UserEntry.COL_USER_TYPE, UserEntry.USER_TYPE_SELF);
+//        }else{
+//            userValues.put(UserEntry.COL_USER_TYPE, UserEntry.USER_TYPE_OTHER);
+//        }
+//
+//
+//        //save to db
+//        getApplication().getContentResolver().insert(InviteEntry.CONTENT_URI, inviteValues);
+//        getApplication().getContentResolver().insert(UserEntry.CONTENT_URI, userValues);
+//    }
 
 
 }

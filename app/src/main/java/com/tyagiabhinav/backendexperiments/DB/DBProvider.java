@@ -66,10 +66,10 @@ public class DBProvider extends ContentProvider {
             // "invite/*"
             case INVITE_COLUMN:
             {
-                Log.d(LOG_TAG, "MOVIE_TRAILER");
+                Log.d(LOG_TAG, "INVITATION");
                 String movieId = DBContract.InviteEntry.getInviteIdFromUri(uri);
                 retCursor = mOpenHelper.getReadableDatabase().query(
-                        DBContract.InviteEntry.TABLE_NAME,
+                        DBContract.InviteEntry.TABLE_NAME+", "+DBContract.UserEntry.TABLE_NAME,
                         projection,
                         selection,
                         new String[]{movieId},
@@ -79,9 +79,9 @@ public class DBProvider extends ContentProvider {
                 );
                 break;
             }
-            // "fav_movie"
+            // "user"
             case USER: {
-                Log.d(LOG_TAG, "FAVORITE_MOVIE");
+                Log.d(LOG_TAG, "USER");
                 retCursor =  sUserQueryBuilder.query(mOpenHelper.getReadableDatabase(),
                         null,
                         null,
@@ -92,9 +92,9 @@ public class DBProvider extends ContentProvider {
                 );
                 break;
             }
-            // "movie"
+            // "invite"
             case INVITE: {
-                Log.d(LOG_TAG, "MOVIE");
+                Log.d(LOG_TAG, "INVITE");
                 retCursor = mOpenHelper.getReadableDatabase().query(
                         DBContract.InviteEntry.TABLE_NAME,
                         projection,

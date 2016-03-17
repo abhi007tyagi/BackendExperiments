@@ -78,15 +78,15 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
         validator.validate();
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        getLoaderManager().initLoader(CURSOR_LOADER, null, this);
-        super.onActivityCreated(savedInstanceState);
-    }
+//    @Override
+//    public void onActivityCreated(Bundle savedInstanceState) {
+//        getLoaderManager().initLoader(CURSOR_LOADER, null, this);
+//        super.onActivityCreated(savedInstanceState);
+//    }
 
     @Override
     public void onValidationSucceeded() {
-//        invite = ((Invite)getActivity().getApplication()).getInvitation();
+        invite = ((Invite)getActivity().getApplication()).getInvitation();
         invite.setVenueName(name.getText().toString());
         invite.setVenueContact(phone.getText().toString());
         String webURL = website.getText().toString();
@@ -159,9 +159,9 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
             user.setZip(cursor.getString(cursor.getColumnIndex(UserEntry.COL_USER_ZIP)));
             user.setCity(cursor.getString(cursor.getColumnIndex(UserEntry.COL_USER_CITY)));
 
-            Log.d(LOG_TAG, "Name-->" + name);
+            Log.d(LOG_TAG, "Name-->" + user.getName());
 
-            invite = ((Invite)getActivity().getApplication()).getInvitation();
+//            invite = ((Invite)getActivity().getApplication()).getInvitation();
             invite.setInvitee(user);
 
         }

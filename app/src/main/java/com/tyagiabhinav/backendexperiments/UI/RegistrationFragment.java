@@ -47,7 +47,6 @@ public class RegistrationFragment extends Fragment implements ValidationListener
     @Bind(R.id.zip)EditText zip;
     @NotEmpty @Email @Bind(R.id.email) EditText email;
     @NotEmpty @Bind(R.id.phone) EditText phone;
-    private int CURSOR_LOADER = 1006;
     private Validator validator;
     private User user;
 
@@ -104,7 +103,7 @@ public class RegistrationFragment extends Fragment implements ValidationListener
             user.setZip(pin);
         }
 
-        validator.validate();
+
     }
 
     @Override

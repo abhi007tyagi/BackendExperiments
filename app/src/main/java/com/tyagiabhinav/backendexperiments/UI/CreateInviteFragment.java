@@ -14,6 +14,8 @@ import android.widget.Toast;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.tyagiabhinav.backend.backendService.model.Invitation;
+import com.tyagiabhinav.backendexperiments.Invite;
 import com.tyagiabhinav.backendexperiments.R;
 
 import java.util.List;
@@ -68,7 +70,15 @@ public class CreateInviteFragment extends Fragment implements Validator.Validati
     @Override
     public void onValidationSucceeded() {
         // save this screen's data and move to next
-        ((CreateInviteActivity)getActivity()).showNextScreen();
+        Invitation invite = new Invitation();
+        invite.setTitle(title.getText().toString());
+        invite.setType("test");//type.getSelectedItem().toString());
+        invite.setTime(time.getText().toString());
+        invite.setDate(date.getText().toString());
+        invite.setMessage(message.getText().toString());
+
+        ((Invite)getActivity().getApplication()).setInvitation(invite);
+        ((CreateInviteActivity) getActivity()).showNextScreen();
     }
 
     @Override

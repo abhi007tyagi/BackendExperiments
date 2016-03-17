@@ -66,6 +66,23 @@
                 android:text="+919876543210"
                 android:textSize="18sp" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Website"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/website"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="www.myinvitation.com"
+                android:textSize="18sp" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"

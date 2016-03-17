@@ -125,9 +125,9 @@ public class HomeFragment extends Fragment implements ResponseReceiver.Receiver,
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         Log.d(LOG_TAG, "onCreateLoader");
-        Uri trailer = DBContract.InviteEntry.buildInvitationDataUri("737DT608H");
+        Uri invitation = DBContract.InviteEntry.buildInvitationDataUri("737DT608H");
         return new CursorLoader(getContext(),
-                trailer,
+                invitation,
                 null,
                 DBContract.InviteEntry.TABLE_NAME + "." + DBContract.InviteEntry.COL_INVITEE + "=" + DBContract.UserEntry.TABLE_NAME + "." + DBContract.UserEntry.COL_USER_EMAIL + " AND " + DBContract.InviteEntry.TABLE_NAME + "." + DBContract.InviteEntry.COL_ID + " = ?",
                 null,

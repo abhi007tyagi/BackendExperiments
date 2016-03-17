@@ -22,6 +22,7 @@ public class DBProvider extends ContentProvider {
     static final int INVITE = 100;
     static final int INVITE_COLUMN = 101;
     static final int USER = 300;
+    static final int USER_COLUMN = 301;
 
     private static final SQLiteQueryBuilder sUserQueryBuilder;
 
@@ -48,6 +49,7 @@ public class DBProvider extends ContentProvider {
         matcher.addURI(authority, DBContract.PATH_INVITATION, INVITE);
         matcher.addURI(authority, DBContract.PATH_INVITATION + "/*", INVITE_COLUMN);
         matcher.addURI(authority, DBContract.PATH_USER, USER);
+        matcher.addURI(authority, DBContract.PATH_USER + "/*", USER_COLUMN);
         return matcher;
     }
 
@@ -67,12 +69,28 @@ public class DBProvider extends ContentProvider {
             case INVITE_COLUMN:
             {
                 Log.d(LOG_TAG, "INVITATION");
-                String movieId = DBContract.InviteEntry.getInviteIdFromUri(uri);
+                String inviteId = DBContract.InviteEntry.getInviteIdFromUri(uri);
                 retCursor = mOpenHelper.getReadableDatabase().query(
                         DBContract.InviteEntry.TABLE_NAME+", "+DBContract.UserEntry.TABLE_NAME,
                         projection,
                         selection,
-                        new String[]{movieId},
+                        new String[]{inviteId},
+                        null,
+                        null,
+                        sortOrder
+                );
+                break;
+            }
+            // "user/*"
+            case USER_COLUMN:
+            {
+                Log.d(LOG_TAG, "USER");
+                String id = DBContract.UserEntry.getUserIdFromUri(uri);
+                retCursor = mOpenHelper.getReadableDatabase().query(
+                        DBContract.UserEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        new String[]{id},
                         null,
                         null,
                         sortOrder

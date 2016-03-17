@@ -92,8 +92,8 @@ public class DBContract {
             return CONTENT_URI;
         }
 
-        public static Uri buildUserDataUri(String userEmail) {
-            return CONTENT_URI.buildUpon().appendPath(userEmail).build();
+        public static Uri buildUserDataUri(String param) {
+            return CONTENT_URI.buildUpon().appendPath(param).build();
         }
 
         public static String getUserIdFromUri(Uri uri) {

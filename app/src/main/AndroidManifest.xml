@@ -18,6 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".UI.RegistrationActivity" android:parentActivityName=".UI.MainActivity"/>
+        <activity android:name=".UI.CreateInviteActivity" android:parentActivityName=".UI.MainActivity"/>
         <service android:name=".Network.BackgroundService"/>
         <provider
             android:authorities="@string/content_authority"

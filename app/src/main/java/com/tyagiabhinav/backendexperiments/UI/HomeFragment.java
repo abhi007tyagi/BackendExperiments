@@ -23,9 +23,11 @@ import com.tyagiabhinav.backendexperiments.Invite;
 import com.tyagiabhinav.backendexperiments.Network.BackgroundService;
 import com.tyagiabhinav.backendexperiments.Network.ResponseReceiver;
 import com.tyagiabhinav.backendexperiments.R;
+import com.tyagiabhinav.backendexperiments.Util.PrefHelper;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by abhinavtyagi on 14/03/16.
@@ -78,6 +80,21 @@ public class HomeFragment extends Fragment implements ResponseReceiver.Receiver,
             }
         }
     };
+
+    @OnClick(R.id.createInviteFab)
+    public void createInvite(){
+        if(PrefHelper.isUserRegistered()){
+            // open invite screen
+            Log.d(LOG_TAG, "Open Invitation Screen");
+            Intent intent = new Intent(getActivity(),CreateInviteActivity.class);
+            startActivity(intent);
+        } else {
+            // open user registration screen
+            Log.d(LOG_TAG, "Open Registration Screen");
+            Intent intent = new Intent(getActivity(), RegistrationActivity.class);
+            startActivity(intent);
+        }
+    }
 
 
     @Override

@@ -30,17 +30,21 @@
                 android:orientation="horizontal">
 
                 <EditText
+                    android:id="@+id/venueName"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:layout_weight="9"
+                    android:maxLines="1"
+                    android:singleLine="true"
                     android:text="Taj Palace"
                     android:textSize="18sp" />
 
                 <ImageView
+                    android:id="@+id/mapBtn"
                     android:layout_width="0dp"
-                    android:layout_gravity="center"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_weight="1"
                     android:src="@drawable/ic_map_24dp" />
             </LinearLayout>
@@ -53,9 +57,12 @@
                 android:textSize="14sp" />
 
             <EditText
+                android:id="@+id/venuePhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                android:maxLines="1"
+                android:singleLine="true"
                 android:text="+919876543210"
                 android:textSize="18sp" />
 
@@ -80,8 +87,11 @@
                         android:textSize="14sp" />
 
                     <EditText
+                        android:id="@+id/venueCountry"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:singleLine="true"
                         android:text="India"
                         android:textSize="18sp" />
                 </LinearLayout>
@@ -100,8 +110,11 @@
                         android:textSize="14sp" />
 
                     <EditText
+                        android:id="@+id/venueState"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:singleLine="true"
                         android:text="Delhi"
                         android:textSize="18sp" />
 
@@ -116,9 +129,12 @@
                 android:textSize="14sp" />
 
             <EditText
+                android:id="@+id/venueAdd1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                android:maxLines="1"
+                android:singleLine="true"
                 android:text="Mansingh Road"
                 android:textSize="18sp" />
 
@@ -130,9 +146,12 @@
                 android:textSize="14sp" />
 
             <EditText
+                android:id="@+id/venueAdd2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                android:maxLines="1"
+                android:singleLine="true"
                 android:text="Near Canought Place"
                 android:textSize="18sp" />
 
@@ -156,8 +175,11 @@
                         android:textSize="14sp" />
 
                     <EditText
+                        android:id="@+id/venueCity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:singleLine="true"
                         android:text="New Delhi"
                         android:textSize="18sp" />
                 </LinearLayout>
@@ -176,8 +198,11 @@
                         android:textSize="14sp" />
 
                     <EditText
+                        android:id="@+id/venueZip"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:singleLine="true"
                         android:text="110001"
                         android:textSize="18sp" />
 
@@ -191,6 +216,7 @@
     </ScrollView>
 
     <Button
+        android:id="@+id/createInvitation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

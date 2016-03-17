@@ -10,14 +10,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
-            >
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
@@ -26,20 +25,23 @@
                 android:textSize="14sp" />
 
             <EditText
+                android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                android:maxLines="1"
+                android:singleLine="true"
                 android:text="Abhinav Tyagi"
                 android:textSize="18sp" />
 
             <!--</LinearLayout>-->
 
             <!--<View-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="2dp"-->
-                <!--android:layout_marginBottom="3dp"-->
-                <!--android:layout_marginTop="3dp"-->
-                <!--android:background="@android:color/darker_gray" />-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="2dp"-->
+            <!--android:layout_marginBottom="3dp"-->
+            <!--android:layout_marginTop="3dp"-->
+            <!--android:background="@android:color/darker_gray" />-->
 
             <!--<LinearLayout-->
             <!--android:layout_width="match_parent"-->
@@ -70,8 +72,11 @@
                         android:textSize="14sp" />
 
                     <EditText
+                        android:id="@+id/country"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:singleLine="true"
                         android:text="India"
                         android:textSize="18sp" />
                 </LinearLayout>
@@ -90,8 +95,11 @@
                         android:textSize="14sp" />
 
                     <EditText
+                        android:id="@+id/state"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:singleLine="true"
                         android:text="Delhi"
                         android:textSize="18sp" />
 
@@ -106,9 +114,12 @@
                 android:textSize="14sp" />
 
             <EditText
+                android:id="@+id/street1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                android:maxLines="1"
+                android:singleLine="true"
                 android:text="DGIII-44"
                 android:textSize="18sp" />
 
@@ -120,9 +131,12 @@
                 android:textSize="14sp" />
 
             <EditText
+                android:id="@+id/street2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                android:maxLines="1"
+                android:singleLine="true"
                 android:text="Vikas Puri"
                 android:textSize="18sp" />
 
@@ -146,8 +160,11 @@
                         android:textSize="14sp" />
 
                     <EditText
+                        android:id="@+id/city"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:singleLine="true"
                         android:text="New Delhi"
                         android:textSize="18sp" />
                 </LinearLayout>
@@ -166,8 +183,11 @@
                         android:textSize="14sp" />
 
                     <EditText
+                        android:id="@+id/zip"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:singleLine="true"
                         android:text="110018"
                         android:textSize="18sp" />
 
@@ -182,10 +202,13 @@
                 android:textSize="14sp" />
 
             <EditText
+                android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="email@email.com"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="user123@email.com"
                 android:textSize="18sp" />
 
             <TextView
@@ -196,9 +219,12 @@
                 android:textSize="14sp" />
 
             <EditText
+                android:id="@+id/phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                android:maxLines="1"
+                android:singleLine="true"
                 android:text="+919876543210"
                 android:textSize="18sp" />
 
@@ -209,18 +235,19 @@
     </ScrollView>
 
     <Button
+        android:id="@+id/registerBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:background="@color/colorAccent"
+        android:gravity="center"
         android:padding="8dp"
         android:text="Register"
-        android:textSize="21dp"
-        android:gravity="center"
-        android:background="@color/colorAccent"
         android:textColor="@android:color/white"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="4dp"/>
-    </RelativeLayout>
+        android:textSize="21dp" />
+</RelativeLayout>

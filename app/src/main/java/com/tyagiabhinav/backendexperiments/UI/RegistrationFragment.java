@@ -1,0 +1,139 @@
+package com.tyagiabhinav.backendexperiments.UI;
+
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.Validator.ValidationListener;
+import com.mobsandgeeks.saripaar.annotation.Email;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.tyagiabhinav.backend.backendService.model.User;
+import com.tyagiabhinav.backendexperiments.DB.DBContract.UserEntry;
+import com.tyagiabhinav.backendexperiments.R;
+import com.tyagiabhinav.backendexperiments.Util.PrefHelper;
+import com.tyagiabhinav.backendexperiments.Util.Util;
+
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+/**
+ * Created by abhinavtyagi on 16/03/16.
+ */
+public class RegistrationFragment extends Fragment implements ValidationListener{
+
+    private static final String LOG_TAG = RegistrationFragment.class.getSimpleName();
+
+    private View rootView;
+    @NotEmpty @Bind(R.id.name) EditText name;
+    @NotEmpty @Bind(R.id.country) EditText country;
+    @NotEmpty @Bind(R.id.state) EditText state;
+    @NotEmpty @Bind(R.id.street1)EditText street1;
+    @Bind(R.id.street2) EditText street2;
+    @NotEmpty @Bind(R.id.city) EditText city;
+    @Bind(R.id.zip)EditText zip;
+    @NotEmpty @Email @Bind(R.id.email) EditText email;
+    @NotEmpty @Bind(R.id.phone) EditText phone;
+    private int CURSOR_LOADER = 1006;
+    private Validator validator;
+    private User user;
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d(LOG_TAG, "onCreateView");
+        rootView = inflater.inflate(R.layout.registration_fragment, container, false);
+        ButterKnife.bind(this, rootView);
+        validator = new Validator(this);
+        validator.setValidationListener(this);
+//        name.addTextChangedListener(textWatcher);
+//        country.addTextChangedListener(textWatcher);
+//        state.addTextChangedListener(textWatcher);
+//        street1.addTextChangedListener(textWatcher);
+//        street2.addTextChangedListener(textWatcher);
+//        city.addTextChangedListener(textWatcher);
+//        zip.addTextChangedListener(textWatcher);
+//        email.addTextChangedListener(textWatcher);
+//        phone.addTextChangedListener(textWatcher);
+        return rootView;
+    }
+
+    private final TextWatcher textWatcher = new TextWatcher() {
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            Log.d(LOG_TAG, "Count: " + count);
+
+        }
+
+        public void afterTextChanged(Editable s) {
+            Log.d(LOG_TAG, "Length: " + s.length());
+        }
+    };
+
+    @OnClick(R.id.registerBtn)
+    public void registration(){
+        user = new User();
+        user.setEmail(email.getText().toString());
+        user.setName(name.getText().toString());
+        user.setContact(phone.getText().toString());
+        user.setCountry(country.getText().toString());
+        user.setState(state.getText().toString());
+        user.setAdd1(street1.getText().toString());
+        String add2 = street2.getText().toString();
+        if(add2 != null || !add2.trim().isEmpty()) {
+            user.setAdd2(add2);
+        }
+        user.setCity(city.getText().toString());
+        String pin = zip.getText().toString();
+        if(pin != null || !pin.trim().isEmpty()) {
+            user.setZip(pin);
+        }
+
+        validator.validate();
+    }
+
+    @Override
+    public void onValidationSucceeded() {
+        Log.d(LOG_TAG, "User name -->" + user.getName());
+        Uri uri = getActivity().getApplication().getContentResolver().insert(UserEntry.CONTENT_URI, Util.getUserValues(user, true));
+        // check for return uri and take action
+        if(uri.equals(UserEntry.buildUserUri())) {
+            PrefHelper.setUserRegistered(true);
+            Intent intent = new Intent(getActivity(),CreateInviteActivity.class);
+            startActivity(intent);
+            getActivity().finish();
+        }else{
+            Toast.makeText(getActivity(),"Error registering user !!!", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(getActivity());
+
+            // Display error messages ;)
+            if (view instanceof EditText) {
+                ((EditText) view).setError(message);
+            } else {
+                Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+}

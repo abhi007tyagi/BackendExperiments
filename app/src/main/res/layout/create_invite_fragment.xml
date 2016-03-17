@@ -26,9 +26,13 @@
                 android:textSize="14sp" />
 
             <EditText
+                android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                android:maxLength="30"
+                android:maxLines="1"
+                android:singleLine="true"
                 android:text="My Birthday Celebrations"
                 android:textSize="18sp" />
 
@@ -40,6 +44,7 @@
                 android:textSize="14sp" />
 
             <Spinner
+                android:id="@+id/type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp" />
@@ -65,9 +70,13 @@
                         android:textSize="14sp" />
 
                     <EditText
+                        android:id="@+id/time"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="hh:mm"
+                        android:maxLength="5"
+                        android:maxLines="1"
+                        android:singleLine="true"
                         android:textSize="18sp" />
                 </LinearLayout>
 
@@ -85,9 +94,13 @@
                         android:textSize="14sp" />
 
                     <EditText
+                        android:id="@+id/date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="yyyy/mm/dd"
+                        android:maxLength="10"
+                        android:maxLines="1"
+                        android:singleLine="true"
                         android:textSize="18sp" />
 
                 </LinearLayout>
@@ -101,13 +114,18 @@
                 android:textSize="14sp" />
 
             <EditText
+                android:id="@+id/message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="top|start"
                 android:inputType="textMultiLine"
+                android:maxLength="130"
+                android:minLines="5"
                 android:text="DGIII-44"
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/msgLimit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -122,7 +140,7 @@
     </ScrollView>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/share_fab"
+        android:id="@+id/createVenueFab"
         android:layout_width="61dp"
         android:layout_height="61dp"
         android:layout_gravity="bottom|end"

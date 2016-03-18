@@ -80,7 +80,6 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
     private int CURSOR_LOADER = 205;
     private int PLACE_PICKER_REQUEST = 106;
 
-//    private GoogleApiClient mGoogleApiClient;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -90,12 +89,6 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
         validator = new Validator(this);
         validator.setValidationListener(this);
 
-//        mGoogleApiClient = new GoogleApiClient
-//                .Builder(getActivity())
-//                .addApi(Places.GEO_DATA_API)
-//                .addApi(Places.PLACE_DETECTION_API)
-//                .enableAutoManage(getActivity(), this)
-//                .build();
 //        name.addTextChangedListener(textWatcher);
 //        country.addTextChangedListener(textWatcher);
 //        state.addTextChangedListener(textWatcher);
@@ -194,6 +187,9 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == Activity.RESULT_OK) {
                 Place place = PlacePicker.getPlace(getActivity(), data);
+                name.setText(place.getName());
+                phone.setText(place.getPhoneNumber());
+                website.setText(place.getWebsiteUri().toString());
                 String toastMsg = String.format("Place: %s", place.getName());
                 Toast.makeText(getActivity(), toastMsg, Toast.LENGTH_LONG).show();
             } else {
@@ -201,12 +197,6 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
             }
         }
     }
-
-    //    @Override
-//    public void onActivityCreated(Bundle savedInstanceState) {
-//        getLoaderManager().initLoader(CURSOR_LOADER, null, this);
-//        super.onActivityCreated(savedInstanceState);
-//    }
 
     @Override
     public void onValidationSucceeded() {
@@ -295,9 +285,4 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
     public void onLoaderReset(Loader<Cursor> loader) {
 
     }
-//
-//    @Override
-//    public void onConnectionFailed(ConnectionResult connectionResult) {
-//        Log.d(LOG_TAG,"Location Connection Failed");
-//    }
 }

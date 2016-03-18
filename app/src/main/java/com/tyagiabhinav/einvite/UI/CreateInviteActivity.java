@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
-import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.tyagiabhinav.einvite.R;
 
@@ -31,9 +30,6 @@ public class CreateInviteActivity extends AppCompatActivity {
 
         // Add the fragment to the 'create_invite_container' FrameLayout
         getSupportFragmentManager().beginTransaction().add(R.id.create_invite_container, createInviteFragment).commit();
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     public void showNextScreen() {

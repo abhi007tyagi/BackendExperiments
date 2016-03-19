@@ -77,7 +77,7 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
     @NotEmpty
     @Bind(R.id.address)
     EditText address;
-    String latitude, longitude;
+    String latitude, longitude, placeId;
     Invitation invite;
     private Validator validator;
     private int CURSOR_LOADER = 205;
@@ -190,12 +190,25 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == Activity.RESULT_OK) {
                 Place place = PlacePicker.getPlace(getActivity(), data);
-                name.setText(place.getName());
-                phone.setText(place.getPhoneNumber());
-                website.setText(place.getWebsiteUri().toString());
-                Log.d(LOG_TAG, "Address -> " + place.getAddress());
-                String toastMsg = String.format("Place: %s", place.getName());
-                Toast.makeText(getActivity(), toastMsg, Toast.LENGTH_LONG).show();
+                if(place.getName()!=null) {
+                    name.setText(place.getName());
+                }
+                if(place.getPhoneNumber()!=null) {
+                    phone.setText(place.getPhoneNumber());
+                }
+                if(place.getWebsiteUri()!=null) {
+                    website.setText(place.getWebsiteUri().toString());
+                }
+                if(place.getAddress()!=null){
+                    address.setText(place.getAddress());
+                }
+                if(place.getId()!=null){
+                    placeId = place.getId();
+                }
+                if(place.getLatLng()!=null){
+                    latitude = String.valueOf(place.getLatLng().latitude);
+                    longitude = String.valueOf(place.getLatLng().longitude);
+                }
             } else {
                 Log.d(LOG_TAG, "Result Code -->" + resultCode);
             }
@@ -228,7 +241,7 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
             invite.setLatitude(latitude);
         }
         if (longitude != null && !longitude.trim().isEmpty()) {
-            invite.setLatitude(longitude);
+            invite.setLongitude(longitude);
         }
 
         getLoaderManager().initLoader(CURSOR_LOADER, null, this);

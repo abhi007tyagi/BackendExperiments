@@ -52,28 +52,31 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
     @NotEmpty
     @Bind(R.id.venueName)
     EditText name;
-    @NotEmpty
-    @Bind(R.id.venueCountry)
-    EditText country;
-    @NotEmpty
-    @Bind(R.id.venueState)
-    EditText state;
-    @NotEmpty
-    @Bind(R.id.venueAdd1)
-    EditText street1;
-    @Bind(R.id.venueAdd2)
-    EditText street2;
-    @NotEmpty
-    @Bind(R.id.venueCity)
-    EditText city;
-    @Bind(R.id.venueZip)
-    EditText zip;
+//    @NotEmpty
+//    @Bind(R.id.venueCountry)
+//    EditText country;
+//    @NotEmpty
+//    @Bind(R.id.venueState)
+//    EditText state;
+//    @NotEmpty
+//    @Bind(R.id.venueAdd1)
+//    EditText street1;
+//    @Bind(R.id.venueAdd2)
+//    EditText street2;
+//    @NotEmpty
+//    @Bind(R.id.venueCity)
+//    EditText city;
+//    @Bind(R.id.venueZip)
+//    EditText zip;
     @NotEmpty
     @Bind(R.id.venuePhone)
     EditText phone;
     @Url
     @Bind(R.id.website)
     EditText website;
+    @NotEmpty
+    @Bind(R.id.address)
+    EditText address;
     String latitude, longitude;
     Invitation invite;
     private Validator validator;
@@ -190,6 +193,7 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
                 name.setText(place.getName());
                 phone.setText(place.getPhoneNumber());
                 website.setText(place.getWebsiteUri().toString());
+                Log.d(LOG_TAG, "Address -> " + place.getAddress());
                 String toastMsg = String.format("Place: %s", place.getName());
                 Toast.makeText(getActivity(), toastMsg, Toast.LENGTH_LONG).show();
             } else {
@@ -207,18 +211,19 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
         if (webURL != null && !webURL.trim().isEmpty()) {
             invite.setWebsite(webURL);
         }
-        invite.setVenueCountry(country.getText().toString());
-        invite.setVenueState(state.getText().toString());
-        invite.setVenueAdd1(street1.getText().toString());
-        String add2 = street2.getText().toString();
-        if (add2 != null && !add2.trim().isEmpty()) {
-            invite.setVenueAdd2(add2);
-        }
-        invite.setVenueCity(city.getText().toString());
-        String pin = zip.getText().toString();
-        if (pin != null && !pin.trim().isEmpty()) {
-            invite.setVenueZip(pin);
-        }
+        invite.setVenueAddress(address.getText().toString());
+//        invite.setVenueCountry(country.getText().toString());
+//        invite.setVenueState(state.getText().toString());
+//        invite.setVenueAdd1(street1.getText().toString());
+//        String add2 = street2.getText().toString();
+//        if (add2 != null && !add2.trim().isEmpty()) {
+//            invite.setVenueAdd2(add2);
+//        }
+//        invite.setVenueCity(city.getText().toString());
+//        String pin = zip.getText().toString();
+//        if (pin != null && !pin.trim().isEmpty()) {
+//            invite.setVenueZip(pin);
+//        }
         if (latitude != null && !latitude.trim().isEmpty()) {
             invite.setLatitude(latitude);
         }

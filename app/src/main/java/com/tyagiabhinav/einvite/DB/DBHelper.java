@@ -31,12 +31,14 @@ public class DBHelper extends SQLiteOpenHelper {
                 DBContract.InviteEntry.COL_VENUE_NAME + " TEXT NOT NULL, " +
                 DBContract.InviteEntry.COL_VENUE_EMAIL + " TEXT, " +
                 DBContract.InviteEntry.COL_VENUE_CONTACT + " TEXT, " +
-                DBContract.InviteEntry.COL_VENUE_COUNTRY + " TEXT NOT NULL, " +
-                DBContract.InviteEntry.COL_VENUE_STATE + " TEXT NOT NULL, " +
-                DBContract.InviteEntry.COL_VENUE_ADD1 + " TEXT NOT NULL, " +
-                DBContract.InviteEntry.COL_VENUE_ADD2 + " TEXT, " +
-                DBContract.InviteEntry.COL_VENUE_CITY + " TEXT NOT NULL, " +
-                DBContract.InviteEntry.COL_VENUE_ZIP + " TEXT, " +
+                DBContract.InviteEntry.COL_ADDRESS + " TEXT NOT NULL, " +
+                DBContract.InviteEntry.COL_PLACE_ID + " TEXT, " +
+//                DBContract.InviteEntry.COL_VENUE_COUNTRY + " TEXT NOT NULL, " +
+//                DBContract.InviteEntry.COL_VENUE_STATE + " TEXT NOT NULL, " +
+//                DBContract.InviteEntry.COL_VENUE_ADD1 + " TEXT NOT NULL, " +
+//                DBContract.InviteEntry.COL_VENUE_ADD2 + " TEXT, " +
+//                DBContract.InviteEntry.COL_VENUE_CITY + " TEXT NOT NULL, " +
+//                DBContract.InviteEntry.COL_VENUE_ZIP + " TEXT, " +
                 DBContract.InviteEntry.COL_VENUE_LATITUDE + " TEXT, " +
                 DBContract.InviteEntry.COL_VENUE_LONGITUDE + " TEXT, " +
                 DBContract.InviteEntry.COL_INVITEE + " TEXT NOT NULL" +

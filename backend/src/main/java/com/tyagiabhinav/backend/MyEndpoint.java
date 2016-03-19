@@ -237,23 +237,29 @@ public class MyEndpoint {
             if(invitation.getVenueEmail() == null || invitation.getVenueEmail().trim().isEmpty()){
                 invitation.setVenueEmail(savedInvitation.getVenueEmail());
             }
-            if(invitation.getVenueAdd1() == null || invitation.getVenueAdd1().trim().isEmpty()){
-                invitation.setVenueAdd1(savedInvitation.getVenueAdd1());
+//            if(invitation.getVenueAdd1() == null || invitation.getVenueAdd1().trim().isEmpty()){
+//                invitation.setVenueAdd1(savedInvitation.getVenueAdd1());
+//            }
+//            if(invitation.getVenueAdd2() == null || invitation.getVenueAdd2().trim().isEmpty()){
+//                invitation.setVenueAdd2(savedInvitation.getVenueAdd2());
+//            }
+//            if(invitation.getVenueCity() == null || invitation.getVenueCity().trim().isEmpty()){
+//                invitation.setVenueCity(savedInvitation.getVenueCity());
+//            }
+//            if(invitation.getVenueState() == null || invitation.getVenueState().trim().isEmpty()){
+//                invitation.setVenueState(savedInvitation.getVenueState());
+//            }
+//            if(invitation.getVenueCountry() == null || invitation.getVenueCountry().trim().isEmpty()){
+//                invitation.setVenueCountry(savedInvitation.getVenueCountry());
+//            }
+//            if(invitation.getVenueZip() == null || invitation.getVenueZip().trim().isEmpty()){
+//                invitation.setVenueZip(savedInvitation.getVenueZip());
+//            }
+            if(invitation.getVenueAddress() == null || invitation.getVenueAddress().trim().isEmpty()){
+                invitation.setVenueAddress(savedInvitation.getVenueAddress());
             }
-            if(invitation.getVenueAdd2() == null || invitation.getVenueAdd2().trim().isEmpty()){
-                invitation.setVenueAdd2(savedInvitation.getVenueAdd2());
-            }
-            if(invitation.getVenueCity() == null || invitation.getVenueCity().trim().isEmpty()){
-                invitation.setVenueCity(savedInvitation.getVenueCity());
-            }
-            if(invitation.getVenueState() == null || invitation.getVenueState().trim().isEmpty()){
-                invitation.setVenueState(savedInvitation.getVenueState());
-            }
-            if(invitation.getVenueCountry() == null || invitation.getVenueCountry().trim().isEmpty()){
-                invitation.setVenueCountry(savedInvitation.getVenueCountry());
-            }
-            if(invitation.getVenueZip() == null || invitation.getVenueZip().trim().isEmpty()){
-                invitation.setVenueZip(savedInvitation.getVenueZip());
+            if(invitation.getPlaceID() == null || invitation.getPlaceID().trim().isEmpty()){
+                invitation.setPlaceID(savedInvitation.getPlaceID());
             }
             if(invitation.getLatitude() == null || invitation.getLatitude().trim().isEmpty()){
                 invitation.setLatitude(savedInvitation.getLatitude());

@@ -44,12 +44,12 @@ public class Util {
         inviteValues.put(InviteEntry.COL_VENUE_NAME, invitation.getVenueName());
         inviteValues.put(InviteEntry.COL_VENUE_EMAIL, invitation.getVenueEmail());
         inviteValues.put(InviteEntry.COL_VENUE_CONTACT, invitation.getVenueContact());
-        inviteValues.put(InviteEntry.COL_VENUE_ADD1, invitation.getVenueAdd1());
-        inviteValues.put(InviteEntry.COL_VENUE_ADD2, invitation.getVenueAdd2());
-        inviteValues.put(InviteEntry.COL_VENUE_CITY, invitation.getVenueCity());
-        inviteValues.put(InviteEntry.COL_VENUE_STATE, invitation.getVenueState());
-        inviteValues.put(InviteEntry.COL_VENUE_COUNTRY, invitation.getVenueCountry());
-        inviteValues.put(InviteEntry.COL_VENUE_ZIP, invitation.getVenueZip());
+//        inviteValues.put(InviteEntry.COL_VENUE_ADD1, invitation.getVenueAdd1());
+//        inviteValues.put(InviteEntry.COL_VENUE_ADD2, invitation.getVenueAdd2());
+//        inviteValues.put(InviteEntry.COL_VENUE_CITY, invitation.getVenueCity());
+//        inviteValues.put(InviteEntry.COL_VENUE_STATE, invitation.getVenueState());
+//        inviteValues.put(InviteEntry.COL_VENUE_COUNTRY, invitation.getVenueCountry());
+//        inviteValues.put(InviteEntry.COL_VENUE_ZIP, invitation.getVenueZip());
         inviteValues.put(InviteEntry.COL_VENUE_LATITUDE, invitation.getLatitude());
         inviteValues.put(InviteEntry.COL_VENUE_LONGITUDE, invitation.getLongitude());
         inviteValues.put(InviteEntry.COL_INVITEE, invitation.getInvitee().getEmail());

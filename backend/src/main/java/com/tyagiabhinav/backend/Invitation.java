@@ -23,12 +23,14 @@ public class Invitation {
     String venueEmail;
 
     String venueContact;
-    String venueAdd1;
-    String venueAdd2;
-    String venueCity;
-    String venueState;
-    String venueCountry;
-    String venueZip;
+//    String venueAdd1;
+//    String venueAdd2;
+//    String venueCity;
+//    String venueState;
+//    String venueCountry;
+//    String venueZip;
+    String venueAddress;
+    String placeID;
     String latitude;
     String longitude;
 
@@ -120,52 +122,68 @@ public class Invitation {
         this.venueContact = venueContact;
     }
 
-    public String getVenueAdd1() {
-        return venueAdd1;
+//    public String getVenueAdd1() {
+//        return venueAdd1;
+//    }
+//
+//    public void setVenueAdd1(String venueAdd1) {
+//        this.venueAdd1 = venueAdd1;
+//    }
+//
+//    public String getVenueAdd2() {
+//        return venueAdd2;
+//    }
+//
+//    public void setVenueAdd2(String venueAdd2) {
+//        this.venueAdd2 = venueAdd2;
+//    }
+//
+//    public String getVenueCity() {
+//        return venueCity;
+//    }
+//
+//    public void setVenueCity(String venueCity) {
+//        this.venueCity = venueCity;
+//    }
+//
+//    public String getVenueState() {
+//        return venueState;
+//    }
+//
+//    public void setVenueState(String venueState) {
+//        this.venueState = venueState;
+//    }
+//
+//    public String getVenueCountry() {
+//        return venueCountry;
+//    }
+//
+//    public void setVenueCountry(String venueCountry) {
+//        this.venueCountry = venueCountry;
+//    }
+//
+//    public String getVenueZip() {
+//        return venueZip;
+//    }
+//
+//    public void setVenueZip(String venueZip) {
+//        this.venueZip = venueZip;
+//    }
+
+    public String getVenueAddress() {
+        return venueAddress;
     }
 
-    public void setVenueAdd1(String venueAdd1) {
-        this.venueAdd1 = venueAdd1;
+    public void setVenueAddress(String venueAddress) {
+        this.venueAddress = venueAddress;
     }
 
-    public String getVenueAdd2() {
-        return venueAdd2;
+    public String getPlaceID() {
+        return placeID;
     }
 
-    public void setVenueAdd2(String venueAdd2) {
-        this.venueAdd2 = venueAdd2;
-    }
-
-    public String getVenueCity() {
-        return venueCity;
-    }
-
-    public void setVenueCity(String venueCity) {
-        this.venueCity = venueCity;
-    }
-
-    public String getVenueState() {
-        return venueState;
-    }
-
-    public void setVenueState(String venueState) {
-        this.venueState = venueState;
-    }
-
-    public String getVenueCountry() {
-        return venueCountry;
-    }
-
-    public void setVenueCountry(String venueCountry) {
-        this.venueCountry = venueCountry;
-    }
-
-    public String getVenueZip() {
-        return venueZip;
-    }
-
-    public void setVenueZip(String venueZip) {
-        this.venueZip = venueZip;
+    public void setPlaceID(String placeID) {
+        this.placeID = placeID;
     }
 
     public String getLatitude() {

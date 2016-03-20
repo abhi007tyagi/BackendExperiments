@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    android:elevation="4dp"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_marginTop="4dp"
+        android:text="Invitee Detail"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:gravity="top|start"
+        android:text="DGIII-44"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:drawablePadding="4dp"
+        android:drawableStart="@drawable/ic_place_24dp"
+        android:gravity="top|start"
+        android:text="DGIII-44"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:autoLink="phone"
+        android:clickable="true"
+        android:drawablePadding="4dp"
+        android:drawableStart="@drawable/ic_call_24dp"
+        android:gravity="top|start"
+        android:text="DGIII-44"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:autoLink="email"
+        android:clickable="true"
+        android:drawablePadding="4dp"
+        android:drawableStart="@drawable/ic_mail_24dp"
+        android:gravity="top|start"
+        android:text="DGIII-44"
+        android:textSize="16sp" />
+
+
+</LinearLayout>

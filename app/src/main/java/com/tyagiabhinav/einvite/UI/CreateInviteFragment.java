@@ -71,6 +71,13 @@ public class CreateInviteFragment extends Fragment implements Validator.Validati
         return rootView;
     }
 
+//    @OnItemSelected(R.id.type)
+//    public void selectType(Spinner spinner, int position) {
+//        Log.d(LOG_TAG, "select type");
+//            String type = (String) spinner.getAdapter().getItem(position);
+//
+//        }
+
     @OnClick(R.id.time)
     public void selectTime(View view){
         Log.d(LOG_TAG,"select time");
@@ -102,7 +109,7 @@ public class CreateInviteFragment extends Fragment implements Validator.Validati
             // save this screen's data and move to next
             Invitation invite = new Invitation();
             invite.setTitle(title.getText().toString());
-            invite.setType("test");//type.getSelectedItem().toString());
+            invite.setType(type.getSelectedItem().toString());
             invite.setTime(time.getText().toString());
             invite.setDate(date.getText().toString());
             invite.setMessage(message.getText().toString());

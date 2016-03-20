@@ -3,4 +3,20 @@
     <string name="title_activity_main2">Main2Activity</string>
 
     <string name="content_authority">com.tyagiabhinav.einvite</string>
+
+    <string-array name="invitation_type_array">
+        <item>Birthday</item>
+        <item>Marriage</item>
+        <item>Celebration</item>
+        <item>Breakfast</item>
+        <item>Lunch</item>
+        <item>Dinner</item>
+        <item>High Tea</item>
+        <item>Conference</item>
+        <item>Town Hall</item>
+        <item>Match</item>
+        <item>Meeting</item>
+        <item>Special</item>
+        <item>Other</item>
+    </string-array>
 </resources>

@@ -47,7 +47,8 @@
                 android:id="@+id/type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="8dp"
+                android:entries="@array/invitation_type_array"/>
 
 
             <LinearLayout

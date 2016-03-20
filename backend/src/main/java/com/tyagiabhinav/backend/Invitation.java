@@ -20,7 +20,7 @@ public class Invitation {
     String date;
     String website;
     String venueName;
-    String venueEmail;
+//    String venueEmail;
 
     String venueContact;
 //    String venueAdd1;
@@ -106,13 +106,13 @@ public class Invitation {
         this.venueName = venueName;
     }
 
-    public String getVenueEmail() {
-        return venueEmail;
-    }
-
-    public void setVenueEmail(String venueEmail) {
-        this.venueEmail = venueEmail;
-    }
+//    public String getVenueEmail() {
+//        return venueEmail;
+//    }
+//
+//    public void setVenueEmail(String venueEmail) {
+//        this.venueEmail = venueEmail;
+//    }
 
     public String getVenueContact() {
         return venueContact;

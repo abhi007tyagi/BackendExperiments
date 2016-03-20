@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -18,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -33,7 +35,10 @@ import com.tyagiabhinav.backend.backendService.model.User;
 import com.tyagiabhinav.einvite.DB.DBContract;
 import com.tyagiabhinav.einvite.DB.DBContract.UserEntry;
 import com.tyagiabhinav.einvite.Invite;
+import com.tyagiabhinav.einvite.Network.BackgroundService;
+import com.tyagiabhinav.einvite.Network.ResponseReceiver;
 import com.tyagiabhinav.einvite.R;
+import com.tyagiabhinav.einvite.Util.Util;
 
 import java.util.List;
 
@@ -44,7 +49,7 @@ import butterknife.OnClick;
 /**
  * Created by abhinavtyagi on 16/03/16.
  */
-public class CreateVenueFragment extends Fragment implements Validator.ValidationListener, LoaderManager.LoaderCallbacks<Cursor> {
+public class CreateVenueFragment extends Fragment implements Validator.ValidationListener, LoaderManager.LoaderCallbacks<Cursor>, ResponseReceiver.Receiver {
     private static final String LOG_TAG = CreateVenueFragment.class.getSimpleName();
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 7;
 
@@ -77,6 +82,10 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
     @NotEmpty
     @Bind(R.id.address)
     EditText address;
+
+    @Bind(R.id.progressBar)
+    ProgressBar progressBar;
+
     String latitude, longitude, placeId;
     Invitation invite;
     private Validator validator;
@@ -217,13 +226,16 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
 
     @Override
     public void onValidationSucceeded() {
+
+        progressBar.setVisibility(View.VISIBLE);
+
         invite = ((Invite) getActivity().getApplication()).getInvitation();
         invite.setVenueName(name.getText().toString());
         invite.setVenueContact(phone.getText().toString());
         String webURL = website.getText().toString();
-        if (webURL != null && !webURL.trim().isEmpty()) {
+//        if (webURL != null && !webURL.trim().isEmpty()) {
             invite.setWebsite(webURL);
-        }
+//        }
         invite.setVenueAddress(address.getText().toString());
 //        invite.setVenueCountry(country.getText().toString());
 //        invite.setVenueState(state.getText().toString());
@@ -237,12 +249,15 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
 //        if (pin != null && !pin.trim().isEmpty()) {
 //            invite.setVenueZip(pin);
 //        }
-        if (latitude != null && !latitude.trim().isEmpty()) {
+//        if (latitude != null && !latitude.trim().isEmpty()) {
             invite.setLatitude(latitude);
-        }
-        if (longitude != null && !longitude.trim().isEmpty()) {
+//        }
+//        if (longitude != null && !longitude.trim().isEmpty()) {
             invite.setLongitude(longitude);
-        }
+//        }
+//        if(placeId != null && !placeId.trim().isEmpty()) {
+            invite.setPlaceID(placeId);
+//        }
 
         getLoaderManager().initLoader(CURSOR_LOADER, null, this);
 
@@ -296,11 +311,49 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
 //            invite = ((Invite)getActivity().getApplication()).getInvitation();
             invite.setInvitee(user);
 
+            ((Invite) getActivity().getApplication()).setInvitation(invite);
+
+            ResponseReceiver receiver = new ResponseReceiver(new Handler());
+            receiver.setReceiver(this);
+
+            ((Invite) getActivity().getApplication()).setReceiver(receiver);
+
+            Intent intent = new Intent(Intent.ACTION_SYNC, null, getActivity(), BackgroundService.class);
+            intent.putExtra(BackgroundService.ACTION, BackgroundService.CREATE_INVITE);
+            getActivity().startService(intent);
         }
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
 
+    }
+
+    @Override
+    public void onReceiveResult(int resultCode, Bundle resultData) {
+        Invitation invite = ((Invite) getActivity().getApplication()).getInvitation();
+
+        switch (resultCode) {
+            case BackgroundService.GET_INVITE:
+                Toast.makeText(getActivity().getApplicationContext(), "Invitation: " + invite.getTitle() + " received !!", Toast.LENGTH_LONG).show();
+//                saveToDB(invite, false);
+                break;
+            case BackgroundService.CREATE_INVITE:
+                String id = resultData.getString(BackgroundService.INVITATION_ID);
+                if (id != null) {
+                    Toast.makeText(getActivity().getApplicationContext(), "ID: " + id, Toast.LENGTH_LONG).show();
+                    invite.setId(id);
+                    //save to db
+                    getActivity().getApplication().getContentResolver().insert(DBContract.InviteEntry.CONTENT_URI, Util.getInvitationValues(invite));
+                    // self user already registered
+//                    getActivity().getApplication().getContentResolver().insert(DBContract.UserEntry.CONTENT_URI, Util.getUserValues(invite.getInvitee(), true));
+//                    Intent intent = new Intent(Intent.ACTION_SYNC, null, getActivity(), BackgroundService.class);
+//                    intent.putExtra(BackgroundService.ACTION, BackgroundService.GET_INVITE);
+//                    intent.putExtra(BackgroundService.INVITATION_ID, id);
+//                    getActivity().startService(intent);
+                }
+                break;
+        }
+        progressBar.setVisibility(View.GONE);
     }
 }

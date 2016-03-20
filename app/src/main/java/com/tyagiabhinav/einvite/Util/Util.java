@@ -42,8 +42,9 @@ public class Util {
         inviteValues.put(InviteEntry.COL_DATE, invitation.getDate());
         inviteValues.put(InviteEntry.COL_WEBSITE, invitation.getWebsite());
         inviteValues.put(InviteEntry.COL_VENUE_NAME, invitation.getVenueName());
-        inviteValues.put(InviteEntry.COL_VENUE_EMAIL, invitation.getVenueEmail());
+//        inviteValues.put(InviteEntry.COL_VENUE_EMAIL, invitation.getVenueEmail());
         inviteValues.put(InviteEntry.COL_VENUE_CONTACT, invitation.getVenueContact());
+        inviteValues.put(InviteEntry.COL_ADDRESS, invitation.getVenueAddress());
 //        inviteValues.put(InviteEntry.COL_VENUE_ADD1, invitation.getVenueAdd1());
 //        inviteValues.put(InviteEntry.COL_VENUE_ADD2, invitation.getVenueAdd2());
 //        inviteValues.put(InviteEntry.COL_VENUE_CITY, invitation.getVenueCity());
@@ -52,6 +53,7 @@ public class Util {
 //        inviteValues.put(InviteEntry.COL_VENUE_ZIP, invitation.getVenueZip());
         inviteValues.put(InviteEntry.COL_VENUE_LATITUDE, invitation.getLatitude());
         inviteValues.put(InviteEntry.COL_VENUE_LONGITUDE, invitation.getLongitude());
+        inviteValues.put(InviteEntry.COL_PLACE_ID, invitation.getPlaceID());
         inviteValues.put(InviteEntry.COL_INVITEE, invitation.getInvitee().getEmail());
 
         return inviteValues;

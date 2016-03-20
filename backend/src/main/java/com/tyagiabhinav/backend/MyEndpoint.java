@@ -234,9 +234,9 @@ public class MyEndpoint {
             if(invitation.getVenueName() == null || invitation.getVenueName().trim().isEmpty()){
                 invitation.setVenueName(savedInvitation.getVenueName());
             }
-            if(invitation.getVenueEmail() == null || invitation.getVenueEmail().trim().isEmpty()){
-                invitation.setVenueEmail(savedInvitation.getVenueEmail());
-            }
+//            if(invitation.getVenueEmail() == null || invitation.getVenueEmail().trim().isEmpty()){
+//                invitation.setVenueEmail(savedInvitation.getVenueEmail());
+//            }
 //            if(invitation.getVenueAdd1() == null || invitation.getVenueAdd1().trim().isEmpty()){
 //                invitation.setVenueAdd1(savedInvitation.getVenueAdd1());
 //            }

@@ -21,32 +21,34 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         // Create a table to hold invitation details.
         final String SQL_CREATE_INVITATION_TABLE = "CREATE TABLE " + DBContract.InviteEntry.TABLE_NAME + " (" +
-                DBContract.InviteEntry.COL_ID + " TEXT PRIMARY KEY," +
-                DBContract.InviteEntry.COL_TITLE + " TEXT NOT NULL, " +
-                DBContract.InviteEntry.COL_TYPE + " TEXT NOT NULL, " +
-                DBContract.InviteEntry.COL_MESSAGE + " TEXT NOT NULL, " +
-                DBContract.InviteEntry.COL_TIME + " TEXT NOT NULL, " +
-                DBContract.InviteEntry.COL_DATE + " TEXT NOT NULL, " +
-                DBContract.InviteEntry.COL_WEBSITE + " TEXT, " +
-                DBContract.InviteEntry.COL_VENUE_NAME + " TEXT NOT NULL, " +
-                DBContract.InviteEntry.COL_VENUE_EMAIL + " TEXT, " +
-                DBContract.InviteEntry.COL_VENUE_CONTACT + " TEXT, " +
+                DBContract.InviteEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    DBContract.InviteEntry.COL_ID + " TEXT UNIQUE NOT NULL," +
+                    DBContract.InviteEntry.COL_TITLE + " TEXT NOT NULL, " +
+                    DBContract.InviteEntry.COL_TYPE + " TEXT NOT NULL, " +
+                    DBContract.InviteEntry.COL_MESSAGE + " TEXT NOT NULL, " +
+                    DBContract.InviteEntry.COL_TIME + " TEXT NOT NULL, " +
+                    DBContract.InviteEntry.COL_DATE + " TEXT NOT NULL, " +
+                    DBContract.InviteEntry.COL_WEBSITE + " TEXT, " +
+                    DBContract.InviteEntry.COL_VENUE_NAME + " TEXT NOT NULL, " +
+//                DBContract.InviteEntry.COL_VENUE_EMAIL + " TEXT, " +
+                    DBContract.InviteEntry.COL_VENUE_CONTACT + " TEXT, " +
                 DBContract.InviteEntry.COL_ADDRESS + " TEXT NOT NULL, " +
-                DBContract.InviteEntry.COL_PLACE_ID + " TEXT, " +
+                    DBContract.InviteEntry.COL_PLACE_ID + " TEXT, " +
 //                DBContract.InviteEntry.COL_VENUE_COUNTRY + " TEXT NOT NULL, " +
 //                DBContract.InviteEntry.COL_VENUE_STATE + " TEXT NOT NULL, " +
 //                DBContract.InviteEntry.COL_VENUE_ADD1 + " TEXT NOT NULL, " +
 //                DBContract.InviteEntry.COL_VENUE_ADD2 + " TEXT, " +
 //                DBContract.InviteEntry.COL_VENUE_CITY + " TEXT NOT NULL, " +
 //                DBContract.InviteEntry.COL_VENUE_ZIP + " TEXT, " +
-                DBContract.InviteEntry.COL_VENUE_LATITUDE + " TEXT, " +
-                DBContract.InviteEntry.COL_VENUE_LONGITUDE + " TEXT, " +
-                DBContract.InviteEntry.COL_INVITEE + " TEXT NOT NULL" +
+                    DBContract.InviteEntry.COL_VENUE_LATITUDE + " TEXT, " +
+                    DBContract.InviteEntry.COL_VENUE_LONGITUDE + " TEXT, " +
+                    DBContract.InviteEntry.COL_INVITEE + " TEXT NOT NULL" +
                 " );";
 
         final String SQL_CREATE_USER_TABLE = "CREATE TABLE " + DBContract.UserEntry.TABLE_NAME + " (" +
+                DBContract.UserEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 DBContract.UserEntry.COL_USER_NAME + " TEXT NOT NULL, " +
-                DBContract.UserEntry.COL_USER_EMAIL + " TEXT NOT NULL PRIMARY KEY, " +
+                DBContract.UserEntry.COL_USER_EMAIL + " TEXT UNIQUE NOT NULL, " +
                 DBContract.UserEntry.COL_USER_CONTACT + " TEXT NOT NULL, " +
                 DBContract.UserEntry.COL_USER_COUNTRY + " TEXT NOT NULL, " +
                 DBContract.UserEntry.COL_USER_STATE + " TEXT NOT NULL, " +

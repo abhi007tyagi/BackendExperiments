@@ -17,6 +17,7 @@ import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.tyagiabhinav.backend.backendService.model.Invitation;
 import com.tyagiabhinav.einvite.Invite;
 import com.tyagiabhinav.einvite.R;
+import com.tyagiabhinav.einvite.Util.Util;
 
 import java.util.List;
 
@@ -70,25 +71,45 @@ public class CreateInviteFragment extends Fragment implements Validator.Validati
         return rootView;
     }
 
+    @OnClick(R.id.time)
+    public void selectTime(View view){
+        Log.d(LOG_TAG,"select time");
+        Util.showTimepickerDialog(getActivity(), view);
+    }
+
+    @OnClick(R.id.date)
+    public void selectDate(View view){
+        Log.d(LOG_TAG, "select date");
+        Util.showDatePicker(view, getActivity(), true);
+    }
+
     @OnClick(R.id.createVenueFab)
     public void createVenue() {
         Log.d(LOG_TAG, "move to create venue screen");
-
         validator.validate();
     }
 
     @Override
     public void onValidationSucceeded() {
-        // save this screen's data and move to next
-        Invitation invite = new Invitation();
-        invite.setTitle(title.getText().toString());
-        invite.setType("test");//type.getSelectedItem().toString());
-        invite.setTime(time.getText().toString());
-        invite.setDate(date.getText().toString());
-        invite.setMessage(message.getText().toString());
+        String eventTime = time.getText().toString();
+        String eventDate = date.getText().toString();
+        if(Util.isOldTimeAndDate(eventTime,eventDate)){
+            Log.d(LOG_TAG, "Old Time/Date");
+            Toast.makeText(getActivity(),"Can not select previous date or time! ",Toast.LENGTH_LONG).show();
+        }
+        else{
+            Log.d(LOG_TAG, "Time/Date Correct");
+            // save this screen's data and move to next
+            Invitation invite = new Invitation();
+            invite.setTitle(title.getText().toString());
+            invite.setType("test");//type.getSelectedItem().toString());
+            invite.setTime(time.getText().toString());
+            invite.setDate(date.getText().toString());
+            invite.setMessage(message.getText().toString());
 
-        ((Invite) getActivity().getApplication()).setInvitation(invite);
-        ((CreateInviteActivity) getActivity()).showNextScreen();
+            ((Invite) getActivity().getApplication()).setInvitation(invite);
+            ((CreateInviteActivity) getActivity()).showNextScreen();
+        }
     }
 
     @Override

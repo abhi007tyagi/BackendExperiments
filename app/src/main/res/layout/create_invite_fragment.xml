@@ -73,11 +73,13 @@
                         android:id="@+id/time"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="hh:mm"
-                        android:text="19:54"
-                        android:maxLength="5"
+                        android:clickable="true"
+                        android:focusable="false"
+                        android:hint="hh:mm a"
+                        android:maxLength="8"
                         android:maxLines="1"
                         android:singleLine="true"
+                        android:text="19:54"
                         android:textSize="18sp" />
                 </LinearLayout>
 
@@ -98,11 +100,13 @@
                         android:id="@+id/date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="yyyy/mm/dd"
-                        android:text="2016/09/27"
+                        android:clickable="true"
+                        android:focusable="false"
+                        android:hint="mm/dd/yyyy"
                         android:maxLength="10"
                         android:maxLines="1"
                         android:singleLine="true"
+                        android:text="2016/09/27"
                         android:textSize="18sp" />
 
                 </LinearLayout>

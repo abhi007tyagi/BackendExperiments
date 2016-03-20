@@ -9,11 +9,13 @@
         android:id="@+id/map"
         android:layout_width="match_parent"
         android:layout_height="100dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
         android:layout_alignParentTop="true"
         android:background="@color/colorPrimary" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/createInviteFab"
+        android:id="@+id/navigateFab"
         android:layout_width="61dp"
         android:layout_height="61dp"
         android:layout_gravity="bottom|end"
@@ -65,7 +67,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/venueContact"
+            android:id="@+id/venuePhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"

@@ -32,7 +32,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     DBContract.InviteEntry.COL_VENUE_NAME + " TEXT NOT NULL, " +
 //                DBContract.InviteEntry.COL_VENUE_EMAIL + " TEXT, " +
                     DBContract.InviteEntry.COL_VENUE_CONTACT + " TEXT, " +
-                DBContract.InviteEntry.COL_ADDRESS + " TEXT NOT NULL, " +
+                DBContract.InviteEntry.COL_VENUE_ADDRESS + " TEXT NOT NULL, " +
                     DBContract.InviteEntry.COL_PLACE_ID + " TEXT, " +
 //                DBContract.InviteEntry.COL_VENUE_COUNTRY + " TEXT NOT NULL, " +
 //                DBContract.InviteEntry.COL_VENUE_STATE + " TEXT NOT NULL, " +

@@ -43,7 +43,7 @@ public class DBContract {
 //        public static final String COL_VENUE_STATE = "v_state";
 //        public static final String COL_VENUE_COUNTRY = "v_country";
 //        public static final String COL_VENUE_ZIP = "v_zip";
-        public static final String COL_ADDRESS = "address";
+        public static final String COL_VENUE_ADDRESS = "v_address";
         public static final String COL_PLACE_ID = "v_place_id";
         public static final String COL_VENUE_LATITUDE = "v_lat";
         public static final String COL_VENUE_LONGITUDE = "v_lon";

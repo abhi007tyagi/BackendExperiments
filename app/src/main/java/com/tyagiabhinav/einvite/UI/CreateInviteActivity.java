@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.tyagiabhinav.einvite.R;
 
 /**
@@ -12,11 +11,6 @@ import com.tyagiabhinav.einvite.R;
  */
 public class CreateInviteActivity extends AppCompatActivity {
     private static final String LOG_TAG = RegistrationActivity.class.getSimpleName();
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

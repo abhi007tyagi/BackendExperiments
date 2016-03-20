@@ -29,4 +29,5 @@ dependencies {
     compile 'com.mobsandgeeks:android-saripaar:2.0.3'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile project(path: ':backend', configuration: 'android-endpoints')
+    compile files('libs/static-maps-api-1.0.2.jar')
 }

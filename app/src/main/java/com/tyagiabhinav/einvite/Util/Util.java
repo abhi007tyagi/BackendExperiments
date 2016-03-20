@@ -64,7 +64,7 @@ public class Util {
         inviteValues.put(InviteEntry.COL_VENUE_NAME, invitation.getVenueName());
 //        inviteValues.put(InviteEntry.COL_VENUE_EMAIL, invitation.getVenueEmail());
         inviteValues.put(InviteEntry.COL_VENUE_CONTACT, invitation.getVenueContact());
-        inviteValues.put(InviteEntry.COL_ADDRESS, invitation.getVenueAddress());
+        inviteValues.put(InviteEntry.COL_VENUE_ADDRESS, invitation.getVenueAddress());
 //        inviteValues.put(InviteEntry.COL_VENUE_ADD1, invitation.getVenueAdd1());
 //        inviteValues.put(InviteEntry.COL_VENUE_ADD2, invitation.getVenueAdd2());
 //        inviteValues.put(InviteEntry.COL_VENUE_CITY, invitation.getVenueCity());
@@ -160,12 +160,10 @@ public class Util {
                 SimpleDateFormat parseFormat = new SimpleDateFormat(TIME_PARSE_FORMAT);
                 Date date = parseFormat.parse(time);
                 convertedTime=displayFormat.format(date);
-//            System.out.println("convertedTime : "+convertedTime);
             } catch (final ParseException e) {
                 e.printStackTrace();
             }
             return convertedTime;
-            //Output will be 10:23 PM
         }
     }
 
@@ -182,6 +180,15 @@ public class Util {
         }
 
         return selectedCal.before(presentCal);
+    }
+
+    public static boolean isNull(String text){
+        if(text != null && !text.trim().isEmpty() && !text.equalsIgnoreCase("null")){
+            return false;
+        }else{
+            return true;
+        }
+
     }
 
 }

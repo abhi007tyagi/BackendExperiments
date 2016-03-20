@@ -89,7 +89,7 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
     String latitude, longitude, placeId;
     Invitation invite;
     private Validator validator;
-    private int CURSOR_LOADER = 205;
+    private static final int CURSOR_LOADER = 205;
     private int PLACE_PICKER_REQUEST = 106;
 
 
@@ -279,7 +279,7 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
     }
 
     @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+    public Loader<Cursor> onCreateLoader(int id, Bundle bundle) {
         Uri registeredUser = DBContract.UserEntry.buildUserDataUri(UserEntry.USER_TYPE_SELF);
         return new CursorLoader(getContext(),
                 registeredUser,
@@ -322,6 +322,8 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
             intent.putExtra(BackgroundService.ACTION, BackgroundService.CREATE_INVITE);
             getActivity().startService(intent);
         }
+        Log.d(LOG_TAG, "Destroying Loader");
+        getLoaderManager().destroyLoader(CURSOR_LOADER);
     }
 
     @Override
@@ -334,17 +336,26 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
         Invitation invite = ((Invite) getActivity().getApplication()).getInvitation();
 
         switch (resultCode) {
-            case BackgroundService.GET_INVITE:
-                Toast.makeText(getActivity().getApplicationContext(), "Invitation: " + invite.getTitle() + " received !!", Toast.LENGTH_LONG).show();
-//                saveToDB(invite, false);
-                break;
             case BackgroundService.CREATE_INVITE:
                 String id = resultData.getString(BackgroundService.INVITATION_ID);
                 if (id != null) {
                     Toast.makeText(getActivity().getApplicationContext(), "ID: " + id, Toast.LENGTH_LONG).show();
                     invite.setId(id);
                     //save to db
-                    getActivity().getApplication().getContentResolver().insert(DBContract.InviteEntry.CONTENT_URI, Util.getInvitationValues(invite));
+                    Uri uri = getActivity().getApplication().getContentResolver().insert(DBContract.InviteEntry.CONTENT_URI, Util.getInvitationValues(invite));
+                    if(uri.equals(DBContract.InviteEntry.buildInviteUri())){
+                        // success
+                        Bundle bundle = new Bundle();
+                        bundle.putString(InvitationFragment.INVITATION_ID, id);
+
+                        Intent intent = new Intent(getActivity(),InvitationActivity.class);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                    else{
+                        // failed to save data
+                        Toast.makeText(getActivity(),"Error while saving invitation",Toast.LENGTH_LONG).show();
+                    }
                     // self user already registered
 //                    getActivity().getApplication().getContentResolver().insert(DBContract.UserEntry.CONTENT_URI, Util.getUserValues(invite.getInvitee(), true));
 //                    Intent intent = new Intent(Intent.ACTION_SYNC, null, getActivity(), BackgroundService.class);

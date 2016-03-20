@@ -129,4 +129,12 @@
         android:src="@drawable/ic_add_24dp"
         app:pressedTranslationZ="2dp" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
 </FrameLayout>

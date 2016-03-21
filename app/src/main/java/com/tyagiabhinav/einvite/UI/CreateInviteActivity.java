@@ -11,19 +11,29 @@ import com.tyagiabhinav.einvite.R;
  */
 public class CreateInviteActivity extends AppCompatActivity {
     private static final String LOG_TAG = RegistrationActivity.class.getSimpleName();
+    private static final String FRAG_TAG = "CreateInviteFragment";
+    private CreateInviteFragment createInviteFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_invite);
 
-        CreateInviteFragment createInviteFragment = new CreateInviteFragment();
+        if(savedInstanceState == null) {
+            createInviteFragment= new CreateInviteFragment();//set tag for fragment
+            getSupportFragmentManager().beginTransaction().add(R.id.create_invite_container, createInviteFragment,FRAG_TAG).commit(); // Use tags, it's simpler to deal with
+
+        } else {
+            createInviteFragment= (CreateInviteFragment) getSupportFragmentManager().findFragmentByTag(FRAG_TAG);
+        }
+
+//        CreateInviteFragment createInviteFragment = new CreateInviteFragment();
 
         // In case this activity was started with special instructions from an
         // Intent, pass the Intent's extras to the fragment as arguments
 
         // Add the fragment to the 'create_invite_container' FrameLayout
-        getSupportFragmentManager().beginTransaction().add(R.id.create_invite_container, createInviteFragment).commit();
+//        getSupportFragmentManager().beginTransaction().add(R.id.create_invite_container, createInviteFragment).commit();
     }
 
     public void showNextScreen() {

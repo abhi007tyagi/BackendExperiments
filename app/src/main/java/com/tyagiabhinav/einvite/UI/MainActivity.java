@@ -7,6 +7,8 @@ import com.tyagiabhinav.einvite.R;
 
 public class MainActivity extends AppCompatActivity {//} implements ResponseReceiver.Receiver{
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
+    private static final String FRAG_TAG = "HomeFragment";
+    private HomeFragment homeFragment;
 //    private int CURSOR_LOADER = 1006;
 
 //    TextView dataView;
@@ -17,14 +19,22 @@ public class MainActivity extends AppCompatActivity {//} implements ResponseRece
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        HomeFragment homeFragment = new HomeFragment();
+        if(savedInstanceState == null) {
+            homeFragment= new HomeFragment();//set tag for fragment
+            getSupportFragmentManager().beginTransaction().add(R.id.home_container, homeFragment,FRAG_TAG).commit(); // Use tags, it's simpler to deal with
+
+        } else {
+            homeFragment= (HomeFragment) getSupportFragmentManager().findFragmentByTag(FRAG_TAG);
+        }
+
+//        HomeFragment homeFragment = new HomeFragment();
 
         // In case this activity was started with special instructions from an
         // Intent, pass the Intent's extras to the fragment as arguments
 //        posterFragment.setArguments(getIntent().getExtras());
 
         // Add the fragment to the 'home_container' FrameLayout
-        getSupportFragmentManager().beginTransaction().add(R.id.home_container, homeFragment).commit();
+//        getSupportFragmentManager().beginTransaction().add(R.id.home_container, homeFragment).commit();
 
         /*User user = new User();
         user.setName("YES YES");

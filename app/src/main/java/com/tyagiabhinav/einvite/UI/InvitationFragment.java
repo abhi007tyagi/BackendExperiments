@@ -227,7 +227,7 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
             }
             Log.d(LOG_TAG, "Map URI -> " + url);
             Picasso.with(getActivity()).load(url).error(R.mipmap.ic_launcher).placeholder(R.mipmap.ic_launcher).into(map);
-
+//            new DownloadImageTask(map).execute(url);
 
             Log.d(LOG_TAG, "User -> " + user.getName() + " Venue -> " + invitation.getVenueName());
         }
@@ -239,4 +239,29 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
     public void onLoaderReset(Loader<Cursor> loader) {
 
     }
+
+//    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+//        ImageView bmImage;
+//
+//        public DownloadImageTask(ImageView bmImage) {
+//            this.bmImage = bmImage;
+//        }
+//
+//        protected Bitmap doInBackground(String... urls) {
+//            String urldisplay = urls[0];
+//            Bitmap mIcon11 = null;
+//            try {
+//                InputStream in = new java.net.URL(urldisplay).openStream();
+//                mIcon11 = BitmapFactory.decodeStream(in);
+//            } catch (Exception e) {
+//                Log.e("Error", e.getMessage());
+//                e.printStackTrace();
+//            }
+//            return mIcon11;
+//        }
+//
+//        protected void onPostExecute(Bitmap result) {
+//            bmImage.setImageBitmap(result);
+//        }
+//    }
 }

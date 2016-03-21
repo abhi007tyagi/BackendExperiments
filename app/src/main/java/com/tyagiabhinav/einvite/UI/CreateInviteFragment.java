@@ -2,6 +2,8 @@ package com.tyagiabhinav.einvite.UI;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,17 +61,28 @@ public class CreateInviteFragment extends Fragment implements Validator.Validati
         ButterKnife.bind(this, rootView);
         validator = new Validator(this);
         validator.setValidationListener(this);
-//        name.addTextChangedListener(textWatcher);
-//        country.addTextChangedListener(textWatcher);
-//        state.addTextChangedListener(textWatcher);
-//        street1.addTextChangedListener(textWatcher);
-//        street2.addTextChangedListener(textWatcher);
-//        city.addTextChangedListener(textWatcher);
-//        zip.addTextChangedListener(textWatcher);
-//        email.addTextChangedListener(textWatcher);
-//        phone.addTextChangedListener(textWatcher);
+        message.addTextChangedListener(messageWatcher);
         return rootView;
     }
+
+    private final TextWatcher messageWatcher = new TextWatcher() {
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            Log.d(LOG_TAG, "Count: " + count);
+
+        }
+
+        public void afterTextChanged(Editable s) {
+            Log.d(LOG_TAG, "Length: " + s.length());
+            msgLimit.setText(s.length() + "/150");
+            if (s.length() >= 150) {
+//                message.setEnabled(false);
+                s.delete(150, 150);
+            }
+        }
+    };
 
 //    @OnItemSelected(R.id.type)
 //    public void selectType(Spinner spinner, int position) {

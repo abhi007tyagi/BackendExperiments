@@ -10,21 +10,39 @@ import com.tyagiabhinav.einvite.R;
  */
 public class InvitationActivity extends AppCompatActivity {
     private static final String LOG_TAG = InvitationActivity.class.getSimpleName();
+    private static final String FRAG_TAG = "InvitationFragment";
+
+    private InvitationFragment invitationFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invitation);
 
-        InvitationFragment invitationFragment = new InvitationFragment();
+        if(savedInstanceState == null) {
+            invitationFragment= new InvitationFragment();//set tag for fragment
+            invitationFragment.setArguments(getIntent().getExtras());
+            getSupportFragmentManager().beginTransaction().add(R.id.invitation_container, invitationFragment,FRAG_TAG).commit(); // Use tags, it's simpler to deal with
 
-        // In case this activity was started with special instructions from an
-        // Intent, pass the Intent's extras to the fragment as arguments
-        invitationFragment.setArguments(getIntent().getExtras());
+        } else {
+            invitationFragment= (InvitationFragment) getSupportFragmentManager().findFragmentByTag(FRAG_TAG);
+//            invitationFragment.setArguments(getIntent().getExtras());
+//            getSupportFragmentManager().beginTransaction().replace(R.id.invitation_container, invitationFragment,FRAG_TAG).commit(); // Use tags, it's simpler to deal with
 
-        // Add the fragment to the 'invitation_container' FrameLayout
-        getSupportFragmentManager().beginTransaction().add(R.id.invitation_container, invitationFragment).commit();
-
-
+        }
+//        InvitationFragment invitationFragment = new InvitationFragment();
+//
+//        // In case this activity was started with special instructions from an
+//        // Intent, pass the Intent's extras to the fragment as arguments
+//        invitationFragment.setArguments(getIntent().getExtras());
+//
+//        // Add the fragment to the 'invitation_container' FrameLayout
+//        getSupportFragmentManager().beginTransaction().add(R.id.invitation_container, invitationFragment).commit();
     }
+
+//    @Override
+//    public void onConfigurationChanged(Configuration newConfig) {
+//        super.onConfigurationChanged(newConfig);
+//        recreate();
+//    }
 }

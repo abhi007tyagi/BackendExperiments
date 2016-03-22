@@ -2,6 +2,7 @@ package com.tyagiabhinav.einvite.UI;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.tyagiabhinav.einvite.R;
 
@@ -18,6 +19,13 @@ public class MainActivity extends AppCompatActivity {//} implements ResponseRece
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        String einviteDeepLink = getIntent().getDataString();
+        if(einviteDeepLink != null){
+            Log.d(LOG_TAG, "Deeplink Uri -->"+einviteDeepLink);
+        }else{
+            Log.d(LOG_TAG, "No Deeplink Uri");
+        }
 
         if(savedInstanceState == null) {
             homeFragment= new HomeFragment();//set tag for fragment

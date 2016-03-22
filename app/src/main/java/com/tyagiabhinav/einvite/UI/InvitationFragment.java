@@ -10,9 +10,13 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ShareActionProvider;
 import android.widget.TextView;
 
 import com.mypopsy.maps.StaticMap;
@@ -73,7 +77,11 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
 
     @Bind(R.id.email)
     TextView email;
+    private ShareActionProvider shareActionProvider;
 
+    public InvitationFragment(){
+        setHasOptionsMenu(true);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -106,6 +114,29 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
 
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        // Inflate menu resource file.
+        inflater.inflate(R.menu.menu, menu);
+
+        // Locate MenuItem with ShareActionProvider
+        MenuItem menuItem = menu.findItem(R.id.action_share);
+        menuItem.setIntent(createShareForecastIntent());
+
+    }
+
+    private Intent createShareForecastIntent() {
+        String uri = "intent://"+inviteID+"#Intent;scheme=http://tyagiabhinav.com/einvite;package=com.tyagiabhinav.einvite;S.browser_fallback_url=http://www.tyagiabhinav.com;end;";
+
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "einvite/"+inviteID);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "http://tyagiabhinav.com/einvite?id="+inviteID);
+        return shareIntent;
+    }
+
+
+    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         Log.d(LOG_TAG, "Activity Created");
         getLoaderManager().initLoader(CURSOR_LOADER, getArguments(), this);
@@ -114,7 +145,7 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle bundle) {
-        Log.d(LOG_TAG, "onCreateLoader ID-->"+bundle.getString(InvitationFragment.INVITATION_ID));
+        Log.d(LOG_TAG, "onCreateLoader ID-->" + bundle.getString(InvitationFragment.INVITATION_ID));
 
         Uri invitation = DBContract.InviteEntry.buildInvitationDataUri(bundle.getString(InvitationFragment.INVITATION_ID));
         return new CursorLoader(getContext(),

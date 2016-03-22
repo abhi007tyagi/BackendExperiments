@@ -10,6 +10,7 @@ public class MainActivity extends AppCompatActivity {//} implements ResponseRece
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     private static final String FRAG_TAG = "HomeFragment";
     private HomeFragment homeFragment;
+    private String inviteID = "";
 //    private int CURSOR_LOADER = 1006;
 
 //    TextView dataView;
@@ -23,12 +24,17 @@ public class MainActivity extends AppCompatActivity {//} implements ResponseRece
         String einviteDeepLink = getIntent().getDataString();
         if(einviteDeepLink != null){
             Log.d(LOG_TAG, "Deeplink Uri -->"+einviteDeepLink);
+            inviteID = einviteDeepLink.split("://")[1];
+
         }else{
             Log.d(LOG_TAG, "No Deeplink Uri");
         }
 
         if(savedInstanceState == null) {
             homeFragment= new HomeFragment();//set tag for fragment
+            Bundle bundle = new Bundle();
+            bundle.putString(InvitationFragment.INVITATION_ID, inviteID);
+            homeFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction().add(R.id.home_container, homeFragment,FRAG_TAG).commit(); // Use tags, it's simpler to deal with
 
         } else {

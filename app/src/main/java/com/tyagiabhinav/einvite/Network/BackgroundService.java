@@ -7,11 +7,13 @@ import android.util.Log;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
+import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
 import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 import com.tyagiabhinav.backend.backendService.BackendService;
 import com.tyagiabhinav.backend.backendService.model.Invitation;
 import com.tyagiabhinav.einvite.Invite;
+import com.tyagiabhinav.einvite.Util.Util;
 
 import java.io.IOException;
 
@@ -26,8 +28,11 @@ public class BackgroundService extends IntentService {
     public static final String ACTION = "action";
     public static final String INVITATION = "invite";
     public static final String INVITATION_ID = "inviteId";
+    public static final String ERROR = "error";
     public static final int CREATE_INVITE = 106;
+    public static final int CREATE_INVITE_ERR = 105;
     public static final int GET_INVITE = 108;
+    public static final int GET_INVITE_ERR = 107;
 
     private static final String BASE_URL = "https://javatestbackend.appspot.com/_ah/api";
 
@@ -71,19 +76,34 @@ public class BackgroundService extends IntentService {
                         bundle.putString(INVITATION_ID, inviteId);
                         receiver.send(action, bundle);
                     } catch (IOException e) {
-                        e.printStackTrace();
+//                        e.printStackTrace();
+                        Log.d(LOG_TAG, "Generated Invitation Id --> Error" + e.getMessage());
+                        Bundle bundle = new Bundle();
+                        bundle.putString(ERROR, ((GoogleJsonResponseException) e).getDetails().getMessage());
+                        receiver.send(CREATE_INVITE_ERR, bundle);
                     }
                     break;
                 case GET_INVITE:
                     try {
                         String invitationId = intent.getStringExtra(INVITATION_ID);
-                        Invitation invitation = backendService.getInvitation(invitationId).execute();
-                        Log.d(LOG_TAG, "Fetched Invitation --> " + invitation.getTitle());
-                        receiver.send(action, Bundle.EMPTY);
+                        if(!Util.isNull(invitationId)) {
+                            Invitation invitation = backendService.getInvitation(invitationId).execute();
+                            Log.d(LOG_TAG, "Fetched Invitation --> " + invitation.getTitle());
+                            receiver.send(action, Bundle.EMPTY);
 //                    saveToDB(invitation, false);
-                        ((Invite) getApplication()).setInvitation(invitation);
+                            ((Invite) getApplication()).setInvitation(invitation);
+                        } else{
+                            Bundle bundle = new Bundle();
+                            bundle.putString(ERROR,"ERROR: Empty Invitation ID!!");
+                            receiver.send(GET_INVITE_ERR, bundle);
+                        }
                     } catch (IOException e) {
-                        e.printStackTrace();
+//                        e.printStackTrace();
+//                        JSONObject json = new JSONObject(e.getMessage())
+                        Log.d(LOG_TAG, "Fetched Invitation --> Error" + ((GoogleJsonResponseException) e).getDetails().getMessage());
+                        Bundle bundle = new Bundle();
+                        bundle.putString(ERROR,((GoogleJsonResponseException)e).getDetails().getMessage());
+                        receiver.send(GET_INVITE_ERR, bundle);
                     }
                     break;
             }

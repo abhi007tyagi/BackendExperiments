@@ -364,6 +364,9 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
 //                    getActivity().startService(intent);
                 }
                 break;
+            case BackgroundService.CREATE_INVITE_ERR:
+                Toast.makeText(getActivity(),resultData.getString(BackgroundService.ERROR),Toast.LENGTH_LONG).show();
+                break;
         }
         progressBar.setVisibility(View.GONE);
     }

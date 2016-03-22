@@ -62,7 +62,26 @@ public class HomeFragment extends Fragment implements ResponseReceiver.Receiver,
         code1.addTextChangedListener(codeWatcher);
         code2.addTextChangedListener(codeWatcher);
         code3.addTextChangedListener(codeWatcher);
+
+
+        Bundle bundle = getArguments();
+        String id = bundle.getString(InvitationFragment.INVITATION_ID);
+        if(Util.isNull(id)){
+            // continue
+        }else {
+            // deeplink activation.. fetch id
+            deeplinkAccess(bundle);
+        }
         return rootView;
+    }
+
+    private void deeplinkAccess(Bundle bundle){
+        Log.d(LOG_TAG, "DeepLink Access");
+        String id = bundle.getString(InvitationFragment.INVITATION_ID);
+        code1.setText(id.substring(0,3));
+        code2.setText(id.substring(3,6));
+        code3.setText(id.substring(6,9));
+        getLoaderManager().initLoader(CURSOR_LOADER, bundle, HomeFragment.this);
     }
 
 
@@ -137,6 +156,12 @@ public class HomeFragment extends Fragment implements ResponseReceiver.Receiver,
                     // failed to save data
                     Toast.makeText(getActivity(),"Error Occurred. Try again Later!",Toast.LENGTH_LONG).show();
                 }
+                break;
+            case BackgroundService.GET_INVITE_ERR:
+                String errMSG = resultData.getString(BackgroundService.ERROR);
+                Log.d(LOG_TAG,"ERROR GET INVITE : "+errMSG);
+
+                Toast.makeText(getActivity(),errMSG,Toast.LENGTH_LONG).show();
                 break;
         }
         progressBar.setVisibility(View.GONE);

@@ -58,7 +58,7 @@
                 android:maxLength="3"
                 android:singleLine="true"
                 android:textColor="@color/colorAccent"
-                android:textSize="52sp" />
+                android:textSize="47sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -80,7 +80,7 @@
                 android:maxLength="3"
                 android:singleLine="true"
                 android:textColor="@color/colorPrimary"
-                android:textSize="52sp" />
+                android:textSize="47sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -102,7 +102,7 @@
                 android:maxLength="3"
                 android:singleLine="true"
                 android:textColor="@color/colorAccent"
-                android:textSize="52sp" />
+                android:textSize="47sp" />
 
         </LinearLayout>
 

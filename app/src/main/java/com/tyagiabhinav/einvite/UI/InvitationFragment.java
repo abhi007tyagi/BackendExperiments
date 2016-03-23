@@ -16,7 +16,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ShareActionProvider;
 import android.widget.TextView;
 
 import com.mypopsy.maps.StaticMap;
@@ -77,7 +76,6 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
 
     @Bind(R.id.email)
     TextView email;
-    private ShareActionProvider shareActionProvider;
 
     public InvitationFragment(){
         setHasOptionsMenu(true);
@@ -126,8 +124,6 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
     }
 
     private Intent createShareForecastIntent() {
-        String uri = "intent://"+inviteID+"#Intent;scheme=http://tyagiabhinav.com/einvite;package=com.tyagiabhinav.einvite;S.browser_fallback_url=http://www.tyagiabhinav.com;end;";
-
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, "einvite/"+inviteID);

@@ -18,6 +18,7 @@
 
 
 
+    <dimen name="text_invitation_padding_very_large">24dp</dimen>
     <dimen name="text_invitation_heading_margin">8dp</dimen>
     <dimen name="text_invitation_body_margin">4dp</dimen>
 

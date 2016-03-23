@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ import com.mypopsy.maps.StaticMap;
 import com.squareup.picasso.Picasso;
 import com.tyagiabhinav.backend.backendService.model.Invitation;
 import com.tyagiabhinav.backend.backendService.model.User;
+import com.tyagiabhinav.einvite.Custom.ParallaxScrollView;
 import com.tyagiabhinav.einvite.DB.DBContract;
 import com.tyagiabhinav.einvite.R;
 import com.tyagiabhinav.einvite.Util.Util;
@@ -35,15 +37,26 @@ import butterknife.OnClick;
 /**
  * Created by abhinavtyagi on 20/03/16.
  */
-public class InvitationFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class InvitationFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>,  ParallaxScrollView.OnScrollChangedListener {
     private static final String LOG_TAG = InvitationFragment.class.getSimpleName();
     private View rootView;
     private String inviteID;
     private Invitation invitation;
     private static final int CURSOR_LOADER = 27;
 
+
+
     public static final String INVITATION_ID = "inviteID";
     private String lat = "", lon = "";
+
+    @Bind(R.id.scrollView)
+    ParallaxScrollView scrollView;
+
+//    @Bind(R.id.imgLayout)
+//    LinearLayout imgLayout;
+
+    @Bind(R.id.parallaxFrame)
+    FrameLayout prallaxFrame;
 
     @Bind(R.id.title)
     TextView title;
@@ -91,6 +104,7 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
         rootView = inflater.inflate(R.layout.invitation_fragment, container, false);
         ButterKnife.bind(this, rootView);
 
+        scrollView.setOnScrollChangedListener(this);
         inviteID = getArguments().getString(INVITATION_ID);
         Log.d(LOG_TAG, "InviteID -> " + inviteID);
         return rootView;
@@ -274,13 +288,39 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
     private void setInviteTypeImg(String type) {
         if(type.equalsIgnoreCase("Birthday")){
             typeImg.setImageResource(R.drawable.bday);
+            prallaxFrame.setBackgroundResource(R.color.birthday_bg);
+            title.setBackgroundResource(R.color.birthday_bg);
         }else if(type.equalsIgnoreCase("Marriage")){
             typeImg.setImageResource(R.drawable.wed);
+            prallaxFrame.setBackgroundResource(R.color.wedding_bg);
+            title.setBackgroundResource(R.color.wedding_bg);
         }
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
+
+    }
+
+    @Override
+    public void onScrollChanged(int deltaX, int deltaY) {
+//        Log.d(LOG_TAG,"onScrollChanged dx:dy -> "+deltaX+":"+deltaY);
+        int scrollY = scrollView.getScrollY();
+
+        int max = title.getHeight();
+        Log.d(LOG_TAG,"onScrollChanged max -> "+max);
+        Log.d(LOG_TAG,"onScrollChanged title x -> "+title.getX());
+        Log.d(LOG_TAG,"onScrollChanged title y -> "+title.getY());
+
+//        if(deltaY > 0){
+//            title.setTranslationY(Math.max(max, title.getTranslationY()-deltaY/2));
+//        } else {
+//            title.setTranslationY(Math.min(0, title.getTranslationY()-deltaY/2));
+//        }
+        // Add parallax effect
+        prallaxFrame.setTranslationY(scrollY * 0.7f);
+//        title.setTranslationY(scrollY * 0.1f);
+
 
     }
 

@@ -6,4 +6,7 @@
     <color name="textColorPrimary">#161616</color>
     <color name="textColorSecondary">#454545</color>
     <color name="tileBackground">#FDFDFD</color>
+
+    <color name="birthday_bg">#E3F2FD</color>
+    <color name="wedding_bg">#FFB74D</color>
 </resources>

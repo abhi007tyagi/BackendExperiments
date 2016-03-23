@@ -4,10 +4,11 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <LinearLayout
+
+    <FrameLayout
+        android:id="@+id/parallaxFrame"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/typeImg"
@@ -18,12 +19,11 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left|bottom"
-            android:layout_margin="@dimen/text_invitation_heading_margin"
-            android:text="Large Text"
+            android:layout_gravity="bottom|start"
+            android:gravity="center_vertical"
+            android:padding="@dimen/text_invitation_heading_margin"
             android:textSize="@dimen/text_invitation_very_large" />
-
-    </LinearLayout>
+    </FrameLayout>
 
     <LinearLayout
         style="@style/Invitation_Body_Layout"
@@ -37,7 +37,7 @@
 
         <TextView
             android:id="@+id/message"
-            style="@style/Text_Invitation"/>
+            style="@style/Text_Invitation" />
 
     </LinearLayout>
 

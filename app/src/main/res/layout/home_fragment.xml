@@ -4,123 +4,76 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="@dimen/activity_horizontal_margin"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="16dp"
-                android:gravity="center_horizontal|top"
-                android:text="e"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="79sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="16dp"
-                android:gravity="center_horizontal|top"
-                android:text="Invite"
-                android:textColor="@color/colorAccent"
-                android:textSize="79sp" />
-        </LinearLayout>
-
-        <!--<android.support.v4.widget.Space-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="16dp" />-->
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/code1"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="bottom|center_horizontal"
-                android:hint="567"
-                android:inputType="textCapCharacters"
-                android:maxLength="3"
-                android:singleLine="true"
-                android:textColor="@color/colorAccent"
-                android:textSize="47sp" />
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/Text_Logo"
+                    android:text="@string/logo_e"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold" />
+
+                <TextView
+                    style="@style/Text_Logo"
+                    android:text="@string/logo_invite"
+                    android:textColor="@color/colorAccent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/code1"
+                    style="@style/Edit_text_Code_Entry" />
+
+                <TextView style="@style/Text_Code_Dash" />
+
+                <EditText
+                    android:id="@+id/code2"
+                    style="@style/Edit_text_Code_Entry"
+                    android:textColor="@color/colorPrimaryDark" />
+
+                <TextView style="@style/Text_Code_Dash" />
+
+                <EditText
+                    android:id="@+id/code3"
+                    style="@style/Edit_text_Code_Entry" />
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="-"
-                android:textSize="34sp" />
-
-            <EditText
-                android:id="@+id/code2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="bottom|center_horizontal"
-                android:hint="123"
-                android:inputType="textCapCharacters"
-                android:maxLength="3"
-                android:singleLine="true"
-                android:textColor="@color/colorPrimary"
-                android:textSize="47sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="-"
-                android:textSize="34sp" />
-
-            <EditText
-                android:id="@+id/code3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="bottom|center_horizontal"
-                android:hint="890"
-                android:inputType="textCapCharacters"
-                android:maxLength="3"
-                android:singleLine="true"
-                android:textColor="@color/colorAccent"
-                android:textSize="47sp" />
-
+                android:layout_marginBottom="@dimen/text_margin_large"
+                android:gravity="center_horizontal|top"
+                android:text="@string/code_entry"
+                android:paddingBottom="@dimen/text_margin_large"
+                android:textSize="@dimen/text_invitation_medium" />
         </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="36dp"
-            android:gravity="center_horizontal|top"
-            android:text="enter code to view invitation "
-            android:textSize="18sp" />
-    </LinearLayout>
+    </ScrollView>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/createInviteFab"
         style="@style/Fab_style"
         android:contentDescription="create new invitation"
         android:src="@drawable/ic_add_24dp"
-        app:pressedTranslationZ="2dp" />
+        app:pressedTranslationZ="@dimen/z_transition_elevation" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -128,6 +81,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 </FrameLayout>

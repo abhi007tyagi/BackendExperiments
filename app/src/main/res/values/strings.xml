@@ -21,9 +21,12 @@
     </string-array>
 
 
+    <string name="code_entry">enter code to view invitation</string>
+
     <string name="venue_detail_fab_content_description">navigate to venue</string>
-
-
+    <string name="logo_e">e</string>
+    <string name="logo_invite">invite</string>
+    <string name="hyphen">-</string>
 
 
 </resources>

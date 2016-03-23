@@ -23,6 +23,37 @@
         <item name="android:background">?android:attr/listDivider</item>
     </style>
 
+    <style name="Text_Logo" parent="Base.TextAppearance.AppCompat">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/text_margin_small</item>
+        <item name="android:textSize">@dimen/text_logo_size</item>
+    </style>
+
+    android:text="-"
+    <style name="Text_Code_Dash" parent="Base.TextAppearance.AppCompat">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_invitation_very_large</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:text">@string/hyphen</item>
+    </style>
+
+    <style name="Edit_text_Code_Entry" parent="Base.Widget.AppCompat.EditText">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">top|center_horizontal</item>
+        <item name="android:hint">XXX</item>
+        <item name="android:inputType">textCapCharacters</item>
+        <item name="android:maxLength">3</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">@dimen/edittext_code_text_size</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
 
     <style name="Text_Invitation" parent="Base.TextAppearance.AppCompat">
         <item name="android:layout_width">match_parent</item>

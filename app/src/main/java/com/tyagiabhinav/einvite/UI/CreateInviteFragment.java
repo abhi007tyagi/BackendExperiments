@@ -122,6 +122,7 @@ public class CreateInviteFragment extends Fragment implements Validator.Validati
             // save this screen's data and move to next
             Invitation invite = new Invitation();
             invite.setTitle(title.getText().toString());
+            Log.d(LOG_TAG,"Type-->"+type.getSelectedItem().toString());
             invite.setType(type.getSelectedItem().toString());
             invite.setTime(time.getText().toString());
             invite.setDate(date.getText().toString());

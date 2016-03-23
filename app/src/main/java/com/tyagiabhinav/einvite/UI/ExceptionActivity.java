@@ -11,28 +11,29 @@ import android.widget.Toast;
 
 import com.tyagiabhinav.einvite.Invite;
 import com.tyagiabhinav.einvite.R;
-import com.tyagiabhinav.einvite.Util.Util;
 
-import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
 
 public class ExceptionActivity extends AppCompatActivity {
 
+    private Throwable errorMsg;
+    private StringWriter errorStringWriter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exception);
         Log.d("###ExceptionActivity###", "***Unknown Error***");
-        Throwable errorMsg = (Throwable) getIntent().getExtras().get(Invite.UNCAUGHT_ERROR);
-        StringWriter errorStringWriter = new StringWriter();
+        errorMsg = (Throwable) getIntent().getExtras().get(Invite.UNCAUGHT_ERROR);
+        errorStringWriter = new StringWriter();
         PrintWriter errorPrintWriter = new PrintWriter(errorStringWriter);
         errorMsg.printStackTrace(errorPrintWriter);
         Log.d("### ERROR ###", errorMsg.getMessage());
         Log.d("### ERROR STACK ###", errorStringWriter.toString());
 //        errorMsg.printStackTrace();
-        final String errorFile = Util.saveUncaughtError(errorMsg.getMessage(), errorStringWriter.toString());
+//        final String errorFile = Util.saveUncaughtError(this,errorMsg.getMessage(), errorStringWriter.toString());
 
 
         Button homeBtn = (Button) findViewById(R.id.home);
@@ -53,18 +54,18 @@ public class ExceptionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("ExceptionActivity", "onClick");
-                Toast.makeText(ExceptionActivity.this, "email clicked", Toast.LENGTH_SHORT).show();
-                Uri uri = Uri.fromFile(new File(errorFile));
-                String[] TO = {"abhi007tyagi@yahoo.co.in"};
+                Toast.makeText(ExceptionActivity.this, "Select email client to send report", Toast.LENGTH_SHORT).show();
+//                Uri uri = Uri.fromFile(new File(errorFile));
+                String[] TO = {"abhi007tyagi@gmail.com"};
 
                 Intent emailIntent = new Intent(Intent.ACTION_SEND);
                 emailIntent.setData(Uri.parse("mailto:"));
                 emailIntent.setType("text/plain");
                 emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
-                emailIntent.putExtra(Intent.EXTRA_TEXT, "Error Report from Adherence");
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "Error Report from eInvite\n\n##ERROR##\n"+errorMsg.getMessage()+"\n\n##ERROR STACK##\n"+errorStringWriter.toString());
                 emailIntent.setType("*/*");
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Adherence Error Report");
-                emailIntent.putExtra(Intent.EXTRA_STREAM, uri);
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "eInvite Error Report");
+//                emailIntent.putExtra(Intent.EXTRA_STREAM, uri);
                 startActivity(Intent.createChooser(emailIntent, "Send email..."));
                 finish();
             }

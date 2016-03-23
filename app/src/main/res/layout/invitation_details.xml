@@ -4,10 +4,15 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/invitation_img_height"
-        android:background="@color/colorPrimary">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/typeImg"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/invitation_img_height" />
 
         <TextView
             android:id="@+id/title"
@@ -18,7 +23,7 @@
             android:text="Large Text"
             android:textSize="@dimen/text_invitation_very_large" />
 
-    </FrameLayout>
+    </LinearLayout>
 
     <LinearLayout
         style="@style/Invitation_Body_Layout"

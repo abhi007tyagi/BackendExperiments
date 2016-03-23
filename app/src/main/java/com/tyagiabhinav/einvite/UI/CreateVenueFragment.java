@@ -29,7 +29,6 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
-import com.mobsandgeeks.saripaar.annotation.Url;
 import com.tyagiabhinav.backend.backendService.model.Invitation;
 import com.tyagiabhinav.backend.backendService.model.User;
 import com.tyagiabhinav.einvite.DB.DBContract;
@@ -76,7 +75,7 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
     @NotEmpty
     @Bind(R.id.venuePhone)
     EditText phone;
-    @Url
+//    @Url
     @Bind(R.id.website)
     EditText website;
     @NotEmpty

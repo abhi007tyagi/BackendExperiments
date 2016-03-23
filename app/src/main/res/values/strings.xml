@@ -28,6 +28,8 @@
     <string name="website_hint">http://www.tyagiabhinav.com"</string>
     <string name="address">Address</string>
     <string name="address_hint">Type Complete Address</string>
+    <string name="invite_msg1">My invitation to you.\nUse the link for details\n</string>
+    <string name="invite_msg2">\nUse the link for details\n</string>
 
     <string-array name="invitation_type_array">
         <item>Birthday</item>

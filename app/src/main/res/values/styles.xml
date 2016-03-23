@@ -17,11 +17,6 @@
 
     </style>
 
-    <style name="Divider">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">1dp</item>
-        <item name="android:background">?android:attr/listDivider</item>
-    </style>
 
     <style name="Text_Logo" parent="Base.TextAppearance.AppCompat">
         <item name="android:layout_width">wrap_content</item>
@@ -65,6 +60,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginBottom">@dimen/text_margin_medium</item>
         <item name="android:maxLines">1</item>
+        <item name="android:inputType">textCapSentences</item>
         <item name="android:singleLine">true</item>
         <item name="android:textSize">@dimen/edittext_form_text_size</item>
     </style>
@@ -76,7 +72,7 @@
         <item name="android:minLines">5</item>
         <item name="android:maxLength">150</item>
         <item name="android:gravity">top|start</item>
-        <item name="android:inputType">textMultiLine</item>
+        <item name="android:inputType">textMultiLine|textCapSentences</item>
         <item name="android:textSize">@dimen/edittext_form_text_size</item>
     </style>
 
@@ -100,6 +96,7 @@
 
     <style name="Text_Invitation_Heading" parent="Text_Invitation">
         <item name="android:textSize">@dimen/text_invitation_small</item>
+        <item name="android:textColor">@color/textColorSecondary</item>
     </style>
 
     <style name="Text_Invitation_Body" parent="Text_Invitation">

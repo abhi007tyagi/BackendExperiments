@@ -84,7 +84,7 @@ public class DBContract {
         public static final String COL_USER_STATE = "state";
         public static final String COL_USER_COUNTRY = "country";
         public static final String COL_USER_ZIP = "zip";
-        public static final String COL_USER_TYPE = "type";
+        public static final String COL_USER_TYPE = "user_type";
 
         public static final String USER_TYPE_SELF = "self";
         public static final String USER_TYPE_OTHER = "other";

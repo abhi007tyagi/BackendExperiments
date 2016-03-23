@@ -39,6 +39,7 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
     private static final String LOG_TAG = InvitationFragment.class.getSimpleName();
     private View rootView;
     private String inviteID;
+    private Invitation invitation;
     private static final int CURSOR_LOADER = 27;
 
     public static final String INVITATION_ID = "inviteID";
@@ -46,6 +47,9 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
 
     @Bind(R.id.title)
     TextView title;
+
+    @Bind(R.id.typeImg)
+    ImageView typeImg;
 
     @Bind(R.id.message)
     TextView message;
@@ -77,7 +81,7 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
     @Bind(R.id.email)
     TextView email;
 
-    public InvitationFragment(){
+    public InvitationFragment() {
         setHasOptionsMenu(true);
     }
 
@@ -124,24 +128,28 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
     }
 
     private Intent createShareForecastIntent() {
+
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
-        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "einvite/"+inviteID);
-        shareIntent.putExtra(Intent.EXTRA_TEXT, "http://tyagiabhinav.com/einvite?id="+inviteID);
+        if(invitation != null) {
+            shareIntent.putExtra(Intent.EXTRA_TEXT, invitation.getMessage() + getResources().getString(R.string.invite_msg2) + "http://tyagiabhinav.com/einvite?id=" + inviteID);
+        } else {
+            shareIntent.putExtra(Intent.EXTRA_TEXT, getResources().getString(R.string.invite_msg1) + "http://tyagiabhinav.com/einvite?id=" + inviteID);
+        }
         return shareIntent;
     }
 
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        Log.d(LOG_TAG, "Activity Created");
+    public void onActivityCreated(Bundle savedInstanceState){
+            Log.d(LOG_TAG, "Activity Created");
         getLoaderManager().initLoader(CURSOR_LOADER, getArguments(), this);
-        super.onActivityCreated(savedInstanceState);
+            super.onActivityCreated(savedInstanceState);
     }
 
     @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle bundle) {
-        Log.d(LOG_TAG, "onCreateLoader ID-->" + bundle.getString(InvitationFragment.INVITATION_ID));
+    public Loader<Cursor> onCreateLoader(int id, Bundle bundle){
+            Log.d(LOG_TAG, "onCreateLoader ID-->" + bundle.getString(InvitationFragment.INVITATION_ID));
 
         Uri invitation = DBContract.InviteEntry.buildInvitationDataUri(bundle.getString(InvitationFragment.INVITATION_ID));
         return new CursorLoader(getContext(),
@@ -157,7 +165,7 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
         Log.d(LOG_TAG, "onLoadFinished -->" + cursor.getCount());
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
-            Invitation invitation = new Invitation();
+            invitation = new Invitation();
 
             User user = new User();
             user.setName(cursor.getString(cursor.getColumnIndex(DBContract.UserEntry.COL_USER_NAME)));
@@ -189,6 +197,7 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
 
             //populate UI
             title.setText(invitation.getTitle());
+            setInviteTypeImg(invitation.getType());
             message.setText(invitation.getMessage());
 
             venueName.setText(invitation.getVenueName());
@@ -260,6 +269,14 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
         }
         Log.d(LOG_TAG, "Destroying Loader");
         getLoaderManager().destroyLoader(CURSOR_LOADER);
+    }
+
+    private void setInviteTypeImg(String type) {
+        if(type.equalsIgnoreCase("Birthday")){
+            typeImg.setImageResource(R.drawable.bday);
+        }else if(type.equalsIgnoreCase("Marriage")){
+            typeImg.setImageResource(R.drawable.wed);
+        }
     }
 
     @Override

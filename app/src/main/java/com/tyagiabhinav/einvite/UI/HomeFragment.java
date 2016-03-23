@@ -58,6 +58,7 @@ public class HomeFragment extends Fragment implements ResponseReceiver.Receiver,
         Log.d(LOG_TAG, "onCreateView");
         rootView = inflater.inflate(R.layout.home_fragment, container, false);
         ButterKnife.bind(this, rootView);
+
         code1.addTextChangedListener(codeWatcher);
         code2.addTextChangedListener(codeWatcher);
         code3.addTextChangedListener(codeWatcher);

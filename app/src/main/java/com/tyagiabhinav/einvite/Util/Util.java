@@ -6,7 +6,6 @@ import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.os.Build;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
@@ -198,12 +197,12 @@ public class Util {
 
     }
 
-    public static String saveUncaughtError(String msg, String stackTrace){
+    public static String saveUncaughtError(Context context, String msg, String stackTrace){
 
 //        ByteArrayOutputStream stream = new ByteArrayOutputStream();
         String data = "Device=="+ Build.DEVICE+"\nModel=="+Build.MODEL+"\nBrand=="+Build.BRAND+"\nProduct=="+Build.PRODUCT+"\nMSG=="+msg+"\nSTACK=="+stackTrace;
 
-        File f = getOutputErrorFile();
+        File f = getOutputErrorFile(context);
         // write the bytes in file
         FileOutputStream fo = null;
         try {
@@ -230,16 +229,15 @@ public class Util {
         return f.getAbsolutePath();
     }
 
-    private static File getOutputErrorFile() {
+    private static File getOutputErrorFile(Context context) {
 
         // External sdcard location
-        File mediaStorageDir = new File(Environment.getExternalStorageDirectory(),  "Error_Logs");
+        File storageDir = new File(context.getFilesDir(),  "Error_Logs");
 
         // Create the storage directory if it does not exist
-        if (!mediaStorageDir.exists()) {
-            if (!mediaStorageDir.mkdirs()) {
-                Log.d("Error_Logs", "Oops! Failed create "
-                        + "Error_Logs" + " directory");
+        if (!storageDir.exists()) {
+            if (!storageDir.mkdirs()) {
+                Log.d("Error_Logs", "Oops! Failed create " + "Error_Logs" + " directory");
                 return null;
             }
         }
@@ -249,7 +247,7 @@ public class Util {
                 Locale.getDefault()).format(new Date());
         File errorFile;
 //        if (type == MEDIA_TYPE_IMAGE) {
-        errorFile = new File(mediaStorageDir.getPath() + File.separator+ "ERR_" + timeStamp + ".txt");
+        errorFile = new File(storageDir.getPath() + File.separator+ "ERR_" + timeStamp + ".txt");
 //        } else {
 //            return null;
 //        }

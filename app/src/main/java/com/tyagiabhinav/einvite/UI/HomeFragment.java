@@ -53,7 +53,6 @@ public class HomeFragment extends Fragment implements ResponseReceiver.Receiver,
 
     private String inviteID;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(LOG_TAG, "onCreateView");
@@ -81,9 +80,9 @@ public class HomeFragment extends Fragment implements ResponseReceiver.Receiver,
         code1.setText(id.substring(0,3));
         code2.setText(id.substring(3,6));
         code3.setText(id.substring(6,9));
+
         getLoaderManager().initLoader(CURSOR_LOADER, bundle, HomeFragment.this);
     }
-
 
     private final TextWatcher codeWatcher = new TextWatcher() {
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -111,6 +110,17 @@ public class HomeFragment extends Fragment implements ResponseReceiver.Receiver,
                     Bundle bundle = new Bundle();
                     bundle.putString(InvitationFragment.INVITATION_ID,inviteID);
                     getLoaderManager().initLoader(CURSOR_LOADER, bundle, HomeFragment.this);
+                }
+            }
+            if (count == 0) {
+                if (code3.isFocused()) {
+                    Log.d(LOG_TAG, "moving to 2");
+                    code2.requestFocus();
+                } else if (code2.isFocused()) {
+                    Log.d(LOG_TAG, "moving to 1");
+                    code1.requestFocus();
+                } else if (code1.isFocused()) {
+                    Log.d(LOG_TAG, "Do Nothing");
                 }
             }
         }
@@ -212,4 +222,5 @@ public class HomeFragment extends Fragment implements ResponseReceiver.Receiver,
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
     }
+
 }

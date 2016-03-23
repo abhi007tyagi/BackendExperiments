@@ -2,7 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
+    android:layout_marginBottom="@dimen/activity_vertical_margin"
+    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+    android:layout_marginRight="@dimen/activity_horizontal_margin"
+    android:layout_marginStart="@dimen/activity_horizontal_margin"
+    android:background="@color/tileBackground"
     android:elevation="4dp"
     android:orientation="vertical">
 
@@ -13,7 +18,7 @@
         android:layout_margin="8dp"
         android:layout_marginTop="4dp"
         android:text="Invitee Detail"
-        android:textSize="14sp" />
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/name"
@@ -22,7 +27,7 @@
         android:layout_margin="8dp"
         android:gravity="top|start"
         android:text="DGIII-44"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/address"
@@ -33,7 +38,7 @@
         android:drawableStart="@drawable/ic_place_24dp"
         android:gravity="top|start"
         android:text="DGIII-44"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/phone"
@@ -46,7 +51,7 @@
         android:drawableStart="@drawable/ic_call_24dp"
         android:gravity="top|start"
         android:text="DGIII-44"
-        android:textSize="16sp" />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/email"
@@ -59,7 +64,7 @@
         android:drawableStart="@drawable/ic_mail_24dp"
         android:gravity="top|start"
         android:text="DGIII-44"
-        android:textSize="16sp" />
+        android:textSize="15sp" />
 
 
 </LinearLayout>

@@ -5,6 +5,9 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.os.Build;
+import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -16,6 +19,10 @@ import com.tyagiabhinav.backend.backendService.model.User;
 import com.tyagiabhinav.einvite.DB.DBContract.InviteEntry;
 import com.tyagiabhinav.einvite.DB.DBContract.UserEntry;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -189,6 +196,65 @@ public class Util {
             return true;
         }
 
+    }
+
+    public static String saveUncaughtError(String msg, String stackTrace){
+
+//        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        String data = "Device=="+ Build.DEVICE+"\nModel=="+Build.MODEL+"\nBrand=="+Build.BRAND+"\nProduct=="+Build.PRODUCT+"\nMSG=="+msg+"\nSTACK=="+stackTrace;
+
+        File f = getOutputErrorFile();
+        // write the bytes in file
+        FileOutputStream fo = null;
+        try {
+            fo = new FileOutputStream(f);
+        } catch (FileNotFoundException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+        try {
+            fo.write(data.getBytes("utf-8"));
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        // remember close de FileOutput
+        try {
+            fo.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return f.getAbsolutePath();
+    }
+
+    private static File getOutputErrorFile() {
+
+        // External sdcard location
+        File mediaStorageDir = new File(Environment.getExternalStorageDirectory(),  "Error_Logs");
+
+        // Create the storage directory if it does not exist
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                Log.d("Error_Logs", "Oops! Failed create "
+                        + "Error_Logs" + " directory");
+                return null;
+            }
+        }
+
+        // Create a media file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
+                Locale.getDefault()).format(new Date());
+        File errorFile;
+//        if (type == MEDIA_TYPE_IMAGE) {
+        errorFile = new File(mediaStorageDir.getPath() + File.separator+ "ERR_" + timeStamp + ".txt");
+//        } else {
+//            return null;
+//        }
+
+        return errorFile;
     }
 
 }

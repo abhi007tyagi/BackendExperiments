@@ -1,98 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="4dp">
+    style="@style/Invitation_Body_Layout"
+    android:background="@color/tileBackground"
+    android:elevation="@dimen/elevation">
 
 
-        <ImageView
-            android:id="@+id/map"
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:layout_alignParentTop="true"
-            android:adjustViewBounds="true"
-            android:background="@color/colorPrimary"
-            android:scaleType="centerCrop" />
+    <ImageView
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/static_map_height"
+        android:layout_alignParentTop="true"
+        android:adjustViewBounds="true"
+        android:background="@color/tileBackground"
+        android:scaleType="centerCrop" />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/navigateFab"
-            android:layout_width="61dp"
-            android:layout_height="61dp"
-            android:layout_above="@+id/linearLayout"
-            android:layout_alignParentEnd="true"
-            android:layout_gravity="bottom|end"
-            android:layout_marginBottom="-24dp"
-            android:layout_marginRight="12dp"
-            android:background="@color/colorAccent"
-            android:contentDescription="create new invitation"
-            android:elevation="8dp"
-            android:src="@drawable/ic_navigate_24dp"
-            app:pressedTranslationZ="2dp" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/navigateFab"
+        style="@style/Fab_style"
+        android:layout_above="@+id/linearLayout"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="-25dp"
+        android:layout_marginRight="12dp"
+        android:contentDescription="create new invitation"
+        android:src="@drawable/ic_navigation_24dp"
+        app:pressedTranslationZ="@dimen/z_transition_elevation" />
 
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/map"
-            android:elevation="4dp"
-            android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/map"
+        android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_marginTop="4dp"
-                android:text="Venue"
-                android:textSize="14sp" />
+        <TextView
+            style="@style/Text_Invitation_Heading"
+            android:text="Venue" />
 
-            <TextView
-                android:id="@+id/venueName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:gravity="top|start"
-                android:text="DGIII-44"
-                android:textSize="18sp" />
+        <TextView
+            android:id="@+id/venueName"
+            style="@style/Text_Invitation"
+            android:text="DGIII-44" />
 
-            <TextView
-                android:id="@+id/venueAddress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:drawablePadding="4dp"
-                android:drawableStart="@drawable/ic_place_24dp"
-                android:gravity="top|start"
-                android:text="DGIII-44"
-                android:textSize="18sp" />
+        <TextView
+            android:id="@+id/venueAddress"
+            style="@style/Text_Invitation_Body"
+            android:drawableStart="@drawable/ic_place_24dp"
+            android:text="DGIII-44" />
 
-            <TextView
-                android:id="@+id/venuePhone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:autoLink="phone"
-                android:clickable="true"
-                android:drawablePadding="4dp"
-                android:drawableStart="@drawable/ic_call_24dp"
-                android:gravity="top|start"
-                android:text="DGIII-44"
-                android:textSize="16sp" />
+        <TextView
+            android:id="@+id/venuePhone"
+            style="@style/Text_Invitation_Action"
+            android:autoLink="phone"
+            android:drawableStart="@drawable/ic_call_24dp"
+            android:text="DGIII-44" />
 
-            <TextView
-                android:id="@+id/venueWebsite"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:autoLink="web"
-                android:clickable="true"
-                android:drawablePadding="4dp"
-                android:drawableStart="@drawable/ic_language_24dp"
-                android:gravity="top|start"
-                android:text="DGIII-44"
-                android:textSize="16sp" />
+        <TextView
+            android:id="@+id/venueWebsite"
+            style="@style/Text_Invitation_Action"
+            android:autoLink="web"
+            android:drawableStart="@drawable/ic_language_24dp"
+            android:text="DGIII-44" />
 
-        </LinearLayout>
+    </LinearLayout>
 
 </RelativeLayout>

@@ -24,8 +24,7 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity
-            android:name=".UI.MainActivity">
+        <activity android:name=".UI.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -48,6 +47,8 @@
         <activity
             android:name=".UI.InvitationActivity"
             android:parentActivityName=".UI.MainActivity" />
+
+        <activity android:name=".UI.ExceptionActivity" />
 
         <service android:name=".Network.BackgroundService" />
         <provider

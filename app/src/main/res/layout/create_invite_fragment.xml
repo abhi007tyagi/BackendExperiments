@@ -149,15 +149,8 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/createVenueFab"
-        android:layout_width="61dp"
-        android:layout_height="61dp"
-        android:layout_gravity="bottom|end"
-        android:layout_marginBottom="25dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginRight="25dp"
-        android:background="@color/colorAccent"
+        style="@style/Fab_style"
         android:contentDescription="enter venue details"
-        android:elevation="8dp"
         android:src="@drawable/ic_arrow_forward_24dp"
         app:pressedTranslationZ="2dp" />
 

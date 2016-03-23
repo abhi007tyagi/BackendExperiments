@@ -23,4 +23,50 @@
         <item name="android:background">?android:attr/listDivider</item>
     </style>
 
+
+    <style name="Text_Invitation" parent="Base.TextAppearance.AppCompat">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_vertical|start</item>
+        <item name="android:textSize">@dimen/text_invitation_large</item>
+        <item name="android:drawablePadding">@dimen/drawable_text_invitation_padding</item>
+        <item name="android:layout_margin">@dimen/text_invitation_heading_margin</item>
+    </style>
+
+    <style name="Text_Invitation_Heading" parent="Text_Invitation">
+        <item name="android:textSize">@dimen/text_invitation_small</item>
+    </style>
+
+    <style name="Text_Invitation_Body" parent="Text_Invitation">
+        <item name="android:textSize">@dimen/text_invitation_medium</item>
+        <item name="android:layout_margin">@dimen/text_invitation_body_margin</item>
+    </style>
+
+    <style name="Text_Invitation_Action" parent="Text_Invitation">
+        <item name="android:textSize">@dimen/text_invitation_medium</item>
+        <item name="android:clickable">true</item>
+        <item name="android:layout_margin">@dimen/text_invitation_body_margin</item>
+    </style>
+
+    <style name="Invitation_Body_Layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/activity_vertical_margin</item>
+        <item name="android:layout_marginEnd">@dimen/activity_horizontal_margin</item>
+        <item name="android:layout_marginRight">@dimen/activity_horizontal_margin</item>
+        <item name="android:layout_marginStart">@dimen/activity_horizontal_margin</item>
+        <item name="android:layout_marginLeft">@dimen/activity_horizontal_margin</item>
+    </style>
+
+    <style name="Fab_style">
+        <item name="android:layout_width">@dimen/fab_size</item>
+        <item name="android:layout_height">@dimen/fab_size</item>
+        <item name="android:layout_gravity">bottom|end</item>
+        <item name="android:layout_marginBottom">@dimen/fab_margin_bottom</item>
+        <item name="android:layout_marginEnd">@dimen/fab_margin_end</item>
+        <item name="android:layout_marginRight">@dimen/fab_margin_end</item>
+        <item name="elevation">@dimen/fab_elevation</item>
+
+    </style>
+
 </resources>

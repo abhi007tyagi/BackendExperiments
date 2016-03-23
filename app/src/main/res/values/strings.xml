@@ -4,6 +4,21 @@
 
     <string name="content_authority">com.tyagiabhinav.einvite</string>
 
+
+    <string name="message">Message</string>
+    <string name="invitee_details">Invitee Detail</string>
+    <string name="venue">Venue</string>
+
+    <string name="name">Name</string>
+    <string name="country">Country</string>
+    <string name="state">State</string>
+    <string name="city">City</string>
+    <string name="street1">Street Address 1</string>
+    <string name="street2">Street Address 2</string>
+    <string name="zip">ZIP</string>
+    <string name="email">Email</string>
+    <string name="phone">Contact Number</string>
+
     <string-array name="invitation_type_array">
         <item>Birthday</item>
         <item>Marriage</item>
@@ -23,7 +38,11 @@
 
     <string name="code_entry">enter code to view invitation</string>
 
+    <string name="home_fab_content_description">create new invitation</string>
+    <string name="registration_fab_content_description">register user</string>
+    <string name="ini_fab_content_description">enter venue details</string>
     <string name="venue_detail_fab_content_description">navigate to venue</string>
+
     <string name="logo_e">e</string>
     <string name="logo_invite">invite</string>
     <string name="hyphen">-</string>

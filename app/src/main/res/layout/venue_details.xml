@@ -35,32 +35,32 @@
 
         <TextView
             style="@style/Text_Invitation_Heading"
-            android:text="Venue" />
+            android:text="@string/venue" />
 
         <TextView
             android:id="@+id/venueName"
             style="@style/Text_Invitation"
-            android:text="DGIII-44" />
+             />
 
         <TextView
             android:id="@+id/venueAddress"
             style="@style/Text_Invitation_Body"
             android:drawableStart="@drawable/ic_place_24dp"
-            android:text="DGIII-44" />
+             />
 
         <TextView
             android:id="@+id/venuePhone"
             style="@style/Text_Invitation_Action"
             android:autoLink="phone"
             android:drawableStart="@drawable/ic_call_24dp"
-            android:text="DGIII-44" />
+             />
 
         <TextView
             android:id="@+id/venueWebsite"
             style="@style/Text_Invitation_Action"
             android:autoLink="web"
             android:drawableStart="@drawable/ic_language_24dp"
-            android:text="DGIII-44" />
+             />
 
     </LinearLayout>
 

@@ -8,33 +8,29 @@
 
     <TextView
         style="@style/Text_Invitation_Heading"
-        android:text="Invitee Detail" />
+        android:text="@string/invitee_details" />
 
     <TextView
         android:id="@+id/name"
         style="@style/Text_Invitation"
-        android:gravity="top|start"
-        android:text="DGIII-44" />
+        android:gravity="top|start" />
 
     <TextView
         android:id="@+id/address"
         style="@style/Text_Invitation_Body"
-        android:drawableStart="@drawable/ic_place_24dp"
-        android:text="DGIII-44" />
+        android:drawableStart="@drawable/ic_place_24dp"/>
 
     <TextView
         android:id="@+id/phone"
         style="@style/Text_Invitation_Action"
         android:autoLink="phone"
-        android:drawableStart="@drawable/ic_call_24dp"
-        android:text="DGIII-44" />
+        android:drawableStart="@drawable/ic_call_24dp"/>
 
     <TextView
         android:id="@+id/email"
         style="@style/Text_Invitation_Action"
         android:autoLink="email"
-        android:drawableStart="@drawable/ic_mail_24dp"
-        android:text="DGIII-44" />
+        android:drawableStart="@drawable/ic_mail_24dp"/>
 
 
 </LinearLayout>

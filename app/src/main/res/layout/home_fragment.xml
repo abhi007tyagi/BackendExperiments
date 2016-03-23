@@ -40,20 +40,20 @@
 
                 <EditText
                     android:id="@+id/code1"
-                    style="@style/Edit_text_Code_Entry" />
+                    style="@style/Edit_Text_Code_Entry" />
 
                 <TextView style="@style/Text_Code_Dash" />
 
                 <EditText
                     android:id="@+id/code2"
-                    style="@style/Edit_text_Code_Entry"
+                    style="@style/Edit_Text_Code_Entry"
                     android:textColor="@color/colorPrimaryDark" />
 
                 <TextView style="@style/Text_Code_Dash" />
 
                 <EditText
                     android:id="@+id/code3"
-                    style="@style/Edit_text_Code_Entry" />
+                    style="@style/Edit_Text_Code_Entry" />
 
             </LinearLayout>
 
@@ -71,7 +71,7 @@
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/createInviteFab"
         style="@style/Fab_style"
-        android:contentDescription="create new invitation"
+        android:contentDescription=""
         android:src="@drawable/ic_add_24dp"
         app:pressedTranslationZ="@dimen/z_transition_elevation" />
 

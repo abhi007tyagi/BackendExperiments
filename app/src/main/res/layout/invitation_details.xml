@@ -28,12 +28,11 @@
 
         <TextView
             style="@style/Text_Invitation_Heading"
-            android:text="Message" />
+            android:text="@string/message" />
 
         <TextView
             android:id="@+id/message"
-            style="@style/Text_Invitation"
-            android:text="DGIII-44" />
+            style="@style/Text_Invitation"/>
 
     </LinearLayout>
 

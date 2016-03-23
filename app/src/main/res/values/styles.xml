@@ -30,7 +30,6 @@
         <item name="android:textSize">@dimen/text_logo_size</item>
     </style>
 
-    android:text="-"
     <style name="Text_Code_Dash" parent="Base.TextAppearance.AppCompat">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -40,7 +39,7 @@
         <item name="android:text">@string/hyphen</item>
     </style>
 
-    <style name="Edit_text_Code_Entry" parent="Base.Widget.AppCompat.EditText">
+    <style name="Edit_Text_Code_Entry" parent="Base.Widget.AppCompat.EditText">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center</item>
@@ -54,9 +53,33 @@
         <item name="android:textColor">@color/colorAccent</item>
     </style>
 
+    <style name="Text_Form" parent="Base.TextAppearance.AppCompat">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_form_size</item>
+    </style>
+
+
+    <style name="Edit_Text_Form_Entry" parent="Base.Widget.AppCompat.EditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/text_margin_medium</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">@dimen/edittext_form_text_size</item>
+    </style>
+
+    <style name="Form_Layout_Margin" parent="Base.Widget.AppCompat.EditText">
+        <item name="android:layout_marginBottom">@dimen/activity_vertical_margin</item>
+        <item name="android:layout_marginEnd">@dimen/activity_horizontal_margin</item>
+        <item name="android:layout_marginRight">@dimen/activity_horizontal_margin</item>
+        <item name="android:layout_marginStart">@dimen/activity_horizontal_margin</item>
+        <item name="android:layout_marginLeft">@dimen/activity_horizontal_margin</item>
+    </style>
+
 
     <style name="Text_Invitation" parent="Base.TextAppearance.AppCompat">
-        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center_vertical|start</item>
         <item name="android:textSize">@dimen/text_invitation_large</item>

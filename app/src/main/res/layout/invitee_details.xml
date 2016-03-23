@@ -1,70 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/activity_vertical_margin"
-    android:layout_marginEnd="@dimen/activity_horizontal_margin"
-    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-    android:layout_marginRight="@dimen/activity_horizontal_margin"
-    android:layout_marginStart="@dimen/activity_horizontal_margin"
+    style="@style/Invitation_Body_Layout"
     android:background="@color/tileBackground"
-    android:elevation="4dp"
+    android:elevation="@dimen/elevation"
     android:orientation="vertical">
 
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:layout_marginTop="4dp"
-        android:text="Invitee Detail"
-        android:textSize="12sp" />
+        style="@style/Text_Invitation_Heading"
+        android:text="Invitee Detail" />
 
     <TextView
         android:id="@+id/name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        style="@style/Text_Invitation"
         android:gravity="top|start"
-        android:text="DGIII-44"
-        android:textSize="16sp" />
+        android:text="DGIII-44" />
 
     <TextView
         android:id="@+id/address"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:drawablePadding="4dp"
+        style="@style/Text_Invitation_Body"
         android:drawableStart="@drawable/ic_place_24dp"
-        android:gravity="top|start"
-        android:text="DGIII-44"
-        android:textSize="16sp" />
+        android:text="DGIII-44" />
 
     <TextView
         android:id="@+id/phone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        style="@style/Text_Invitation_Action"
         android:autoLink="phone"
-        android:clickable="true"
-        android:drawablePadding="4dp"
         android:drawableStart="@drawable/ic_call_24dp"
-        android:gravity="top|start"
-        android:text="DGIII-44"
-        android:textSize="15sp" />
+        android:text="DGIII-44" />
 
     <TextView
         android:id="@+id/email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        style="@style/Text_Invitation_Action"
         android:autoLink="email"
-        android:clickable="true"
-        android:drawablePadding="4dp"
         android:drawableStart="@drawable/ic_mail_24dp"
-        android:gravity="top|start"
-        android:text="DGIII-44"
-        android:textSize="15sp" />
+        android:text="DGIII-44" />
 
 
 </LinearLayout>

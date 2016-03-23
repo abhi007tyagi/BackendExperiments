@@ -6,6 +6,7 @@
     <dimen name="text_invitation_small">10sp</dimen>
     <dimen name="text_invitation_medium">14sp</dimen>
     <dimen name="text_invitation_large">18sp</dimen>
+    <dimen name="text_invitation_very_large">25sp</dimen>
 
 
 
@@ -13,17 +14,19 @@
 
 
 
-    <dimen name="text_invitation_heading_margin">6dp</dimen>
+    <dimen name="text_invitation_heading_margin">8dp</dimen>
 
-    <dimen name="text_invitation_body_margin">3dp</dimen>
+    <dimen name="text_invitation_body_margin">4dp</dimen>
 
-    <dimen name="drawable_text_invitation_padding">4dp</dimen>
+    <dimen name="drawable_text_invitation_padding_small">4dp</dimen>
+    <dimen name="drawable_text_invitation_padding_medium">8dp</dimen>
 
 
 
 
 
     <dimen name="static_map_height">160dp</dimen>
+    <dimen name="invitation_img_height">160dp</dimen>
 
     <dimen name="fab_size">61dp</dimen>
     <dimen name="fab_margin_bottom">25dp</dimen>

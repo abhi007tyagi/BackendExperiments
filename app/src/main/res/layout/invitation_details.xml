@@ -6,7 +6,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="@dimen/invitation_img_height"
         android:background="@color/colorPrimary">
 
         <TextView
@@ -14,40 +14,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left|bottom"
-            android:layout_margin="4dp"
+            android:layout_margin="@dimen/text_invitation_heading_margin"
             android:text="Large Text"
-            android:textSize="25sp" />
+            android:textSize="@dimen/text_invitation_very_large" />
 
     </FrameLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        style="@style/Invitation_Body_Layout"
         android:background="@color/tileBackground"
-        android:elevation="4dp"
+        android:elevation="@dimen/elevation"
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_marginTop="4dp"
-            android:text="Message"
-            android:textSize="10sp" />
+            style="@style/Text_Invitation_Heading"
+            android:text="Message" />
 
         <TextView
             android:id="@+id/message"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:gravity="top|start"
-            android:text="DGIII-44"
-            android:textSize="18sp" />
+            style="@style/Text_Invitation"
+            android:text="DGIII-44" />
 
     </LinearLayout>
 

@@ -19,4 +19,11 @@
         <item>Special</item>
         <item>Other</item>
     </string-array>
+
+
+    <string name="venue_detail_fab_content_description">navigate to venue</string>
+
+
+
+
 </resources>

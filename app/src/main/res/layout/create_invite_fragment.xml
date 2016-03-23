@@ -10,133 +10,90 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="@dimen/activity_vertical_margin"
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Invitation Title"
-                android:textSize="14sp" />
+                style="@style/Text_Form"
+                android:text="@string/invitation_title" />
 
             <EditText
                 android:id="@+id/title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:maxLength="30"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:text="My Birthday Celebrations"
-                android:textSize="18sp" />
+                style="@style/Edit_Text_Form_Entry"
+                android:maxLength="25" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Type"
-                android:textSize="14sp" />
+                style="@style/Text_Form"
+                android:text="@string/type" />
 
             <Spinner
                 android:id="@+id/type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:entries="@array/invitation_type_array"/>
-
+                android:layout_marginBottom="@dimen/text_margin_medium"
+                android:entries="@array/invitation_type_array" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="@dimen/text_margin_medium"
                 android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:padding="2dp">
+                    android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Time"
-                        android:textSize="14sp" />
+                        style="@style/Text_Form"
+                        android:text="@string/time" />
 
                     <EditText
                         android:id="@+id/time"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/Edit_Text_Form_Entry"
                         android:clickable="true"
                         android:focusable="false"
                         android:hint="hh:mm a"
-                        android:maxLength="8"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:text="19:54"
-                        android:textSize="18sp" />
+                        android:maxLength="8"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:padding="2dp">
+                    android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Date"
-                        android:textSize="14sp" />
+                        style="@style/Text_Form"
+                        android:text="@string/date" />
 
                     <EditText
                         android:id="@+id/date"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/Edit_Text_Form_Entry"
                         android:clickable="true"
                         android:focusable="false"
                         android:hint="mm/dd/yyyy"
-                        android:maxLength="10"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:text="2016/09/27"
-                        android:textSize="18sp" />
+                        android:maxLength="10"/>
 
                 </LinearLayout>
             </LinearLayout>
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Message"
-                android:textSize="14sp" />
+                style="@style/Text_Form"
+                android:text="@string/message" />
 
             <EditText
                 android:id="@+id/message"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="top|start"
-                android:inputType="textMultiLine"
-                android:maxLength="150"
-                android:minLines="5"
-                android:maxLines="5"
-                android:text="DGIII-44"
-                android:textSize="18sp" />
+                style="@style/Edit_Box_Form_Entry"/>
 
             <TextView
                 android:id="@+id/msgLimit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/Text_Form"
                 android:layout_gravity="end"
-                android:layout_marginBottom="8dp"
-                android:text="0/150"
-                android:textSize="9sp" />
-
-            <!--</LinearLayout>-->
+                android:text="@string/msg_count"
+                android:textSize="@dimen/text_invitation_small" />
 
         </LinearLayout>
 
@@ -145,8 +102,8 @@
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/createVenueFab"
         style="@style/Fab_style"
-        android:contentDescription="enter venue details"
+        android:contentDescription="@string/invite_fab_content_description"
         android:src="@drawable/ic_arrow_forward_24dp"
-        app:pressedTranslationZ="2dp" />
+        app:pressedTranslationZ="@dimen/z_transition_elevation" />
 
 </FrameLayout>

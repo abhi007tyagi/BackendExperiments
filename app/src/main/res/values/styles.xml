@@ -69,6 +69,17 @@
         <item name="android:textSize">@dimen/edittext_form_text_size</item>
     </style>
 
+    <style name="Edit_Box_Form_Entry" parent="Base.Widget.AppCompat.EditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/text_margin_medium</item>
+        <item name="android:minLines">5</item>
+        <item name="android:maxLength">150</item>
+        <item name="android:gravity">top|start</item>
+        <item name="android:inputType">textMultiLine</item>
+        <item name="android:textSize">@dimen/edittext_form_text_size</item>
+    </style>
+
     <style name="Form_Layout_Margin" parent="Base.Widget.AppCompat.EditText">
         <item name="android:layout_marginBottom">@dimen/activity_vertical_margin</item>
         <item name="android:layout_marginEnd">@dimen/activity_horizontal_margin</item>

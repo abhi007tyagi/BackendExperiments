@@ -18,6 +18,11 @@
     <string name="zip">ZIP</string>
     <string name="email">Email</string>
     <string name="phone">Contact Number</string>
+    <string name="invitation_title">Invitation Title</string>
+    <string name="type">Type</string>
+    <string name="time">Time</string>
+    <string name="date">Date</string>
+    <string name="msg_count">0/150</string>
 
     <string-array name="invitation_type_array">
         <item>Birthday</item>
@@ -40,7 +45,7 @@
 
     <string name="home_fab_content_description">create new invitation</string>
     <string name="registration_fab_content_description">register user</string>
-    <string name="ini_fab_content_description">enter venue details</string>
+    <string name="invite_fab_content_description">continue to enter venue details</string>
     <string name="venue_detail_fab_content_description">navigate to venue</string>
 
     <string name="logo_e">e</string>

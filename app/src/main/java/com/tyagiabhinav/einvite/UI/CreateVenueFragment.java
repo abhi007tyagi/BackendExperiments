@@ -158,7 +158,7 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
         }
     }
 
-    @OnClick(R.id.createInvitation)
+    @OnClick(R.id.createSharedFab)
     public void createInvitation() {
         Log.d(LOG_TAG, "create new invitation");
 

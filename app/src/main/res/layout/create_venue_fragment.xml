@@ -71,10 +71,11 @@
 
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/createInvitation"
+        android:id="@+id/createSharedFab"
         style="@style/Fab_style"
         android:contentDescription="@string/create_venue_fab_content_description"
         android:src="@drawable/ic_done_24dp"
+        android:transitionName="@string/shared_string_name"
         app:pressedTranslationZ="@dimen/z_transition_elevation" />
 
     <ProgressBar

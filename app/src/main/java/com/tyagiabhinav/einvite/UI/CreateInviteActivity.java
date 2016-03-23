@@ -14,6 +14,7 @@ public class CreateInviteActivity extends AppCompatActivity {
     private static final String FRAG_TAG = "CreateInviteFragment";
     private CreateInviteFragment createInviteFragment;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +38,8 @@ public class CreateInviteActivity extends AppCompatActivity {
     }
 
     public void showNextScreen() {
+
+
 //        CreateVenueFragment createVenueFragment = new CreateVenueFragment();
 //
 //        // In case this activity was started with special instructions from an
@@ -44,20 +47,20 @@ public class CreateInviteActivity extends AppCompatActivity {
 //
 //        // Add the fragment to the 'create_invite_container' FrameLayout
 //        getSupportFragmentManager().beginTransaction().add(R.id.create_invite_container, createVenueFragment).commit();
-        CreateVenueFragment createVenueFragment = new CreateVenueFragment();
+            CreateVenueFragment createVenueFragment = new CreateVenueFragment();
 //        Bundle args = new Bundle();
 //        args.putInt(ArticleFragment.ARG_POSITION, position);
 //        newFragment.setArguments(args);
 
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-        // Replace whatever is in the fragment_container view with this fragment,
-        // and add the transaction to the back stack so the user can navigate back
-        transaction.replace(R.id.create_invite_container, createVenueFragment);
-        transaction.addToBackStack(null);
+            // Replace whatever is in the fragment_container view with this fragment,
+            // and add the transaction to the back stack so the user can navigate back
+            transaction.replace(R.id.create_invite_container, createVenueFragment);
+            transaction.addToBackStack(null);
 
-        // Commit the transaction
-        transaction.commit();
+            // Commit the transaction
+            transaction.commit();
     }
 
 }

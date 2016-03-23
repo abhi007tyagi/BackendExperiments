@@ -1,9 +1,13 @@
 package com.tyagiabhinav.einvite.UI;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +39,9 @@ public class CreateInviteFragment extends Fragment implements Validator.Validati
     private static final String LOG_TAG = CreateInviteFragment.class.getSimpleName();
 
     private View rootView;
+
+    @Bind(R.id.createSharedFab)
+    FloatingActionButton fab;
 
     @NotEmpty
     @Bind(R.id.title)
@@ -92,18 +99,18 @@ public class CreateInviteFragment extends Fragment implements Validator.Validati
 //        }
 
     @OnClick(R.id.time)
-    public void selectTime(View view){
-        Log.d(LOG_TAG,"select time");
+    public void selectTime(View view) {
+        Log.d(LOG_TAG, "select time");
         Util.showTimepickerDialog(getActivity(), view);
     }
 
     @OnClick(R.id.date)
-    public void selectDate(View view){
+    public void selectDate(View view) {
         Log.d(LOG_TAG, "select date");
         Util.showDatePicker(view, getActivity(), true);
     }
 
-    @OnClick(R.id.createVenueFab)
+    @OnClick(R.id.createSharedFab)
     public void createVenue() {
         Log.d(LOG_TAG, "move to create venue screen");
         validator.validate();
@@ -113,24 +120,44 @@ public class CreateInviteFragment extends Fragment implements Validator.Validati
     public void onValidationSucceeded() {
         String eventTime = time.getText().toString();
         String eventDate = date.getText().toString();
-        if(Util.isOldTimeAndDate(eventTime,eventDate)){
+        if (Util.isOldTimeAndDate(eventTime, eventDate)) {
             Log.d(LOG_TAG, "Old Time/Date");
-            Toast.makeText(getActivity(),"Can not select previous date or time! ",Toast.LENGTH_LONG).show();
-        }
-        else{
+            Toast.makeText(getActivity(), "Can not select previous date or time! ", Toast.LENGTH_LONG).show();
+        } else {
             Log.d(LOG_TAG, "Time/Date Correct");
             // save this screen's data and move to next
             Invitation invite = new Invitation();
             invite.setTitle(title.getText().toString());
-            Log.d(LOG_TAG,"Type-->"+type.getSelectedItem().toString());
+            Log.d(LOG_TAG, "Type-->" + type.getSelectedItem().toString());
             invite.setType(type.getSelectedItem().toString());
             invite.setTime(time.getText().toString());
             invite.setDate(date.getText().toString());
             invite.setMessage(message.getText().toString());
 
             ((Invite) getActivity().getApplication()).setInvitation(invite);
-            ((CreateInviteActivity) getActivity()).showNextScreen();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                animateFab();
+            } else {
+                ((CreateInviteActivity) getActivity()).showNextScreen();
+            }
         }
+    }
+
+    private void animateFab() {
+
+        setSharedElementReturnTransition(TransitionInflater.from(getActivity()).inflateTransition(R.transition.change_fab_transform));
+        setExitTransition(TransitionInflater.from(getActivity()).inflateTransition(android.R.transition.fade));
+
+        CreateVenueFragment createVenueFragment = new CreateVenueFragment();
+        createVenueFragment.setSharedElementEnterTransition(TransitionInflater.from(getActivity()).inflateTransition(R.transition.change_fab_transform));
+        createVenueFragment.setEnterTransition(TransitionInflater.from(getActivity()).inflateTransition(android.R.transition.fade));
+
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.create_invite_container, createVenueFragment)
+                .addToBackStack(null)
+                .addSharedElement(fab, getString(R.string.shared_string_name) )
+                .commit();
     }
 
     @Override

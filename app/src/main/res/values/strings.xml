@@ -60,5 +60,7 @@
     <string name="logo_invite">Invite</string>
     <string name="hyphen">-</string>
 
+    <string name="shared_string_name">"shared_fab"</string>
+
 
 </resources>

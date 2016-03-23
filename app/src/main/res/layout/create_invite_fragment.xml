@@ -102,7 +102,7 @@
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/createVenueFab"
         style="@style/Fab_style"
-        android:contentDescription="@string/invite_fab_content_description"
+        android:contentDescription="@string/create_invite_fab_content_description"
         android:src="@drawable/ic_arrow_forward_24dp"
         app:pressedTranslationZ="@dimen/z_transition_elevation" />
 

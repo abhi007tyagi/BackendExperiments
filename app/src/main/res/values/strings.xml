@@ -23,6 +23,11 @@
     <string name="time">Time</string>
     <string name="date">Date</string>
     <string name="msg_count">0/150</string>
+    <string name="venue_name">Venue Name</string>
+    <string name="website">Website</string>
+    <string name="website_hint">http://www.tyagiabhinav.com"</string>
+    <string name="address">Address</string>
+    <string name="address_hint">Type Complete Address</string>
 
     <string-array name="invitation_type_array">
         <item>Birthday</item>
@@ -45,7 +50,8 @@
 
     <string name="home_fab_content_description">create new invitation</string>
     <string name="registration_fab_content_description">register user</string>
-    <string name="invite_fab_content_description">continue to enter venue details</string>
+    <string name="create_invite_fab_content_description">continue to enter venue details</string>
+    <string name="create_venue_fab_content_description">register new invitation</string>
     <string name="venue_detail_fab_content_description">navigate to venue</string>
 
     <string name="logo_e">e</string>

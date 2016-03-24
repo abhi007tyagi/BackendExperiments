@@ -50,8 +50,10 @@ public class HomeFragment extends Fragment implements ResponseReceiver.Receiver,
     ProgressBar progressBar;
 
     private static final int CURSOR_LOADER = 1006;
+    private static final int CURSOR_LOADER_TEST = 11;
 
     private String inviteID;
+    Loader<Cursor> loader;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -66,21 +68,22 @@ public class HomeFragment extends Fragment implements ResponseReceiver.Receiver,
 
         Bundle bundle = getArguments();
         String id = bundle.getString(InvitationFragment.INVITATION_ID);
-        if(Util.isNull(id)){
+        if (Util.isNull(id)) {
             // continue
-        }else {
+        } else {
             // deeplink activation.. fetch id
-            deeplinkAccess(bundle);
+            deeplinkWidgetAccess(bundle);
         }
+//        getLoaderManager().initLoader(CURSOR_LOADER_TEST, null, HomeFragment.this);
         return rootView;
     }
 
-    private void deeplinkAccess(Bundle bundle){
-        Log.d(LOG_TAG, "DeepLink Access");
+    private void deeplinkWidgetAccess(Bundle bundle) {
+        Log.d(LOG_TAG, "DeepLink/Widget Access");
         String id = bundle.getString(InvitationFragment.INVITATION_ID);
-        code1.setText(id.substring(0,3));
-        code2.setText(id.substring(3,6));
-        code3.setText(id.substring(6,9));
+        code1.setText(id.substring(0, 3));
+        code2.setText(id.substring(3, 6));
+        code3.setText(id.substring(6, 9));
 
         getLoaderManager().initLoader(CURSOR_LOADER, bundle, HomeFragment.this);
     }
@@ -106,10 +109,10 @@ public class HomeFragment extends Fragment implements ResponseReceiver.Receiver,
                     code3.requestFocus();
                 } else if (code3.isFocused()) {
                     Log.d(LOG_TAG, "Show invitation !!!");
-                    inviteID = code1.getText().toString()+code2.getText().toString()+code3.getText().toString();
+                    inviteID = code1.getText().toString() + code2.getText().toString() + code3.getText().toString();
                     Log.d(LOG_TAG, "ID->" + inviteID);
                     Bundle bundle = new Bundle();
-                    bundle.putString(InvitationFragment.INVITATION_ID,inviteID);
+                    bundle.putString(InvitationFragment.INVITATION_ID, inviteID);
                     getLoaderManager().initLoader(CURSOR_LOADER, bundle, HomeFragment.this);
                 }
             }
@@ -145,34 +148,33 @@ public class HomeFragment extends Fragment implements ResponseReceiver.Receiver,
 
     @Override
     public void onReceiveResult(int resultCode, Bundle resultData) {
-        Log.d(LOG_TAG,"onReceiveResult");
+        Log.d(LOG_TAG, "onReceiveResult");
         switch (resultCode) {
             case BackgroundService.GET_INVITE:
                 Invitation invite = ((Invite) getActivity().getApplication()).getInvitation();
                 Uri uriUser = getActivity().getApplication().getContentResolver().insert(DBContract.UserEntry.CONTENT_URI, Util.getUserValues(invite.getInvitee(), true));
                 Uri uriInvite = getActivity().getApplication().getContentResolver().insert(DBContract.InviteEntry.CONTENT_URI, Util.getInvitationValues(invite));
 
-                if(uriInvite.equals(DBContract.InviteEntry.buildInviteUri()) && uriUser.equals(DBContract.UserEntry.buildUserUri())){
+                if (uriInvite.equals(DBContract.InviteEntry.buildInviteUri()) && uriUser.equals(DBContract.UserEntry.buildUserUri())) {
                     // success
-                    Log.d(LOG_TAG,"Moving to invitation screen ID -->"+invite.getId());
+                    Log.d(LOG_TAG, "Moving to invitation screen ID -->" + invite.getId());
                     Bundle bundle = new Bundle();
                     bundle.putString(InvitationFragment.INVITATION_ID, invite.getId());
 
-                    Intent intent = new Intent(getActivity(),InvitationActivity.class);
+                    Intent intent = new Intent(getActivity(), InvitationActivity.class);
                     intent.putExtras(bundle);
                     startActivity(intent);
 //                    Toast.makeText(getActivity(), "Invitation: " + invite.getTitle() + " received !!", Toast.LENGTH_LONG).show();
-                }
-                else{
+                } else {
                     // failed to save data
-                    Toast.makeText(getActivity(),"Error Occurred. Try again Later!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Error Occurred. Try again Later!", Toast.LENGTH_LONG).show();
                 }
                 break;
             case BackgroundService.GET_INVITE_ERR:
                 String errMSG = resultData.getString(BackgroundService.ERROR);
-                Log.d(LOG_TAG,"ERROR GET INVITE : "+errMSG);
+                Log.d(LOG_TAG, "ERROR GET INVITE : " + errMSG);
 
-                Toast.makeText(getActivity(),errMSG,Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), errMSG, Toast.LENGTH_LONG).show();
                 break;
         }
         progressBar.setVisibility(View.GONE);
@@ -180,44 +182,75 @@ public class HomeFragment extends Fragment implements ResponseReceiver.Receiver,
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle bundle) {
-        Log.d(LOG_TAG, "onCreateLoader ID-->"+bundle.getString(InvitationFragment.INVITATION_ID));
-        Uri invitation = DBContract.InviteEntry.buildInvitationDataUri(bundle.getString(InvitationFragment.INVITATION_ID));
-        return new CursorLoader(getContext(),
-                invitation,
-                null,
-                DBContract.InviteEntry.TABLE_NAME + "." + DBContract.InviteEntry.COL_INVITEE + "=" + DBContract.UserEntry.TABLE_NAME + "." + DBContract.UserEntry.COL_USER_EMAIL + " AND " + DBContract.InviteEntry.TABLE_NAME + "." + DBContract.InviteEntry.COL_ID + " = ?",
-                null,
-                null);
+
+        switch (id) {
+            case CURSOR_LOADER:
+                Log.d(LOG_TAG, "onCreateLoader ID-->" + bundle.getString(InvitationFragment.INVITATION_ID));
+                Uri invitation = DBContract.InviteEntry.buildInvitationDataUri(bundle.getString(InvitationFragment.INVITATION_ID));
+                loader =  new CursorLoader(getContext(),
+                        invitation,
+                        null,
+                        DBContract.InviteEntry.TABLE_NAME + "." + DBContract.InviteEntry.COL_INVITEE + "=" + DBContract.UserEntry.TABLE_NAME + "." + DBContract.UserEntry.COL_USER_EMAIL + " AND " + DBContract.InviteEntry.TABLE_NAME + "." + DBContract.InviteEntry.COL_ID + " = ?",
+                        null,
+                        null);
+            break;
+            case CURSOR_LOADER_TEST:
+                Log.d(LOG_TAG, "onCreateLoader TEST");
+                Uri invitations = DBContract.InviteEntry.buildInviteUri();
+                loader = new CursorLoader(getContext(),
+                        invitations,
+                        null,
+                        DBContract.InviteEntry.TABLE_NAME + "." + DBContract.InviteEntry.COL_INVITEE + "=" + DBContract.UserEntry.TABLE_NAME + "." + DBContract.UserEntry.COL_USER_EMAIL,
+                        null,
+                        DBContract.InviteEntry._ID + " DESC");
+            break;
+        }
+
+        return loader;
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         Log.d(LOG_TAG, "onLoadFinished -->" + cursor.getCount());
-        if (cursor.getCount() > 0) {
-            cursor.moveToFirst();
-            String id = cursor.getString(cursor.getColumnIndex(DBContract.InviteEntry.COL_ID));
-            Log.d(LOG_TAG, "Present on device ID-->" + id);
-            Bundle bundle = new Bundle();
-            bundle.putString(InvitationFragment.INVITATION_ID, id);
+        switch (loader.getId()) {
+            case CURSOR_LOADER:
+            if (cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                String id = cursor.getString(cursor.getColumnIndex(DBContract.InviteEntry.COL_ID));
+                Log.d(LOG_TAG, "Present on device ID-->" + id);
+                Bundle bundle = new Bundle();
+                bundle.putString(InvitationFragment.INVITATION_ID, id);
 
-            Intent intent = new Intent(getActivity(),InvitationActivity.class);
-            intent.putExtras(bundle);
-            startActivity(intent);
-        }else{
-            // fetch from server
-            Log.d(LOG_TAG, "Not present. Fetching from Server");
-            progressBar.setVisibility(View.VISIBLE);
-            ResponseReceiver receiver = new ResponseReceiver(new Handler());
-            receiver.setReceiver(this);
+                Intent intent = new Intent(getActivity(), InvitationActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            } else {
+                // fetch from server
+                Log.d(LOG_TAG, "Not present. Fetching from Server");
+                progressBar.setVisibility(View.VISIBLE);
+                ResponseReceiver receiver = new ResponseReceiver(new Handler());
+                receiver.setReceiver(this);
 
-            ((Invite) getActivity().getApplication()).setReceiver(receiver);
-            Intent intent = new Intent(Intent.ACTION_SYNC, null, getActivity(), BackgroundService.class);
-            intent.putExtra(BackgroundService.ACTION, BackgroundService.GET_INVITE);
-            intent.putExtra(BackgroundService.INVITATION_ID, inviteID);
-            getActivity().startService(intent);
+                ((Invite) getActivity().getApplication()).setReceiver(receiver);
+                Intent intent = new Intent(Intent.ACTION_SYNC, null, getActivity(), BackgroundService.class);
+                intent.putExtra(BackgroundService.ACTION, BackgroundService.GET_INVITE);
+                intent.putExtra(BackgroundService.INVITATION_ID, inviteID);
+                getActivity().startService(intent);
+            }
+                break;
+//            case CURSOR_LOADER_TEST:
+//                if(cursor.getCount()>0) {
+//                    cursor.moveToFirst();
+//                    while (cursor.getCount() > 0) {
+//                        Log.d(LOG_TAG, cursor.getString(cursor.getColumnIndex(DBContract.InviteEntry.COL_ID)));
+//
+//                        cursor.moveToNext();
+//                    }
+//                }
+//                break;
         }
         Log.d(LOG_TAG, "Destroying Loader");
-        getLoaderManager().destroyLoader(CURSOR_LOADER);
+        getLoaderManager().destroyLoader(loader.getId());
     }
 
     @Override

@@ -24,13 +24,27 @@ public class DBProvider extends ContentProvider {
     static final int USER = 300;
     static final int USER_COLUMN = 301;
 
-    private static final SQLiteQueryBuilder sUserQueryBuilder;
+    private static final SQLiteQueryBuilder sUserQueryBuilder, sInvitationQueryBuilder;
 
     static {
         sUserQueryBuilder = new SQLiteQueryBuilder();
 
         /// JOIN query for favorite movies...
         // SELECT * FROM user INNER JOIN invite ON invite.invitee = user.email;
+        sUserQueryBuilder.setTables(
+                DBContract.UserEntry.TABLE_NAME + " INNER JOIN " +
+                        DBContract.InviteEntry.TABLE_NAME +
+                        " ON " + DBContract.UserEntry.TABLE_NAME +
+                        "." + DBContract.UserEntry.COL_USER_EMAIL +
+                        " = " + DBContract.InviteEntry.TABLE_NAME +
+                        "." + DBContract.InviteEntry.COL_INVITEE);
+    }
+
+    static {
+        sInvitationQueryBuilder = new SQLiteQueryBuilder();
+
+        /// JOIN query for favorite movies...
+        // SELECT * FROM invite, user WHERE invite.invitee = user.email;
         sUserQueryBuilder.setTables(
                 DBContract.UserEntry.TABLE_NAME + " INNER JOIN " +
                         DBContract.InviteEntry.TABLE_NAME +
@@ -112,7 +126,7 @@ public class DBProvider extends ContentProvider {
             case INVITE: {
                 Log.d(LOG_TAG, "INVITE");
                 retCursor = mOpenHelper.getReadableDatabase().query(
-                        DBContract.InviteEntry.TABLE_NAME,
+                        DBContract.InviteEntry.TABLE_NAME + ", " + DBContract.UserEntry.TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,

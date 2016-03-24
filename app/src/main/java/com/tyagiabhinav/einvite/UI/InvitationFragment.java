@@ -308,9 +308,9 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
         int scrollY = scrollView.getScrollY();
 
         int max = title.getHeight();
-        Log.d(LOG_TAG,"onScrollChanged max -> "+max);
-        Log.d(LOG_TAG,"onScrollChanged title x -> "+title.getX());
-        Log.d(LOG_TAG,"onScrollChanged title y -> "+title.getY());
+//        Log.d(LOG_TAG,"onScrollChanged max -> "+max);
+//        Log.d(LOG_TAG,"onScrollChanged title x -> "+title.getX());
+//        Log.d(LOG_TAG,"onScrollChanged title y -> "+title.getY());
 
 //        if(deltaY > 0){
 //            title.setTranslationY(Math.max(max, title.getTranslationY()-deltaY/2));

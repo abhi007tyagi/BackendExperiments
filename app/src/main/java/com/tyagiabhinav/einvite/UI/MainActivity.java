@@ -21,6 +21,11 @@ public class MainActivity extends AppCompatActivity {//} implements ResponseRece
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Bundle bundleWidget = getIntent().getExtras();
+        if(bundleWidget != null) {
+            inviteID = bundleWidget.getString(InvitationFragment.INVITATION_ID);
+        }
+
         String einviteDeepLink = getIntent().getDataString();
         if(einviteDeepLink != null){
             Log.d(LOG_TAG, "Deeplink Uri -->"+einviteDeepLink);

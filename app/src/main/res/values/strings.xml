@@ -61,6 +61,7 @@
     <string name="hyphen">-</string>
 
     <string name="shared_string_name">"shared_fab"</string>
+    <string name="no_matches">No Invitation Saved</string>
 
 
 </resources>

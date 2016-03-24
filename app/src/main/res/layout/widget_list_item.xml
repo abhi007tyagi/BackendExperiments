@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widgetItemLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/text_margin_medium"
+    android:background="@color/tileBackground"
+    android:gravity="center_vertical">
+
+
+    <TextView
+        android:id="@+id/widgetTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:gravity="top|start"
+        android:textColor="@color/textColorPrimary"
+        android:textSize="@dimen/text_invitation_large" />
+
+
+    <TextView
+        android:id="@+id/widgetInvitee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:gravity="bottom|end"
+        android:textColor="@color/textColorSecondary"
+        android:textSize="@dimen/text_invitation_medium" />
+
+    <TextView
+        android:id="@+id/widgetVenue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/widgetTitle"
+        android:layout_centerInParent="true"
+        android:gravity="bottom|start"
+        android:textColor="@color/textColorSecondary"
+        android:textSize="@dimen/text_invitation_medium" />
+
+    <TextView
+        android:id="@+id/widgetDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/widgetInvitee"
+        android:layout_centerInParent="true"
+        android:gravity="bottom|end"
+        android:textColor="@color/textColorSecondary"
+        android:textSize="@dimen/text_invitation_small" />
+
+    <TextView
+        android:id="@+id/widgetTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/widgetDate"
+        android:layout_centerInParent="true"
+        android:gravity="bottom|end"
+        android:textColor="@color/textColorSecondary"
+        android:textSize="@dimen/text_invitation_small" />
+
+
+</RelativeLayout>

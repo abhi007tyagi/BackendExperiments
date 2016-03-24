@@ -26,6 +26,10 @@
         <item name="android:textSize">@dimen/text_logo_size</item>
     </style>
 
+    <style name="Text_Logo_Widget" parent="Text_Logo">
+        <item name="android:textSize">@dimen/text_invitation_very_large</item>
+    </style>
+
     <style name="Text_Code_Dash" parent="Base.TextAppearance.AppCompat">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

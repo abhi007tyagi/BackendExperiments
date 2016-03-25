@@ -38,6 +38,8 @@ public class RegistrationFragment extends Fragment implements ValidationListener
     private static final String LOG_TAG = RegistrationFragment.class.getSimpleName();
 
     private View rootView;
+//    @Bind(R.id.toolbar)
+//    Toolbar toolbar;
     @NotEmpty
     @Bind(R.id.name)
     EditText name;
@@ -75,15 +77,10 @@ public class RegistrationFragment extends Fragment implements ValidationListener
         ButterKnife.bind(this, rootView);
         validator = new Validator(this);
         validator.setValidationListener(this);
-//        name.addTextChangedListener(textWatcher);
-//        country.addTextChangedListener(textWatcher);
-//        state.addTextChangedListener(textWatcher);
-//        street1.addTextChangedListener(textWatcher);
-//        street2.addTextChangedListener(textWatcher);
-//        city.addTextChangedListener(textWatcher);
-//        zip.addTextChangedListener(textWatcher);
-//        email.addTextChangedListener(textWatcher);
-//        phone.addTextChangedListener(textWatcher);
+
+//        if (toolbar != null) {
+//            ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+//        }
         return rootView;
     }
 

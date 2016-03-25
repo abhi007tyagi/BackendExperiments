@@ -35,11 +35,13 @@
     <dimen name="static_map_height">160dp</dimen>
     <dimen name="invitation_img_height">160dp</dimen>
 
-    <dimen name="fab_size">61dp</dimen>
-    <dimen name="fab_margin_bottom">25dp</dimen>
-    <dimen name="fab_margin_end">25dp</dimen>
+    <dimen name="fab_size">56dp</dimen>
+    <dimen name="fab_margin_bottom">24dp</dimen>
+    <dimen name="fab_margin_end">24dp</dimen>
     <dimen name="fab_elevation">8dp</dimen>
     <dimen name="z_transition_elevation">2dp</dimen>
 
     <dimen name="elevation">2dp</dimen>
+    <dimen name="appbar_elevation">4dp</dimen>
+
 </resources>

@@ -20,7 +20,7 @@
         style="@style/Fab_style"
         android:layout_above="@+id/linearLayout"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="-30dp"
+        android:layout_marginBottom="-28dp"
         android:contentDescription="@string/venue_detail_fab_content_description"
         android:src="@drawable/ic_navigation_24dp"
         app:pressedTranslationZ="@dimen/z_transition_elevation" />

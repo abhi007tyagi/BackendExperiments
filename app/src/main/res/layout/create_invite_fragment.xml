@@ -4,6 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!--<android.support.v7.widget.Toolbar-->
+    <!--android:id="@+id/toolbar"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@color/colorPrimary"-->
+    <!--android:minHeight="?attr/actionBarSize"/>-->
+
+    <!--<FrameLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -56,7 +67,7 @@
                         android:clickable="true"
                         android:focusable="false"
                         android:hint="hh:mm a"
-                        android:maxLength="8"/>
+                        android:maxLength="8" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -75,7 +86,7 @@
                         android:clickable="true"
                         android:focusable="false"
                         android:hint="mm/dd/yyyy"
-                        android:maxLength="10"/>
+                        android:maxLength="10" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -86,7 +97,7 @@
 
             <EditText
                 android:id="@+id/message"
-                style="@style/Edit_Box_Form_Entry"/>
+                style="@style/Edit_Box_Form_Entry" />
 
             <TextView
                 android:id="@+id/msgLimit"
@@ -102,9 +113,11 @@
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/createSharedFab"
         style="@style/Fab_style"
-        android:transitionName="@string/shared_string_name"
         android:contentDescription="@string/create_invite_fab_content_description"
         android:src="@drawable/ic_arrow_forward_24dp"
+        android:transitionName="@string/shared_string_name"
         app:pressedTranslationZ="@dimen/z_transition_elevation" />
 
 </FrameLayout>
+
+    <!--</LinearLayout>-->

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BackendExperiments</string>
+    <string name="app_name">eInvite</string>
     <string name="title_activity_main2">Main2Activity</string>
 
     <string name="content_authority">com.tyagiabhinav.einvite</string>
@@ -65,5 +65,11 @@
     <string name="no_matches">No Invitation Saved</string>
     <string name="ServiceError">Error while communicating with Server</string>
 
+    <string name="device_screen">Normal</string>
 
+
+    <string name="exception_msg1">OOPS !!\nSomething went wrong\n\nApologies\nfor the inconvenience</string>
+    <string name="exception_msg2">Report the issue to help us improve the app!</string>
+    <string name="exception_btn_home">Home</string>
+    <string name="exception_btn_report">Report</string>
 </resources>

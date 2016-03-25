@@ -4,6 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!--<android.support.v7.widget.Toolbar-->
+    <!--android:id="@+id/toolbar"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="?attr/actionBarSize"-->
+    <!--android:background="@color/colorPrimary"-->
+    <!--android:elevation="@dimen/appbar_elevation"-->
+    <!--app:theme="@style/ThemeOverlay.AppCompat.ActionBar" />-->
+
+    <!--<FrameLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -62,8 +74,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/text_margin_large"
                 android:gravity="center_horizontal|top"
-                android:text="@string/code_entry"
                 android:paddingBottom="@dimen/text_margin_large"
+                android:text="@string/code_entry"
                 android:textSize="@dimen/text_invitation_medium" />
         </LinearLayout>
     </ScrollView>
@@ -82,5 +94,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:visibility="gone" />
-
 </FrameLayout>
+
+    <!--</LinearLayout>-->

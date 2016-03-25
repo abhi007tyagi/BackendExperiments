@@ -1,77 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="16dp"
+                android:gravity="center_horizontal|top"
+                android:text="@string/logo_e"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="79sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="16dp"
+                android:gravity="center_horizontal|top"
+                android:text="@string/logo_invite"
+                android:textColor="@color/colorAccent"
+                android:textSize="79sp" />
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="16dp"
-            android:gravity="center_horizontal|top"
-            android:text="e"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="79sp"
+            android:layout_height="wrap_content"
+            android:layout_margin="11dp"
+            android:gravity="center"
+            android:text="@string/exception_msg1"
+            android:textSize="21sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="11dp"
+            android:gravity="center"
+            android:text="@string/exception_msg2"
+            android:textSize="21sp"
             android:textStyle="bold" />
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="16dp"
-            android:gravity="center_horizontal|top"
-            android:text="Invite"
-            android:textColor="@color/colorAccent"
-            android:textSize="79sp" />
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="11dp"
-        android:gravity="center"
-        android:text="OOPS !!\nSomething went wrong\n\nApologies\nfor the inconvenience"
-        android:textSize="21sp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="11dp"
-        android:gravity="center"
-        android:text="Report the issue to help us improve the app!"
-        android:textStyle="bold"
-        android:textSize="21sp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="8dp"
-        android:gravity="center">
-
-        <Button
-            android:id="@+id/home"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="11dp"
-            android:background="@color/colorAccent"
-            android:text="Home"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@android:color/white" />
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/report"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="11dp"
-            android:background="@color/colorAccent"
-            android:text="Report"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@android:color/white" />
+            <Button
+                android:id="@+id/home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="11dp"
+                android:background="@color/colorAccent"
+                android:text="@string/exception_btn_home"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/report"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="11dp"
+                android:background="@color/colorAccent"
+                android:text="@string/exception_btn_report"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</ScrollView>

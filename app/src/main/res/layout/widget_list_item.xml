@@ -3,8 +3,8 @@
     android:id="@+id/widgetItemLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/text_margin_medium"
-    android:background="@color/tileBackground"
+    android:padding="@dimen/text_margin_medium"
+    android:background="@color/wedding_bg"
     android:gravity="center_vertical">
 
 

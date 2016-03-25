@@ -3,6 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!--<android.support.v7.widget.Toolbar-->
+    <!--android:id="@+id/toolbar"-->
+    <!--android:minHeight="?attr/actionBarSize"-->
+    <!--android:background="@color/colorPrimary"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"/>-->
+
+    <!--<FrameLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -148,4 +160,5 @@
         style="@style/Fab_style"
         android:contentDescription="@string/registration_fab_content_description"
         android:src="@drawable/ic_done_24dp" />
-</FrameLayout>
+
+</FrameLayout><!--</LinearLayout>-->

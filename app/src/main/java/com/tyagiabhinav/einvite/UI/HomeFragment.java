@@ -40,6 +40,8 @@ public class HomeFragment extends Fragment implements ResponseReceiver.Receiver,
     private static final String LOG_TAG = HomeFragment.class.getSimpleName();
 
     private View rootView;
+//    @Bind(R.id.toolbar)
+//    Toolbar toolbar;
     @Bind(R.id.code1)
     EditText code1;
     @Bind(R.id.code2)
@@ -60,6 +62,10 @@ public class HomeFragment extends Fragment implements ResponseReceiver.Receiver,
         Log.d(LOG_TAG, "onCreateView");
         rootView = inflater.inflate(R.layout.home_fragment, container, false);
         ButterKnife.bind(this, rootView);
+
+//        if (toolbar != null) {
+//            ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+//        }
 
         code1.addTextChangedListener(codeWatcher);
         code2.addTextChangedListener(codeWatcher);

@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|start"
             android:gravity="center_vertical"
-            android:padding="@dimen/text_invitation_heading_margin"
+            android:layout_margin="@dimen/text_invitation_heading_margin"
             android:textSize="@dimen/text_invitation_very_large" />
     </FrameLayout>
 

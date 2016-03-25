@@ -1,25 +1,16 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Base.Theme.AppCompat.Light">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColorPrimary">@color/textColorPrimary</item>
-        <!--<item name="windowContentTransitions">true</item>-->
-        <!--<item name="colorControlNormal">@color/colorPrimaryDark</item>-->
-        <!--<item name="colorControlActivated">@color/colorAccent</item>-->
-        <!--<item name="colorControlHighlight">@color/colorAccent</item>-->
-
-        <!--<item name="textColor">@color/colorPrimary</item>-->
-
-        <item name="colorButtonNormal">@color/colorAccent</item>
-
     </style>
 
 
-    <style name="Text_Logo" parent="Base.TextAppearance.AppCompat">
+    <style name="Text_Logo" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginBottom">@dimen/text_margin_small</item>
@@ -30,7 +21,7 @@
         <item name="android:textSize">@dimen/text_invitation_very_large</item>
     </style>
 
-    <style name="Text_Code_Dash" parent="Base.TextAppearance.AppCompat">
+    <style name="Text_Code_Dash" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
@@ -39,7 +30,7 @@
         <item name="android:text">@string/hyphen</item>
     </style>
 
-    <style name="Edit_Text_Code_Entry" parent="Base.Widget.AppCompat.EditText">
+    <style name="Edit_Text_Code_Entry" parent="Widget.AppCompat.EditText">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center</item>
@@ -53,14 +44,14 @@
         <item name="android:textColor">@color/colorAccent</item>
     </style>
 
-    <style name="Text_Form" parent="Base.TextAppearance.AppCompat">
+    <style name="Text_Form" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/text_form_size</item>
     </style>
 
 
-    <style name="Edit_Text_Form_Entry" parent="Base.Widget.AppCompat.EditText">
+    <style name="Edit_Text_Form_Entry" parent="Widget.AppCompat.EditText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginBottom">@dimen/text_margin_medium</item>
@@ -70,7 +61,7 @@
         <item name="android:textSize">@dimen/edittext_form_text_size</item>
     </style>
 
-    <style name="Edit_Box_Form_Entry" parent="Base.Widget.AppCompat.EditText">
+    <style name="Edit_Box_Form_Entry" parent="Widget.AppCompat.EditText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginBottom">@dimen/text_margin_medium</item>
@@ -81,7 +72,7 @@
         <item name="android:textSize">@dimen/edittext_form_text_size</item>
     </style>
 
-    <style name="Form_Layout_Margin" parent="Base.Widget.AppCompat.EditText">
+    <style name="Form_Layout_Margin" parent="Widget.AppCompat.EditText">
         <item name="android:layout_marginBottom">@dimen/activity_vertical_margin</item>
         <item name="android:layout_marginEnd">@dimen/activity_horizontal_margin</item>
         <item name="android:layout_marginRight">@dimen/activity_horizontal_margin</item>
@@ -90,7 +81,7 @@
     </style>
 
 
-    <style name="Text_Invitation" parent="Base.TextAppearance.AppCompat">
+    <style name="Text_Invitation" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center_vertical|start</item>

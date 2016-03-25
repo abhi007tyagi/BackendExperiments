@@ -53,25 +53,11 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 7;
 
     private View rootView;
+//    @Bind(R.id.toolbar)
+//    Toolbar toolbar;
     @NotEmpty
     @Bind(R.id.venueName)
     EditText name;
-//    @NotEmpty
-//    @Bind(R.id.venueCountry)
-//    EditText country;
-//    @NotEmpty
-//    @Bind(R.id.venueState)
-//    EditText state;
-//    @NotEmpty
-//    @Bind(R.id.venueAdd1)
-//    EditText street1;
-//    @Bind(R.id.venueAdd2)
-//    EditText street2;
-//    @NotEmpty
-//    @Bind(R.id.venueCity)
-//    EditText city;
-//    @Bind(R.id.venueZip)
-//    EditText zip;
 
     @Bind(R.id.venuePhone)
     EditText phone;
@@ -100,15 +86,10 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
         validator = new Validator(this);
         validator.setValidationListener(this);
 
-//        name.addTextChangedListener(textWatcher);
-//        country.addTextChangedListener(textWatcher);
-//        state.addTextChangedListener(textWatcher);
-//        street1.addTextChangedListener(textWatcher);
-//        street2.addTextChangedListener(textWatcher);
-//        city.addTextChangedListener(textWatcher);
-//        zip.addTextChangedListener(textWatcher);
-//        email.addTextChangedListener(textWatcher);
-//        phone.addTextChangedListener(textWatcher);
+//        if (toolbar != null) {
+//            ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+//        }
+
         return rootView;
     }
 

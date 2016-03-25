@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity {//} implements ResponseRece
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log.d(LOG_TAG,"Screen-->"+getString(R.string.device_screen));
+
         Bundle bundleWidget = getIntent().getExtras();
         if(bundleWidget != null) {
             inviteID = bundleWidget.getString(InvitationFragment.INVITATION_ID);

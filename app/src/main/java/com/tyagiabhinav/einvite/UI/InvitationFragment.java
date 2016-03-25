@@ -49,6 +49,10 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
     public static final String INVITATION_ID = "inviteID";
     private String lat = "", lon = "";
 
+//    @Bind(R.id.toolbar)
+//    Toolbar toolbar;
+
+
     @Bind(R.id.scrollView)
     ParallaxScrollView scrollView;
 
@@ -105,6 +109,9 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
         ButterKnife.bind(this, rootView);
 
         scrollView.setOnScrollChangedListener(this);
+//        if (toolbar != null) {
+//            ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+//        }
         inviteID = getArguments().getString(INVITATION_ID);
         Log.d(LOG_TAG, "InviteID -> " + inviteID);
         return rootView;
@@ -319,10 +326,12 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
 //        }
         // Add parallax effect
         prallaxFrame.setTranslationY(scrollY * 0.7f);
+
 //        title.setTranslationY(scrollY * 0.1f);
 
 
     }
+
 
 //    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 //        ImageView bmImage;

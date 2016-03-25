@@ -40,6 +40,8 @@ public class CreateInviteFragment extends Fragment implements Validator.Validati
 
     private View rootView;
 
+//    @Bind(R.id.toolbar)
+//    Toolbar toolbar;
     @Bind(R.id.createSharedFab)
     FloatingActionButton fab;
 
@@ -68,6 +70,10 @@ public class CreateInviteFragment extends Fragment implements Validator.Validati
         ButterKnife.bind(this, rootView);
         validator = new Validator(this);
         validator.setValidationListener(this);
+
+//        if (toolbar != null) {
+//            ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+//        }
         message.addTextChangedListener(messageWatcher);
         return rootView;
     }

@@ -3,8 +3,12 @@ package com.tyagiabhinav.einvite.UI;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import com.tyagiabhinav.einvite.R;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Created by abhinavtyagi on 16/03/16.
@@ -14,11 +18,20 @@ public class CreateInviteActivity extends AppCompatActivity {
     private static final String FRAG_TAG = "CreateInviteFragment";
     private CreateInviteFragment createInviteFragment;
 
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_invite);
+
+        ButterKnife.bind(this);
+
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         if(savedInstanceState == null) {
             createInviteFragment= new CreateInviteFragment();//set tag for fragment

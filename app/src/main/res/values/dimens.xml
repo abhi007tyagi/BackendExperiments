@@ -41,5 +41,5 @@
     <dimen name="fab_elevation">8dp</dimen>
     <dimen name="z_transition_elevation">2dp</dimen>
 
-    <dimen name="elevation">4dp</dimen>
+    <dimen name="elevation">2dp</dimen>
 </resources>

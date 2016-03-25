@@ -40,11 +40,12 @@
 
             <TextView
                 style="@style/Text_Form"
-                android:text="@string/phone" />
+                android:text="@string/phone_optional" />
 
             <EditText
                 android:id="@+id/venuePhone"
-                style="@style/Edit_Text_Form_Entry" />
+                style="@style/Edit_Text_Form_Entry"
+                android:inputType="phone"/>
 
             <TextView
                 style="@style/Text_Form"
@@ -53,7 +54,7 @@
             <EditText
                 android:id="@+id/website"
                 style="@style/Edit_Text_Form_Entry"
-                android:hint="@string/website_hint" />
+                android:inputType="textWebEditText" />
 
             <TextView
                 style="@style/Text_Form"

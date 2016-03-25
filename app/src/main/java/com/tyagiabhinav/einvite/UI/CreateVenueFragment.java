@@ -72,7 +72,7 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
 //    EditText city;
 //    @Bind(R.id.venueZip)
 //    EditText zip;
-    @NotEmpty
+
     @Bind(R.id.venuePhone)
     EditText phone;
 //    @Url

@@ -14,20 +14,21 @@
     <string name="state">State</string>
     <string name="city">City</string>
     <string name="street1">Street Address 1</string>
-    <string name="street2">Street Address 2</string>
-    <string name="zip">ZIP</string>
+    <string name="street2">Street Address 2 (optional)</string>
+    <string name="zip">ZIP (optional)</string>
     <string name="email">Email</string>
     <string name="phone">Contact Number</string>
+    <string name="phone_optional">Contact Number (optional)</string>
     <string name="invitation_title">Invitation Title</string>
     <string name="type">Type</string>
     <string name="time">Time</string>
     <string name="date">Date</string>
     <string name="msg_count">0/150</string>
     <string name="venue_name">Venue Name</string>
-    <string name="website">Website</string>
+    <string name="website">Website  (optional)</string>
     <string name="website_hint">http://www.tyagiabhinav.com"</string>
     <string name="address">Address</string>
-    <string name="address_hint">Type Complete Address</string>
+    <string name="address_hint">Type complete address for better accuracy</string>
     <string name="invite_msg1">My invitation to you.\nUse the link for details\n</string>
     <string name="invite_msg2">\nUse the link for details\n</string>
 
@@ -62,6 +63,7 @@
 
     <string name="shared_string_name">"shared_fab"</string>
     <string name="no_matches">No Invitation Saved</string>
+    <string name="ServiceError">Error while communicating with Server</string>
 
 
 </resources>

@@ -13,6 +13,7 @@ import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 import com.tyagiabhinav.backend.backendService.BackendService;
 import com.tyagiabhinav.backend.backendService.model.Invitation;
 import com.tyagiabhinav.einvite.Invite;
+import com.tyagiabhinav.einvite.R;
 import com.tyagiabhinav.einvite.Util.Util;
 
 import java.io.IOException;
@@ -79,7 +80,11 @@ public class BackgroundService extends IntentService {
 //                        e.printStackTrace();
                         Log.d(LOG_TAG, "Generated Invitation Id --> Error" + e.getMessage());
                         Bundle bundle = new Bundle();
-                        bundle.putString(ERROR, ((GoogleJsonResponseException) e).getDetails().getMessage());
+                        if(e instanceof GoogleJsonResponseException) {
+                            bundle.putString(ERROR, ((GoogleJsonResponseException) e).getDetails().getMessage());
+                        } else{
+                            bundle.putString(ERROR, getResources().getString(R.string.ServiceError));
+                        }
                         receiver.send(CREATE_INVITE_ERR, bundle);
                     }
                     break;
@@ -102,7 +107,11 @@ public class BackgroundService extends IntentService {
 //                        JSONObject json = new JSONObject(e.getMessage())
                         Log.d(LOG_TAG, "Fetched Invitation --> Error" + ((GoogleJsonResponseException) e).getDetails().getMessage());
                         Bundle bundle = new Bundle();
-                        bundle.putString(ERROR,((GoogleJsonResponseException)e).getDetails().getMessage());
+                        if(e instanceof GoogleJsonResponseException) {
+                            bundle.putString(ERROR, ((GoogleJsonResponseException) e).getDetails().getMessage());
+                        } else{
+                            bundle.putString(ERROR, getResources().getString(R.string.ServiceError));
+                        }
                         receiver.send(GET_INVITE_ERR, bundle);
                     }
                     break;

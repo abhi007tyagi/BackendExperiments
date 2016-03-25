@@ -65,7 +65,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginBottom">@dimen/text_margin_medium</item>
         <item name="android:maxLines">1</item>
-        <item name="android:inputType">textCapSentences</item>
+        <item name="android:inputType">textCapWords</item>
         <item name="android:singleLine">true</item>
         <item name="android:textSize">@dimen/edittext_form_text_size</item>
     </style>

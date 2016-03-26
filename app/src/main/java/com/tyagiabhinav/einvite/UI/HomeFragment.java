@@ -168,22 +168,27 @@ public class HomeFragment extends Fragment implements ResponseReceiver.Receiver,
         switch (resultCode) {
             case BackgroundService.GET_INVITE:
                 Invitation invite = ((Invite) getActivity().getApplication()).getInvitation();
-                Uri uriUser = getActivity().getApplication().getContentResolver().insert(DBContract.UserEntry.CONTENT_URI, Util.getUserValues(invite.getInvitee(), true));
+                Uri uriUser = getActivity().getApplication().getContentResolver().insert(DBContract.UserEntry.CONTENT_URI, Util.getUserValues(invite.getInvitee(), false));
                 Uri uriInvite = getActivity().getApplication().getContentResolver().insert(DBContract.InviteEntry.CONTENT_URI, Util.getInvitationValues(invite));
+                if(uriInvite != null && uriUser !=null) {
+                    if (uriInvite.equals(DBContract.InviteEntry.buildInviteUri()) && uriUser.equals(DBContract.UserEntry.buildUserUri())) {
+                        // success
+                        Log.d(LOG_TAG, "Moving to invitation screen ID -->" + invite.getId());
+                        Bundle bundle = new Bundle();
+                        bundle.putString(InvitationFragment.INVITATION_ID, invite.getId());
 
-                if (uriInvite.equals(DBContract.InviteEntry.buildInviteUri()) && uriUser.equals(DBContract.UserEntry.buildUserUri())) {
-                    // success
-                    Log.d(LOG_TAG, "Moving to invitation screen ID -->" + invite.getId());
-                    Bundle bundle = new Bundle();
-                    bundle.putString(InvitationFragment.INVITATION_ID, invite.getId());
-
-                    Intent intent = new Intent(getActivity(), InvitationActivity.class);
-                    intent.putExtras(bundle);
-                    startActivity(intent);
+                        Intent intent = new Intent(getActivity(), InvitationActivity.class);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
 //                    Toast.makeText(getActivity(), "Invitation: " + invite.getTitle() + " received !!", Toast.LENGTH_LONG).show();
-                } else {
+                    } else {
+                        // failed to save data
+                        Toast.makeText(getActivity(), "Error Occurred. Try again Later!", Toast.LENGTH_LONG).show();
+                    }
+                }else {
                     // failed to save data
-                    Toast.makeText(getActivity(), "Error Occurred. Try again Later!", Toast.LENGTH_LONG).show();
+                    Log.d(LOG_TAG,"NULL uri returned.... ");
+//                    Toast.makeText(getActivity(), "Error Occurred Saving Data!", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case BackgroundService.GET_INVITE_ERR:

@@ -13,6 +13,7 @@ import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
@@ -178,23 +179,43 @@ public class DBProvider extends ContentProvider {
         Log.d(LOG_TAG, "insert");
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         final int match = sUriMatcher.match(uri);
-        Uri returnUri;
+        Uri returnUri = null;
 
         switch (match) {
             case INVITE: {
-                long _id = db.insertWithOnConflict(DBContract.InviteEntry.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_IGNORE);
-                if (_id > 0)
-                    returnUri = DBContract.InviteEntry.buildInviteUri();
-                else
-                    throw new android.database.SQLException("Failed to insert row into " + uri);
+                try {
+                    long _id = db.insertWithOnConflict(DBContract.InviteEntry.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_IGNORE);
+                    if (_id > 0) {
+                        Log.d(LOG_TAG, _id+" Invite rows inserted");
+                        returnUri = DBContract.InviteEntry.buildInviteUri();
+                    }
+                    else {
+                        Log.d(LOG_TAG, "no Invite row inserted");
+                        returnUri = null;
+//                        throw new android.database.SQLException("Failed to insert row into " + uri);
+                    }
+                } catch (SQLException e){
+                    e.printStackTrace();
+                    Log.d(LOG_TAG, "Exception-->"+e.getMessage());
+                }
                 break;
             }
             case USER: {
-                long _id = db.insertWithOnConflict(DBContract.UserEntry.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_IGNORE);
-                if (_id > 0)
-                    returnUri = DBContract.UserEntry.buildUserUri();
-                else
-                    throw new android.database.SQLException("Failed to insert row into " + uri);
+                try {
+                    long _id = db.insertWithOnConflict(DBContract.UserEntry.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_IGNORE);
+                    if (_id > 0) {
+                        Log.d(LOG_TAG, _id+" User rows inserted");
+                        returnUri = DBContract.UserEntry.buildUserUri();
+                    }
+                    else {
+                        returnUri = null;
+                        Log.d(LOG_TAG, "no User row inserted");
+//                        throw new android.database.SQLException("Failed to insert row into " + uri);
+                    }
+                }catch (SQLException e){
+                    e.printStackTrace();
+                    Log.d(LOG_TAG, "Exception-->" + e.getMessage());
+                }
                 break;
             }
             default:

@@ -4,10 +4,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,6 +73,8 @@ public class CreateInviteFragment extends Fragment implements Validator.Validati
 //            ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 //        }
         message.addTextChangedListener(messageWatcher);
+
+        getActivity().setTitle(getString(R.string.create_invite_title));
         return rootView;
     }
 
@@ -83,12 +83,12 @@ public class CreateInviteFragment extends Fragment implements Validator.Validati
         }
 
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            Log.d(LOG_TAG, "Count: " + count);
+//            Log.d(LOG_TAG, "Count: " + count);
 
         }
 
         public void afterTextChanged(Editable s) {
-            Log.d(LOG_TAG, "Length: " + s.length());
+//            Log.d(LOG_TAG, "Length: " + s.length());
             msgLimit.setText(s.length() + "/150");
             if (s.length() >= 150) {
 //                message.setEnabled(false);
@@ -133,6 +133,9 @@ public class CreateInviteFragment extends Fragment implements Validator.Validati
             Log.d(LOG_TAG, "Time/Date Correct");
             // save this screen's data and move to next
             Invitation invite = new Invitation();
+            if(((Invite)getActivity().getApplication()).isCreateVenueBackPressed()){
+                invite = ((Invite)getActivity().getApplication()).getInvitation();
+            }
             invite.setTitle(title.getText().toString());
             Log.d(LOG_TAG, "Type-->" + type.getSelectedItem().toString());
             invite.setType(type.getSelectedItem().toString());
@@ -142,29 +145,20 @@ public class CreateInviteFragment extends Fragment implements Validator.Validati
 
             ((Invite) getActivity().getApplication()).setInvitation(invite);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                animateFab();
+                ((CreateInviteActivity) getActivity()).animateFab(this, fab);
             } else {
                 ((CreateInviteActivity) getActivity()).showNextScreen();
             }
         }
     }
 
-    private void animateFab() {
+//    @Override
+//    public void onActivityCreated(Bundle savedInstanceState) {
+//        Log.d(LOG_TAG,"onActivityCreated");
+//        super.onActivityCreated(savedInstanceState);
+//        ((CreateInviteActivity)getActivity()).setScreenTitle(getString(R.string.create_invite_title));
+//    }
 
-        setSharedElementReturnTransition(TransitionInflater.from(getActivity()).inflateTransition(R.transition.change_fab_transform));
-        setExitTransition(TransitionInflater.from(getActivity()).inflateTransition(android.R.transition.fade));
-
-        CreateVenueFragment createVenueFragment = new CreateVenueFragment();
-        createVenueFragment.setSharedElementEnterTransition(TransitionInflater.from(getActivity()).inflateTransition(R.transition.change_fab_transform));
-        createVenueFragment.setEnterTransition(TransitionInflater.from(getActivity()).inflateTransition(android.R.transition.fade));
-
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.create_invite_container, createVenueFragment)
-                .addToBackStack(null)
-                .addSharedElement(fab, getString(R.string.shared_string_name) )
-                .commit();
-    }
 
     @Override
     public void onValidationFailed(List<ValidationError> errors) {

@@ -104,17 +104,17 @@ public class HomeFragment extends Fragment implements ResponseReceiver.Receiver,
         }
 
         public void afterTextChanged(Editable s) {
-            Log.d(LOG_TAG, "Length: " + s.length());
+//            Log.d(LOG_TAG, "Length: " + s.length());
             int count = s.length();
             if (count == 3) {
                 if (code1.isFocused()) {
-                    Log.d(LOG_TAG, "moving to 2");
+//                    Log.d(LOG_TAG, "moving to 2");
                     code2.requestFocus();
                 } else if (code2.isFocused()) {
-                    Log.d(LOG_TAG, "moving to 3");
+//                    Log.d(LOG_TAG, "moving to 3");
                     code3.requestFocus();
                 } else if (code3.isFocused()) {
-                    Log.d(LOG_TAG, "Show invitation !!!");
+//                    Log.d(LOG_TAG, "Show invitation !!!");
                     inviteID = code1.getText().toString() + code2.getText().toString() + code3.getText().toString();
                     Log.d(LOG_TAG, "ID->" + inviteID);
                     Bundle bundle = new Bundle();
@@ -124,10 +124,10 @@ public class HomeFragment extends Fragment implements ResponseReceiver.Receiver,
             }
             if (count == 0) {
                 if (code3.isFocused()) {
-                    Log.d(LOG_TAG, "moving to 2");
+//                    Log.d(LOG_TAG, "moving to 2");
                     code2.requestFocus();
                 } else if (code2.isFocused()) {
-                    Log.d(LOG_TAG, "moving to 1");
+//                    Log.d(LOG_TAG, "moving to 1");
                     code1.requestFocus();
                 } else if (code1.isFocused()) {
                     Log.d(LOG_TAG, "Do Nothing");

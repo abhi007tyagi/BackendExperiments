@@ -27,7 +27,7 @@
 
             <TextView
                 style="@style/Text_Form"
-                android:text="@string/invitation_title" />
+                android:text="@string/invite_title" />
 
             <EditText
                 android:id="@+id/title"

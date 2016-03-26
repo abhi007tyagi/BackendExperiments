@@ -20,6 +20,7 @@ public class Invite extends Application {
 
     ResponseReceiver receiver;
     Invitation invitation;
+    boolean createVenueBackPressed = false;
 
     @Override
     public void onCreate() {
@@ -75,5 +76,13 @@ public class Invite extends Application {
 
     public void setInvitation(Invitation invitation) {
         this.invitation = invitation;
+    }
+
+    public boolean isCreateVenueBackPressed() {
+        return createVenueBackPressed;
+    }
+
+    public void setCreateVenueBackPressed(boolean createVenueBackPressed) {
+        this.createVenueBackPressed = createVenueBackPressed;
     }
 }

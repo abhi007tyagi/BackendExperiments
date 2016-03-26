@@ -2,6 +2,7 @@ package com.tyagiabhinav.einvite.UI;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -14,6 +15,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,6 +54,14 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
     private static final String LOG_TAG = CreateVenueFragment.class.getSimpleName();
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 7;
 
+    private static final String V_NAME = "venue";
+    private static final String V_PHONE = "phone";
+    private static final String V_WEB = "website";
+    private static final String V_ADD = "add";
+    private static final String V_LAT = "lat";
+    private static final String V_LON = "lon";
+    private static final String V_PLACE_ID = "placeId";
+
     private View rootView;
 //    @Bind(R.id.toolbar)
 //    Toolbar toolbar;
@@ -86,12 +96,104 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
         validator = new Validator(this);
         validator.setValidationListener(this);
 
+        //populate if not empty/null
+        invite = ((Invite)getActivity().getApplication()).getInvitation();
+        if(!Util.isNull(invite.getVenueName())) {
+            name.setText(invite.getVenueName());
+        }
+        if(!Util.isNull(invite.getVenueContact())) {
+            phone.setText(invite.getVenueContact());
+        }
+        if(!Util.isNull(invite.getWebsite())) {
+            website.setText(invite.getWebsite());
+        }
+        if(!Util.isNull(invite.getVenueAddress())) {
+            address.setText(invite.getVenueAddress());
+        }
+        if(!Util.isNull(invite.getLatitude())) {
+            latitude = invite.getLatitude();
+        }
+        if(!Util.isNull(invite.getLongitude())) {
+            longitude = invite.getLongitude();
+        }
+        if(!Util.isNull(invite.getPlaceID())) {
+            placeId = invite.getPlaceID();
+        }
+
 //        if (toolbar != null) {
 //            ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 //        }
 
+//        ((CreateInviteActivity)getActivity()).setScreenTitle(getString(R.string.create_venue_title));
+        getActivity().setTitle(getString(R.string.create_venue_title));
         return rootView;
     }
+
+    @Override
+    public void onPause() {
+        Log.d(LOG_TAG, "onPause.. enter");
+//        getActivity().getSupportFragmentManager().saveFragmentInstanceState(this);
+        invite.setVenueName(name.getText().toString());
+        invite.setVenueContact(phone.getText().toString());
+        invite.setWebsite(website.getText().toString());
+        invite.setVenueAddress(address.getText().toString());
+        invite.setLatitude(latitude);
+        invite.setLongitude(longitude);
+        invite.setPlaceID(placeId);
+        ((Invite)getActivity().getApplication()).setInvitation(invite);
+        Log.d(LOG_TAG, "onPause.. exiting");
+        super.onPause();
+    }
+
+
+//    @Override
+//    public void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//        String vName = name.getText().toString();
+//        String vPhone = phone.getText().toString();
+//        String vWeb = website.getText().toString();
+//        String vAdd = address.getText().toString();
+//        if(!Util.isNull(vName)) {
+//            outState.putString(V_NAME, vName);
+//        }
+//        if(!Util.isNull(vPhone)) {
+//            outState.putString(V_PHONE, vPhone);
+//        }
+//        if(!Util.isNull(vWeb)) {
+//            outState.putString(V_WEB, vWeb);
+//        }
+//        if(!Util.isNull(vAdd)) {
+//            outState.putString(V_ADD, vAdd);
+//        }
+//        if(!Util.isNull(latitude)) {
+//            outState.putString(V_LAT, latitude);
+//        }
+//        if(!Util.isNull(longitude)) {
+//            outState.putString(V_LON, longitude);
+//        }
+//        if(!Util.isNull(placeId)) {
+//            outState.putString(V_PLACE_ID, placeId);
+//        }
+//    }
+
+//    @Override
+//    public void onActivityCreated(Bundle savedInstanceState) {
+//        Log.d(LOG_TAG,"onActivityCreated");
+//        super.onActivityCreated(savedInstanceState);
+//        if (savedInstanceState != null) {
+//            Log.d(LOG_TAG,"onActivityCreated... Not NULL");
+//            // Restore last state for checked position.
+//            name.setText(savedInstanceState.getString(V_NAME,""));
+//            phone.setText(savedInstanceState.getString(V_PHONE, ""));
+//            website.setText(savedInstanceState.getString(V_WEB, ""));
+//            address.setText(savedInstanceState.getString(V_ADD, ""));
+//            latitude = savedInstanceState.getString(V_LAT,"");
+//            longitude = savedInstanceState.getString(V_LAT,"");
+//            placeId = savedInstanceState.getString(V_PLACE_ID,"");
+//        } else{
+//            Log.d(LOG_TAG,"onActivityCreated... NULL");
+//        }
+//    }
 
     private void placePicker() {
         try {
@@ -207,7 +309,6 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
     @Override
     public void onValidationSucceeded() {
 
-        progressBar.setVisibility(View.VISIBLE);
 
         invite = ((Invite) getActivity().getApplication()).getInvitation();
         invite.setVenueName(name.getText().toString());
@@ -239,7 +340,24 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
             invite.setPlaceID(placeId);
 //        }
 
-        getLoaderManager().initLoader(CURSOR_LOADER, null, this);
+        new AlertDialog.Builder(getActivity())
+                .setMessage(getString(R.string.create_invite_alert_msg))
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with saving
+                        progressBar.setVisibility(View.VISIBLE);
+                        getLoaderManager().initLoader(CURSOR_LOADER, null, CreateVenueFragment.this);
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+
 
     }
 

@@ -19,7 +19,7 @@
     <string name="email">Email</string>
     <string name="phone">Contact Number</string>
     <string name="phone_optional">Contact Number (optional)</string>
-    <string name="invitation_title">Invitation Title</string>
+    <string name="invite_title">Invitation Title</string>
     <string name="type">Type</string>
     <string name="time">Time</string>
     <string name="date">Date</string>
@@ -49,6 +49,13 @@
     </string-array>
 
 
+    <string name="home_title">Home</string>
+    <string name="registration_title">Register</string>
+    <string name="create_invite_title">Invitation Details</string>
+    <string name="create_venue_title">Venue Details</string>
+    <string name="invitation_title">Invitation</string>
+
+
     <string name="code_entry">enter code to view invitation</string>
 
     <string name="home_fab_content_description">create new invitation</string>
@@ -67,6 +74,7 @@
 
     <string name="device_screen">Normal</string>
 
+    <string name="create_invite_alert_msg">Are you sure you want to create new invitation?</string>
 
     <string name="exception_msg1">OOPS !!\nSomething went wrong\n\nApologies\nfor the inconvenience</string>
     <string name="exception_msg2">Report the issue to help us improve the app!</string>

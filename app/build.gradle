@@ -1,9 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        signing_config {
+            keyAlias 'ALIAS'
+            keyPassword 'PASSWORD1'
+            storeFile file('../app/keystore.jks')
+            storePassword 'PASSWORD2'
+        }
+    }
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
-
     defaultConfig {
         applicationId "com.tyagiabhinav.einvite"
         minSdkVersion 19
@@ -15,6 +22,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.signing_config
         }
     }
 }

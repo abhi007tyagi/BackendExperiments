@@ -52,20 +52,23 @@
 
                 <EditText
                     android:id="@+id/code1"
-                    style="@style/Edit_Text_Code_Entry" />
+                    style="@style/Edit_Text_Code_Entry"
+                    android:contentDescription="@string/code_content_description" />
 
                 <TextView style="@style/Text_Code_Dash" />
 
                 <EditText
                     android:id="@+id/code2"
                     style="@style/Edit_Text_Code_Entry"
+                    android:contentDescription="@string/code_content_description"
                     android:textColor="@color/colorPrimaryDark" />
 
                 <TextView style="@style/Text_Code_Dash" />
 
                 <EditText
                     android:id="@+id/code3"
-                    style="@style/Edit_Text_Code_Entry" />
+                    style="@style/Edit_Text_Code_Entry"
+                    android:contentDescription="@string/code_content_description" />
 
             </LinearLayout>
 
@@ -83,7 +86,7 @@
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/createInviteFab"
         style="@style/Fab_style"
-        android:contentDescription=""
+        android:contentDescription="@string/home_fab_content_description"
         android:src="@drawable/ic_add_24dp"
         app:pressedTranslationZ="@dimen/z_transition_elevation" />
 

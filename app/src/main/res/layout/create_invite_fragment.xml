@@ -32,6 +32,7 @@
             <EditText
                 android:id="@+id/title"
                 style="@style/Edit_Text_Form_Entry"
+                android:contentDescription="@string/title_content_description"
                 android:maxLength="25" />
 
             <TextView
@@ -43,6 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/text_margin_medium"
+                android:contentDescription="@string/type_content_description"
                 android:entries="@array/invitation_type_array" />
 
             <LinearLayout
@@ -65,6 +67,7 @@
                         android:id="@+id/time"
                         style="@style/Edit_Text_Form_Entry"
                         android:clickable="true"
+                        android:contentDescription="@string/time_content_description"
                         android:focusable="false"
                         android:hint="hh:mm a"
                         android:maxLength="8" />
@@ -84,7 +87,9 @@
                         android:id="@+id/date"
                         style="@style/Edit_Text_Form_Entry"
                         android:clickable="true"
+                        android:contentDescription="@string/date_content_description"
                         android:focusable="false"
+
                         android:hint="mm/dd/yyyy"
                         android:maxLength="10" />
 
@@ -97,7 +102,8 @@
 
             <EditText
                 android:id="@+id/message"
-                style="@style/Edit_Box_Form_Entry" />
+                style="@style/Edit_Box_Form_Entry"
+                android:contentDescription="@string/message_content_description" />
 
             <TextView
                 android:id="@+id/msgLimit"

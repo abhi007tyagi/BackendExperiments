@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">eInvite</string>
+    <string name="app_name" translatable="false">eInvite</string>
     <string name="title_activity_main2">Main2Activity</string>
 
-    <string name="content_authority">com.tyagiabhinav.einvite</string>
+    <string name="content_authority" translatable="false">com.tyagiabhinav.einvite</string>
 
 
     <string name="message">Message</string>
@@ -35,17 +35,17 @@
     <string-array name="invitation_type_array">
         <item>Birthday</item>
         <item>Marriage</item>
-        <item>Celebration</item>
-        <item>Breakfast</item>
-        <item>Lunch</item>
-        <item>Dinner</item>
-        <item>High Tea</item>
-        <item>Conference</item>
-        <item>Town Hall</item>
-        <item>Match</item>
-        <item>Meeting</item>
-        <item>Special</item>
-        <item>Other</item>
+        <!--<item>Celebration</item>-->
+        <!--<item>Breakfast</item>-->
+        <!--<item>Lunch</item>-->
+        <!--<item>Dinner</item>-->
+        <!--<item>High Tea</item>-->
+        <!--<item>Conference</item>-->
+        <!--<item>Town Hall</item>-->
+        <!--<item>Match</item>-->
+        <!--<item>Meeting</item>-->
+        <!--<item>Special</item>-->
+        <!--<item>Other</item>-->
     </string-array>
 
 
@@ -58,21 +58,15 @@
 
     <string name="code_entry">enter code to view invitation</string>
 
-    <string name="home_fab_content_description">create new invitation</string>
-    <string name="registration_fab_content_description">register user</string>
-    <string name="create_invite_fab_content_description">continue to enter venue details</string>
-    <string name="create_venue_fab_content_description">register new invitation</string>
-    <string name="venue_detail_fab_content_description">navigate to venue</string>
+    <string name="logo_e" translatable="false">e</string>
+    <string name="logo_invite" translatable="false">Invite</string>
+    <string name="hyphen" translatable="false">-</string>
 
-    <string name="logo_e">e</string>
-    <string name="logo_invite">Invite</string>
-    <string name="hyphen">-</string>
-
-    <string name="shared_string_name">"shared_fab"</string>
+    <string name="shared_string_name" translatable="false">"shared_fab"</string>
     <string name="no_matches">No Invitation Saved</string>
     <string name="ServiceError">Error while communicating with Server</string>
 
-    <string name="device_screen">Normal</string>
+    <string name="device_screen" translatable="false">Normal</string>
 
     <string name="create_invite_alert_msg">Are you sure you want to create new invitation?</string>
 
@@ -80,4 +74,32 @@
     <string name="exception_msg2">Report the issue to help us improve the app!</string>
     <string name="exception_btn_home">Home</string>
     <string name="exception_btn_report">Report</string>
+
+    <string name="home_fab_content_description">create new invitation</string>
+    <string name="registration_fab_content_description">register user</string>
+    <string name="create_invite_fab_content_description">continue to enter venue details</string>
+    <string name="create_venue_fab_content_description">register new invitation</string>
+    <string name="venue_detail_fab_content_description">navigate to venue</string>
+
+    <string name="code_content_description">enter invitation code</string>
+    <string name="user_name_content_description">enter your name</string>
+    <string name="country_content_description">enter country name</string>
+    <string name="state_content_description">enter state or province name</string>
+    <string name="add1_content_description">enter street address 1</string>
+    <string name="add2_content_description">enter street address 2 (optional)</string>
+    <string name="city_content_description">enter city name</string>
+    <string name="zip_content_description">enter zip or pin number</string>
+    <string name="contact_number_content_description">enter contact number</string>
+    <string name="email_content_description">enter email address</string>
+    <string name="website_content_description">enter website address</string>
+    <string name="address_content_description">enter complete address</string>
+    <string name="venue_name_content_description">enter venue name</string>
+    <string name="title_content_description">enter invitation title</string>
+    <string name="type_content_description">select invitation type</string>
+    <string name="time_content_description">select time</string>
+    <string name="date_content_description">select date</string>
+    <string name="message_content_description">enter message</string>
+    <string name="place_picker_content_description">select to open place picker</string>
+
+
 </resources>

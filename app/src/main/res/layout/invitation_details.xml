@@ -13,15 +13,17 @@
         <ImageView
             android:id="@+id/typeImg"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/invitation_img_height" />
+            android:layout_height="@dimen/invitation_img_height"
+
+            android:contentDescription="@string/type_content_description" />
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|start"
-            android:gravity="center_vertical"
             android:layout_margin="@dimen/text_invitation_heading_margin"
+            android:gravity="center_vertical"
             android:textSize="@dimen/text_invitation_very_large" />
     </FrameLayout>
 

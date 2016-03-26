@@ -39,7 +39,8 @@
                     android:id="@+id/venueName"
                     style="@style/Edit_Text_Form_Entry"
                     android:layout_width="0dp"
-                    android:layout_weight="9" />
+                    android:layout_weight="9"
+                    android:contentDescription="@string/venue_name_content_description" />
 
                 <ImageView
                     android:id="@+id/mapBtn"
@@ -47,6 +48,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="2"
+                    android:contentDescription="@string/place_picker_content_description"
                     android:src="@drawable/ic_map_24dp" />
             </LinearLayout>
 
@@ -57,6 +59,7 @@
             <EditText
                 android:id="@+id/venuePhone"
                 style="@style/Edit_Text_Form_Entry"
+                android:contentDescription="@string/contact_number_content_description"
                 android:inputType="phone" />
 
             <TextView
@@ -66,6 +69,7 @@
             <EditText
                 android:id="@+id/website"
                 style="@style/Edit_Text_Form_Entry"
+                android:contentDescription="@string/website_content_description"
                 android:inputType="textWebEditText" />
 
             <TextView
@@ -75,6 +79,7 @@
             <EditText
                 android:id="@+id/address"
                 style="@style/Edit_Box_Form_Entry"
+                android:contentDescription="@string/address_content_description"
                 android:hint="@string/address_hint" />
 
         </LinearLayout>

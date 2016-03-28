@@ -22,7 +22,11 @@ import com.google.appengine.api.datastore.QueryResultIterator;
 import com.googlecode.objectify.cmd.Query;
 import com.tyagiabhinav.IDGenerator;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import static com.tyagiabhinav.backend.OfyService.ofy;
@@ -40,6 +44,8 @@ import static com.tyagiabhinav.backend.OfyService.ofy;
 )
 public class MyEndpoint {
 
+    public static final String CALENDAR_FORMAT = "MM/dd/yyyy h:mm a";
+    private long BUFFER_DAYS = 7;
 
 //    @ApiMethod(name = "listUsers")
 //    public CollectionResponse<User> listUser(@Nullable @Named("cursor") String cursorString,
@@ -331,9 +337,48 @@ public class MyEndpoint {
         return invitation;
     }
 
+    /**
+     * This deletes an existing <code>Invitation</code> object.
+     */
+    @ApiMethod(name = "cleanInvitation")
+    public void cleanInvitation() throws NotFoundException {
+        CollectionResponse<Invitation> invitations = listInvitations(null, null);
+        for (Invitation invite : invitations.getItems()) {
+                if(isOld(invite.getTime(), invite.getDate())){
+                    removeInvitation(invite.getId());
+                }
+        }
+    }
+
     //Private method to retrieve a <code>Invitation</code> record
     private Invitation findInvitationRecord(String id) {
         return ofy().load().type(Invitation.class).id(id).now();
+    }
+
+    private boolean isOld(String time, String date){
+        Calendar today = Calendar.getInstance();
+        Calendar inviteDate = Calendar.getInstance();
+        inviteDate.set(Calendar.SECOND, 0);
+        inviteDate.set(Calendar.MILLISECOND, 0);
+
+        SimpleDateFormat sdf = new SimpleDateFormat(CALENDAR_FORMAT);
+        try {
+            Date selectedDate = sdf.parse(date+" "+time);
+            inviteDate.setTimeInMillis(selectedDate.getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if(inviteDate.before(today)){
+            long difference = today.getTimeInMillis() - inviteDate.getTimeInMillis();
+            if(difference/(24 * 60 * 60 * 1000) > BUFFER_DAYS){
+                return true;
+            }
+            else {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 
 }

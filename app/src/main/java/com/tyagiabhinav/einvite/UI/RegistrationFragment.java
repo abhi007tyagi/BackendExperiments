@@ -136,7 +136,7 @@ public class RegistrationFragment extends Fragment implements ValidationListener
 
         Uri uri = getActivity().getApplication().getContentResolver().insert(UserEntry.CONTENT_URI, Util.getUserValues(user, true));
         // check for return uri and take action
-        if (uri.equals(UserEntry.buildUserUri())) {
+        if (uri != null && uri.equals(UserEntry.buildUserUri())) {
             PrefHelper.setUserRegistered(true);
             Intent intent = new Intent(getActivity(), CreateInviteActivity.class);
             startActivity(intent);

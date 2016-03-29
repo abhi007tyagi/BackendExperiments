@@ -22,6 +22,7 @@ public class DBContract {
 
     public static final String PATH_INVITATION = "invite";
     public static final String PATH_USER = "user";
+    public static final String PATH_PLACE = "place";
 
     public static final class InviteEntry implements BaseColumns {
 
@@ -107,6 +108,40 @@ public class DBContract {
         }
 
         public static String getUserIdFromUri(Uri uri) {
+            return uri.getPathSegments().get(1);
+        }
+    }
+
+    public static final class PlaceEntry implements BaseColumns {
+
+        public static final Uri CONTENT_URI =
+                BASE_CONTENT_URI.buildUpon().appendPath(PATH_PLACE).build();
+
+        public static final String CONTENT_TYPE =
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_PLACE;
+        public static final String CONTENT_ITEM_TYPE =
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_PLACE;
+
+        public static final String TABLE_NAME = "location";
+
+        public static final String COL_PLACE_ID = "place_id";
+        public static final String COL_PLACE_WEBSITE = "place_website";
+        public static final String COL_PLACE_NAME = "place_name";
+        public static final String COL_PLACE_CONTACT = "place_contact";
+        public static final String COL_PLACE_ADDRESS = "place_address";
+        public static final String COL_PLACE_LATITUDE = "place_lat";
+        public static final String COL_PLACE_LONGITUDE = "place_lon";
+
+
+        public static Uri buildPlaceUri() {
+            return CONTENT_URI;
+        }
+
+        public static Uri buildPlaceDataUri(String placeId) {
+            return CONTENT_URI.buildUpon().appendPath(placeId).build();
+        }
+
+        public static String getPlaceIdFromUri(Uri uri) {
             return uri.getPathSegments().get(1);
         }
     }

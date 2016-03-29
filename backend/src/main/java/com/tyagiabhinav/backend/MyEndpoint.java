@@ -45,7 +45,7 @@ import static com.tyagiabhinav.backend.OfyService.ofy;
 public class MyEndpoint {
 
     public static final String CALENDAR_FORMAT = "MM/dd/yyyy h:mm a";
-    private long BUFFER_DAYS = 7;
+    private long BUFFER_DAYS = 5;
 
 //    @ApiMethod(name = "listUsers")
 //    public CollectionResponse<User> listUser(@Nullable @Named("cursor") String cursorString,

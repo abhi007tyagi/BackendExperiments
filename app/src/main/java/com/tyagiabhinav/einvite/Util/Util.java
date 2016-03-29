@@ -22,10 +22,10 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.location.places.Place;
 import com.tyagiabhinav.backend.backendService.model.Invitation;
 import com.tyagiabhinav.backend.backendService.model.User;
-import com.tyagiabhinav.einvite.DB.DBContract.InviteEntry;
-import com.tyagiabhinav.einvite.DB.DBContract.UserEntry;
+import com.tyagiabhinav.einvite.DB.DBContract.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -92,6 +92,19 @@ public class Util {
         inviteValues.put(InviteEntry.COL_INVITEE, invitation.getInvitee().getEmail());
 
         return inviteValues;
+    }
+
+    public static ContentValues getPlaceValues(Place place) {
+        ContentValues placeValues = new ContentValues();
+        placeValues.put(PlaceEntry.COL_PLACE_WEBSITE, place.getWebsiteUri().toString());
+        placeValues.put(PlaceEntry.COL_PLACE_NAME, place.getName().toString());
+        placeValues.put(PlaceEntry.COL_PLACE_CONTACT, place.getPhoneNumber().toString());
+        placeValues.put(PlaceEntry.COL_PLACE_ADDRESS, place.getAddress().toString());
+        placeValues.put(InviteEntry.COL_VENUE_LATITUDE, place.getLatLng().latitude);
+        placeValues.put(InviteEntry.COL_VENUE_LONGITUDE, place.getLatLng().longitude);
+        placeValues.put(InviteEntry.COL_PLACE_ID, place.getId());
+
+        return placeValues;
     }
 
     public static void showDatePicker(final View fieldView, final Activity activity, final boolean doPreviousDateCheck) {

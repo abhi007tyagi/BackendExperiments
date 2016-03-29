@@ -8,6 +8,7 @@ package com.tyagiabhinav.einvite.DB;
         DGIII-44Vikas Puri,
         New Delhi-110018
         abhi007tyagi@gmail.com */
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -30,27 +31,20 @@ public class DBHelper extends SQLiteOpenHelper {
         // Create a table to hold invitation details.
         final String SQL_CREATE_INVITATION_TABLE = "CREATE TABLE " + DBContract.InviteEntry.TABLE_NAME + " (" +
                 DBContract.InviteEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    DBContract.InviteEntry.COL_ID + " TEXT UNIQUE NOT NULL," +
-                    DBContract.InviteEntry.COL_TITLE + " TEXT NOT NULL, " +
-                    DBContract.InviteEntry.COL_TYPE + " TEXT NOT NULL, " +
-                    DBContract.InviteEntry.COL_MESSAGE + " TEXT NOT NULL, " +
-                    DBContract.InviteEntry.COL_TIME + " TEXT NOT NULL, " +
-                    DBContract.InviteEntry.COL_DATE + " TEXT NOT NULL, " +
-                    DBContract.InviteEntry.COL_WEBSITE + " TEXT, " +
-                    DBContract.InviteEntry.COL_VENUE_NAME + " TEXT NOT NULL, " +
-//                DBContract.InviteEntry.COL_VENUE_EMAIL + " TEXT, " +
-                    DBContract.InviteEntry.COL_VENUE_CONTACT + " TEXT, " +
+                DBContract.InviteEntry.COL_ID + " TEXT UNIQUE NOT NULL," +
+                DBContract.InviteEntry.COL_TITLE + " TEXT NOT NULL, " +
+                DBContract.InviteEntry.COL_TYPE + " TEXT NOT NULL, " +
+                DBContract.InviteEntry.COL_MESSAGE + " TEXT NOT NULL, " +
+                DBContract.InviteEntry.COL_TIME + " TEXT NOT NULL, " +
+                DBContract.InviteEntry.COL_DATE + " TEXT NOT NULL, " +
+                DBContract.InviteEntry.COL_WEBSITE + " TEXT, " +
+                DBContract.InviteEntry.COL_VENUE_NAME + " TEXT NOT NULL, " +
+                DBContract.InviteEntry.COL_VENUE_CONTACT + " TEXT, " +
                 DBContract.InviteEntry.COL_VENUE_ADDRESS + " TEXT NOT NULL, " +
-                    DBContract.InviteEntry.COL_PLACE_ID + " TEXT, " +
-//                DBContract.InviteEntry.COL_VENUE_COUNTRY + " TEXT NOT NULL, " +
-//                DBContract.InviteEntry.COL_VENUE_STATE + " TEXT NOT NULL, " +
-//                DBContract.InviteEntry.COL_VENUE_ADD1 + " TEXT NOT NULL, " +
-//                DBContract.InviteEntry.COL_VENUE_ADD2 + " TEXT, " +
-//                DBContract.InviteEntry.COL_VENUE_CITY + " TEXT NOT NULL, " +
-//                DBContract.InviteEntry.COL_VENUE_ZIP + " TEXT, " +
-                    DBContract.InviteEntry.COL_VENUE_LATITUDE + " TEXT, " +
-                    DBContract.InviteEntry.COL_VENUE_LONGITUDE + " TEXT, " +
-                    DBContract.InviteEntry.COL_INVITEE + " TEXT NOT NULL" +
+                DBContract.InviteEntry.COL_PLACE_ID + " TEXT, " +
+                DBContract.InviteEntry.COL_VENUE_LATITUDE + " TEXT, " +
+                DBContract.InviteEntry.COL_VENUE_LONGITUDE + " TEXT, " +
+                DBContract.InviteEntry.COL_INVITEE + " TEXT NOT NULL" +
                 " );";
 
         final String SQL_CREATE_USER_TABLE = "CREATE TABLE " + DBContract.UserEntry.TABLE_NAME + " (" +
@@ -67,8 +61,19 @@ public class DBHelper extends SQLiteOpenHelper {
                 DBContract.UserEntry.COL_USER_TYPE + " TEXT NOT NULL" +
                 " );";
 
+        final String SQL_CREATE_PLACE_TABLE = "CREATE TABLE " + DBContract.PlaceEntry.TABLE_NAME + " (" +
+                DBContract.PlaceEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                DBContract.PlaceEntry.COL_PLACE_ID + " TEXT UNIQUE NOT NULL, " +
+                DBContract.PlaceEntry.COL_PLACE_NAME + " TEXT NOT NULL, " +
+                DBContract.PlaceEntry.COL_PLACE_CONTACT + " TEXT, " +
+                DBContract.PlaceEntry.COL_PLACE_ADDRESS + " TEXT, " +
+                DBContract.PlaceEntry.COL_PLACE_LATITUDE + " TEXT NOT NULL, " +
+                DBContract.PlaceEntry.COL_PLACE_LONGITUDE + " TEXT NOT NULL" +
+                " );";
+
         sqLiteDatabase.execSQL(SQL_CREATE_INVITATION_TABLE);
         sqLiteDatabase.execSQL(SQL_CREATE_USER_TABLE);
+        sqLiteDatabase.execSQL(SQL_CREATE_PLACE_TABLE);
     }
 
     @Override
@@ -81,6 +86,7 @@ public class DBHelper extends SQLiteOpenHelper {
         // should be your top priority before modifying this method.
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + DBContract.InviteEntry.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + DBContract.UserEntry.TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + DBContract.PlaceEntry.TABLE_NAME);
         onCreate(sqLiteDatabase);
     }
 }

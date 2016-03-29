@@ -33,6 +33,8 @@ public class DBProvider extends ContentProvider {
     static final int INVITE_COLUMN = 101;
     static final int USER = 300;
     static final int USER_COLUMN = 301;
+    static final int PLACE = 500;
+    static final int PLACE_COLUMN = 501;
 
     private static final SQLiteQueryBuilder sUserQueryBuilder, sInvitationQueryBuilder;
 
@@ -74,6 +76,8 @@ public class DBProvider extends ContentProvider {
         matcher.addURI(authority, DBContract.PATH_INVITATION + "/*", INVITE_COLUMN);
         matcher.addURI(authority, DBContract.PATH_USER, USER);
         matcher.addURI(authority, DBContract.PATH_USER + "/*", USER_COLUMN);
+        matcher.addURI(authority, DBContract.PATH_PLACE, PLACE);
+        matcher.addURI(authority, DBContract.PATH_PLACE + "/*", PLACE_COLUMN);
         return matcher;
     }
 
@@ -91,7 +95,7 @@ public class DBProvider extends ContentProvider {
         switch (sUriMatcher.match(uri)) {
             // "invite/*"
             case INVITE_COLUMN: {
-                Log.d(LOG_TAG, "INVITATION");
+                Log.d(LOG_TAG, "INVITATION/*");
                 String inviteId = DBContract.InviteEntry.getInviteIdFromUri(uri);
                 retCursor = mOpenHelper.getReadableDatabase().query(
                         DBContract.InviteEntry.TABLE_NAME + ", " + DBContract.UserEntry.TABLE_NAME,
@@ -106,13 +110,42 @@ public class DBProvider extends ContentProvider {
             }
             // "user/*"
             case USER_COLUMN: {
-                Log.d(LOG_TAG, "USER");
+                Log.d(LOG_TAG, "USER/*");
                 String id = DBContract.UserEntry.getUserIdFromUri(uri);
                 retCursor = mOpenHelper.getReadableDatabase().query(
                         DBContract.UserEntry.TABLE_NAME,
                         projection,
                         selection,
                         new String[]{id},
+                        null,
+                        null,
+                        sortOrder
+                );
+                break;
+            }
+            // "place/*"
+            case PLACE_COLUMN: {
+                Log.d(LOG_TAG, "PLACE/*");
+                String id = DBContract.PlaceEntry.getPlaceIdFromUri(uri);
+                retCursor = mOpenHelper.getReadableDatabase().query(
+                        DBContract.PlaceEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        new String[]{id},
+                        null,
+                        null,
+                        sortOrder
+                );
+                break;
+            }
+            // "invite"
+            case INVITE: {
+                Log.d(LOG_TAG, "INVITE");
+                retCursor = mOpenHelper.getReadableDatabase().query(
+                        DBContract.InviteEntry.TABLE_NAME + ", " + DBContract.UserEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
                         null,
                         null,
                         sortOrder
@@ -132,11 +165,11 @@ public class DBProvider extends ContentProvider {
                 );
                 break;
             }
-            // "invite"
-            case INVITE: {
-                Log.d(LOG_TAG, "INVITE");
+            // "place"
+            case PLACE: {
+                Log.d(LOG_TAG, "PLACE");
                 retCursor = mOpenHelper.getReadableDatabase().query(
-                        DBContract.InviteEntry.TABLE_NAME + ", " + DBContract.UserEntry.TABLE_NAME,
+                        DBContract.PlaceEntry.TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,
@@ -168,6 +201,12 @@ public class DBProvider extends ContentProvider {
                 return DBContract.InviteEntry.CONTENT_ITEM_TYPE;
             case USER:
                 return DBContract.UserEntry.CONTENT_TYPE;
+            case USER_COLUMN:
+                return DBContract.UserEntry.CONTENT_ITEM_TYPE;
+            case PLACE:
+                return DBContract.PlaceEntry.CONTENT_TYPE;
+            case PLACE_COLUMN:
+                return DBContract.PlaceEntry.CONTENT_ITEM_TYPE;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
@@ -218,6 +257,24 @@ public class DBProvider extends ContentProvider {
                 }
                 break;
             }
+            case PLACE: {
+                try {
+                    long _id = db.insertWithOnConflict(DBContract.PlaceEntry.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+                    if (_id > 0) {
+                        Log.d(LOG_TAG, _id+" Place rows inserted");
+                        returnUri = DBContract.PlaceEntry.buildPlaceUri();
+                    }
+                    else {
+                        returnUri = null;
+                        Log.d(LOG_TAG, "no Place row inserted");
+//                        throw new android.database.SQLException("Failed to insert row into " + uri);
+                    }
+                }catch (SQLException e){
+                    e.printStackTrace();
+                    Log.d(LOG_TAG, "Exception-->" + e.getMessage());
+                }
+                break;
+            }
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
@@ -239,6 +296,9 @@ public class DBProvider extends ContentProvider {
                 break;
             case USER:
                 rowsDeleted = db.delete(DBContract.UserEntry.TABLE_NAME, selection, selectionArgs);
+                break;
+            case PLACE:
+                rowsDeleted = db.delete(DBContract.PlaceEntry.TABLE_NAME, selection, selectionArgs);
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
@@ -263,6 +323,9 @@ public class DBProvider extends ContentProvider {
                 break;
             case USER:
                 rowsUpdated = db.update(DBContract.UserEntry.TABLE_NAME, values, selection, selectionArgs);
+                break;
+            case PLACE:
+                rowsUpdated = db.update(DBContract.PlaceEntry.TABLE_NAME, values, selection, selectionArgs);
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);

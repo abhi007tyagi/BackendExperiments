@@ -313,6 +313,14 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
                     latitude = String.valueOf(place.getLatLng().latitude);
                     longitude = String.valueOf(place.getLatLng().longitude);
                 }
+
+                Uri uri = getActivity().getApplication().getContentResolver().insert(DBContract.PlaceEntry.CONTENT_URI, Util.getPlaceValues(place));
+                // check for return uri and take action
+                if (uri != null && uri.equals(DBContract.PlaceEntry.buildPlaceUri())) {
+                    Log.d(LOG_TAG, "Place inserted !!!");
+                } else {
+                    Log.d(LOG_TAG, "Error inserting place !!!");
+                }
             } else {
                 Log.d(LOG_TAG, "Result Code -->" + resultCode);
             }
@@ -454,7 +462,7 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
                     invite.setId(id);
                     //save to db
                     Uri uri = getActivity().getApplication().getContentResolver().insert(DBContract.InviteEntry.CONTENT_URI, Util.getInvitationValues(invite));
-                    if(uri.equals(DBContract.InviteEntry.buildInviteUri())){
+                    if(uri != null && uri.equals(DBContract.InviteEntry.buildInviteUri())){
                         // success
                         Bundle bundle = new Bundle();
                         bundle.putString(InvitationFragment.INVITATION_ID, id);

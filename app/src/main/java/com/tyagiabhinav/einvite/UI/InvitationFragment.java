@@ -35,6 +35,7 @@ import com.tyagiabhinav.backend.backendService.model.User;
 import com.tyagiabhinav.einvite.Custom.ParallaxScrollView;
 import com.tyagiabhinav.einvite.DB.DBContract;
 import com.tyagiabhinav.einvite.R;
+import com.tyagiabhinav.einvite.Util.Encrypt;
 import com.tyagiabhinav.einvite.Util.Util;
 
 import java.net.MalformedURLException;
@@ -46,13 +47,12 @@ import butterknife.OnClick;
 /**
  * Created by abhinavtyagi on 20/03/16.
  */
-public class InvitationFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>,  ParallaxScrollView.OnScrollChangedListener {
+public class InvitationFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, ParallaxScrollView.OnScrollChangedListener {
     private static final String LOG_TAG = InvitationFragment.class.getSimpleName();
     private View rootView;
     private String inviteID;
     private Invitation invitation;
     private static final int CURSOR_LOADER = 27;
-
 
 
     public static final String INVITATION_ID = "inviteID";
@@ -97,6 +97,9 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
 
     @Bind(R.id.name)
     TextView name;
+
+    @Bind(R.id.timeDate)
+    TextView timeDate;
 
     @Bind(R.id.address)
     TextView address;
@@ -161,7 +164,7 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
 
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
-        if(invitation != null) {
+        if (invitation != null) {
             shareIntent.putExtra(Intent.EXTRA_TEXT, invitation.getMessage() + getResources().getString(R.string.invite_msg2) + "http://tyagiabhinav.com/einvite?id=" + inviteID);
         } else {
             shareIntent.putExtra(Intent.EXTRA_TEXT, getResources().getString(R.string.invite_msg1) + "http://tyagiabhinav.com/einvite?id=" + inviteID);
@@ -171,15 +174,15 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
 
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState){
-            Log.d(LOG_TAG, "Activity Created");
+    public void onActivityCreated(Bundle savedInstanceState) {
+        Log.d(LOG_TAG, "Activity Created");
         getLoaderManager().initLoader(CURSOR_LOADER, getArguments(), this);
-            super.onActivityCreated(savedInstanceState);
+        super.onActivityCreated(savedInstanceState);
     }
 
     @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle bundle){
-            Log.d(LOG_TAG, "onCreateLoader ID-->" + bundle.getString(InvitationFragment.INVITATION_ID));
+    public Loader<Cursor> onCreateLoader(int id, Bundle bundle) {
+        Log.d(LOG_TAG, "onCreateLoader ID-->" + bundle.getString(InvitationFragment.INVITATION_ID));
 
         Uri invitation = DBContract.InviteEntry.buildInvitationDataUri(bundle.getString(InvitationFragment.INVITATION_ID));
         return new CursorLoader(getContext(),
@@ -228,7 +231,12 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
             //populate UI
             title.setText(invitation.getTitle());
             setInviteTypeImg(invitation.getType());
-            message.setText(invitation.getMessage());
+            try {
+                message.setText(Encrypt.doAESDecryption(invitation.getMessage()));
+                timeDate.setText(Encrypt.doAESDecryption(invitation.getTime()) + " on " + Encrypt.doAESDecryption(invitation.getDate()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             venueName.setText(invitation.getVenueName());
             venueAddress.setText(invitation.getVenueAddress());
@@ -247,26 +255,30 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
 
             name.setText(user.getName());
             StringBuilder add = new StringBuilder();
-            add.append(user.getAdd1() + ", ");
+            try {
+                add.append(Encrypt.doAESDecryption(user.getAdd1()) + ", ");
 
-            String add2 = user.getAdd2();
-            if (add2 != null && !add2.trim().isEmpty() && !add2.equalsIgnoreCase("null")) {
-                add.append(add2 + ", ");
+
+                String add2 = user.getAdd2();
+                if (add2 != null && !add2.trim().isEmpty() && !add2.equalsIgnoreCase("null")) {
+                    add.append(Encrypt.doAESDecryption(add2) + ", ");
+                }
+
+                add.append(Encrypt.doAESDecryption(user.getCity()) + ", ");
+                add.append(Encrypt.doAESDecryption(user.getState()) + ", ");
+                add.append(Encrypt.doAESDecryption(user.getCountry()));
+
+                String zip = Encrypt.doAESDecryption(user.getZip());
+                if (zip != null && !zip.trim().isEmpty() && !zip.equalsIgnoreCase("null")) {
+                    add.append("-" + zip);
+                }
+
+                address.setText(add.toString());
+                email.setText(Encrypt.doAESDecryption(user.getEmail()));
+                phone.setText(Encrypt.doAESDecryption(user.getContact()));
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-            add.append(user.getCity() + ", ");
-            add.append(user.getState() + ", ");
-            add.append(user.getCountry());
-
-            String zip = user.getZip();
-            if (zip != null && !zip.trim().isEmpty() && !zip.equalsIgnoreCase("null")) {
-                add.append("-" + zip);
-            }
-
-            address.setText(add.toString());
-            email.setText(user.getEmail());
-            phone.setText(user.getContact());
-
             String url = "";
             if (!Util.isNull(invitation.getLatitude()) && !Util.isNull(invitation.getLongitude())) {
                 // lat-lon info present
@@ -302,11 +314,11 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
     }
 
     private void setInviteTypeImg(String type) {
-        if(type.equalsIgnoreCase("Birthday")){
+        if (type.equalsIgnoreCase("Birthday")) {
             typeImg.setImageResource(R.drawable.bday);
             prallaxFrame.setBackgroundResource(R.color.birthday_bg);
             title.setBackgroundResource(R.color.birthday_bg);
-        }else if(type.equalsIgnoreCase("Marriage")){
+        } else if (type.equalsIgnoreCase("Marriage")) {
             typeImg.setImageResource(R.drawable.wed);
             prallaxFrame.setBackgroundResource(R.color.wedding_bg);
             title.setBackgroundResource(R.color.wedding_bg);

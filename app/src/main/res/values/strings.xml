@@ -4,6 +4,7 @@
 
     <string name="content_authority" translatable="false">com.tyagiabhinav.einvite</string>
 
+    <string name="enc_key">aBh!n@v7yA6i</string>
 
     <string name="message">Message</string>
     <string name="invitee_details">Invitee Detail</string>

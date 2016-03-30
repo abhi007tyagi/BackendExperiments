@@ -43,6 +43,12 @@
              />
 
         <TextView
+            android:id="@+id/timeDate"
+            style="@style/Text_Invitation_Body"
+            android:drawableStart="@drawable/ic_schedule_24dp"
+            />
+
+        <TextView
             android:id="@+id/venueAddress"
             style="@style/Text_Invitation_Body"
             android:drawableStart="@drawable/ic_place_24dp"

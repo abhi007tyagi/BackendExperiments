@@ -30,6 +30,7 @@ import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.tyagiabhinav.backend.backendService.model.User;
 import com.tyagiabhinav.einvite.DB.DBContract.UserEntry;
 import com.tyagiabhinav.einvite.R;
+import com.tyagiabhinav.einvite.Util.Encrypt;
 import com.tyagiabhinav.einvite.Util.PrefHelper;
 import com.tyagiabhinav.einvite.Util.Util;
 
@@ -118,20 +119,24 @@ public class RegistrationFragment extends Fragment implements ValidationListener
     public void onValidationSucceeded() {
         Log.d(LOG_TAG, "ValidationSucceeded");
         user = new User();
-        user.setEmail(email.getText().toString());
-        user.setName(name.getText().toString());
-        user.setContact(phone.getText().toString());
-        user.setCountry(country.getText().toString());
-        user.setState(state.getText().toString());
-        user.setAdd1(street1.getText().toString());
-        String add2 = street2.getText().toString();
-        if (add2 != null || !add2.trim().isEmpty()) {
-            user.setAdd2(add2);
-        }
-        user.setCity(city.getText().toString());
-        String pin = zip.getText().toString();
-        if (pin != null || !pin.trim().isEmpty()) {
-            user.setZip(pin);
+        try {
+            user.setEmail(Encrypt.doAESEncryption(email.getText().toString()));
+            user.setName(name.getText().toString());
+            user.setContact(Encrypt.doAESEncryption(phone.getText().toString()));
+            user.setCountry(Encrypt.doAESEncryption(country.getText().toString()));
+            user.setState(Encrypt.doAESEncryption(state.getText().toString()));
+            user.setAdd1(Encrypt.doAESEncryption(street1.getText().toString()));
+            String add2 = street2.getText().toString();
+            if (add2 != null && !add2.trim().isEmpty()) {
+                user.setAdd2(Encrypt.doAESEncryption(add2));
+            }
+            user.setCity(Encrypt.doAESEncryption(city.getText().toString()));
+            String pin = zip.getText().toString();
+            if (pin != null && !pin.trim().isEmpty()) {
+                user.setZip(Encrypt.doAESEncryption(pin));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         Uri uri = getActivity().getApplication().getContentResolver().insert(UserEntry.CONTENT_URI, Util.getUserValues(user, true));

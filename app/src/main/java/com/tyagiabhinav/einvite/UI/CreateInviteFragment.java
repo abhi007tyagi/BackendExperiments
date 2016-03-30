@@ -30,6 +30,7 @@ import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.tyagiabhinav.backend.backendService.model.Invitation;
 import com.tyagiabhinav.einvite.Invite;
 import com.tyagiabhinav.einvite.R;
+import com.tyagiabhinav.einvite.Util.Encrypt;
 import com.tyagiabhinav.einvite.Util.Util;
 
 import java.util.List;
@@ -47,7 +48,7 @@ public class CreateInviteFragment extends Fragment implements Validator.Validati
 
     private View rootView;
 
-//    @Bind(R.id.toolbar)
+    //    @Bind(R.id.toolbar)
 //    Toolbar toolbar;
     @Bind(R.id.createSharedFab)
     FloatingActionButton fab;
@@ -142,15 +143,19 @@ public class CreateInviteFragment extends Fragment implements Validator.Validati
             Log.d(LOG_TAG, "Time/Date Correct");
             // save this screen's data and move to next
             Invitation invite = new Invitation();
-            if(((Invite)getActivity().getApplication()).isCreateVenueBackPressed()){
-                invite = ((Invite)getActivity().getApplication()).getInvitation();
+            if (((Invite) getActivity().getApplication()).isCreateVenueBackPressed()) {
+                invite = ((Invite) getActivity().getApplication()).getInvitation();
             }
             invite.setTitle(title.getText().toString());
             Log.d(LOG_TAG, "Type-->" + type.getSelectedItem().toString());
             invite.setType(type.getSelectedItem().toString());
-            invite.setTime(time.getText().toString());
-            invite.setDate(date.getText().toString());
-            invite.setMessage(message.getText().toString());
+            try {
+                invite.setTime(Encrypt.doAESEncryption(time.getText().toString()));
+                invite.setDate(Encrypt.doAESEncryption(date.getText().toString()));
+                invite.setMessage(Encrypt.doAESEncryption(message.getText().toString()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             ((Invite) getActivity().getApplication()).setInvitation(invite);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

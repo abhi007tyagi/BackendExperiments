@@ -31,6 +31,13 @@ public class Invite extends Application {
     Invitation invitation;
     boolean createVenueBackPressed = false;
 
+
+    static {
+        System.loadLibrary("keys");
+    }
+
+    private static native String getKey(String rootPath);
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -93,5 +100,9 @@ public class Invite extends Application {
 
     public void setCreateVenueBackPressed(boolean createVenueBackPressed) {
         this.createVenueBackPressed = createVenueBackPressed;
+    }
+
+    public static String getEncKey(){
+        return getKey("");
     }
 }

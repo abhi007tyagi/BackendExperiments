@@ -9,6 +9,8 @@ package com.tyagiabhinav.einvite.Util;
 
 import android.util.Base64;
 
+import com.tyagiabhinav.einvite.Invite;
+
 import java.security.SecureRandom;
 
 import javax.crypto.Cipher;
@@ -22,7 +24,12 @@ import javax.crypto.spec.SecretKeySpec;
  */
 public class Encrypt {
 
-    private static final String ENC_KEY = "aBh!n@v7yA6i";
+    private static final String LOG_TAG = Encrypt.class.getSimpleName();
+    private static String ENC_KEY;
+
+    static {
+        ENC_KEY = Invite.getEncKey();
+    }
 
     /**
      *
@@ -31,6 +38,7 @@ public class Encrypt {
      * @throws Exception
      */
     public static String doAESEncryption(String message) throws Exception {
+//        Log.d(LOG_TAG, "ENC KEY ---> " + ENC_KEY);
         byte[] encData = encryptAES(ENC_KEY, message, "ASCII", 256);
         return Base64.encodeToString(encData, Base64.NO_PADDING);
     }
@@ -42,6 +50,7 @@ public class Encrypt {
      * @throws Exception
      */
     public static String doAESDecryption( String message) throws Exception {
+//        Log.d(LOG_TAG, "ENC KEY ---> " + ENC_KEY);
         byte[] data = Base64.decode(message, Base64.NO_PADDING);
         return new String(decryptAES(ENC_KEY, data, "ASCII", 256));
     }

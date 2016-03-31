@@ -341,11 +341,15 @@ public class MyEndpoint {
      * This deletes an existing <code>Invitation</code> object.
      */
     @ApiMethod(name = "cleanInvitation")
-    public void cleanInvitation() throws NotFoundException {
-        CollectionResponse<Invitation> invitations = listInvitations(null, null);
+    public void cleanInvitation(@Nullable @Named("cursor") String cursorString,
+                                @Nullable @Named("count") Integer count) throws NotFoundException {
+        System.out.print("cleanInvitation... called");
+        CollectionResponse<Invitation> invitations = listInvitations(cursorString, count);
         for (Invitation invite : invitations.getItems()) {
+            System.out.print("for..");
                 if(isOld(invite.getTime(), invite.getDate())){
                     removeInvitation(invite.getId());
+                    System.out.print("removed.."+invite.getId());
                 }
         }
     }

@@ -3,8 +3,7 @@
     <cron>
         <url>/cleanInvitation</url>
         <description>Clean Storage</description>
-        <schedule>every day 00:00</schedule>
+        <schedule>every 1 minutes</schedule>
         <timezone>America/Hawaii</timezone>
-        <target>version-1</target>
     </cron>
 </cronentries>

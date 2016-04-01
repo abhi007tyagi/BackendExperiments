@@ -37,6 +37,8 @@ public class InvitationActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+//        getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
         if (toolbar != null) {
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

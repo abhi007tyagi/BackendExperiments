@@ -69,7 +69,7 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
 //    LinearLayout imgLayout;
 
     @Bind(R.id.parallaxFrame)
-    FrameLayout prallaxFrame;
+    FrameLayout parallaxFrame;
 
     @Bind(R.id.title)
     TextView title;
@@ -125,6 +125,9 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
 //            ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 //        }
         inviteID = getArguments().getString(INVITATION_ID);
+
+//        parallaxFrame.setBackgroundResource(android.R.color.transparent);
+
         Log.d(LOG_TAG, "InviteID -> " + inviteID);
         return rootView;
     }
@@ -316,11 +319,11 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
     private void setInviteTypeImg(String type) {
         if (type.equalsIgnoreCase("Birthday")) {
             typeImg.setImageResource(R.drawable.bday);
-            prallaxFrame.setBackgroundResource(R.color.birthday_bg);
+            parallaxFrame.setBackgroundResource(R.color.birthday_bg);
             title.setBackgroundResource(R.color.birthday_bg);
         } else if (type.equalsIgnoreCase("Marriage")) {
             typeImg.setImageResource(R.drawable.wed);
-            prallaxFrame.setBackgroundResource(R.color.wedding_bg);
+            parallaxFrame.setBackgroundResource(R.color.wedding_bg);
             title.setBackgroundResource(R.color.wedding_bg);
         }
     }
@@ -346,7 +349,7 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
 //            title.setTranslationY(Math.min(0, title.getTranslationY()-deltaY/2));
 //        }
         // Add parallax effect
-        prallaxFrame.setTranslationY(scrollY * 0.7f);
+        parallaxFrame.setTranslationY(scrollY * 0.7f);
 
 //        title.setTranslationY(scrollY * 0.1f);
 

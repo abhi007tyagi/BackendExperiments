@@ -12,62 +12,61 @@
         android:layout_height="@dimen/static_map_height"
         android:layout_alignParentTop="true"
         android:adjustViewBounds="true"
-        android:background="@color/tileBackground"
         android:scaleType="centerCrop" />
+
+    <!--<LinearLayout-->
+    <!--android:id="@+id/linearLayout"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@id/map"-->
+    <!--android:orientation="vertical">-->
+
+    <TextView
+        android:id="@+id/heading"
+        style="@style/Text_Invitation_Heading"
+        android:layout_below="@id/map"
+        android:text="@string/venue" />
+
+    <TextView
+        android:id="@+id/venueName"
+        style="@style/Text_Invitation"
+        android:layout_below="@id/heading" />
+
+    <TextView
+        android:id="@+id/timeDate"
+        style="@style/Text_Invitation_Body"
+        android:layout_below="@id/venueName"
+        android:drawableStart="@drawable/ic_schedule_24dp" />
+
+    <TextView
+        android:id="@+id/venueAddress"
+        style="@style/Text_Invitation_Body"
+        android:layout_below="@id/timeDate"
+        android:drawableStart="@drawable/ic_place_24dp" />
+
+    <TextView
+        android:id="@+id/venuePhone"
+        style="@style/Text_Invitation_Action"
+        android:layout_below="@id/venueAddress"
+        android:autoLink="phone"
+        android:drawableStart="@drawable/ic_call_24dp" />
+
+    <TextView
+        android:id="@+id/venueWebsite"
+        style="@style/Text_Invitation_Action"
+        android:layout_below="@id/venuePhone"
+        android:autoLink="web"
+        android:drawableStart="@drawable/ic_language_24dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/navigateFab"
         style="@style/Fab_style"
-        android:layout_above="@+id/linearLayout"
+        android:layout_above="@id/heading"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="-28dp"
+        android:layout_marginBottom="-27dp"
         android:contentDescription="@string/venue_detail_fab_content_description"
         android:src="@drawable/ic_navigation_24dp"
         app:pressedTranslationZ="@dimen/z_transition_elevation" />
-
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/map"
-        android:orientation="vertical">
-
-        <TextView
-            style="@style/Text_Invitation_Heading"
-            android:text="@string/venue" />
-
-        <TextView
-            android:id="@+id/venueName"
-            style="@style/Text_Invitation"
-             />
-
-        <TextView
-            android:id="@+id/timeDate"
-            style="@style/Text_Invitation_Body"
-            android:drawableStart="@drawable/ic_schedule_24dp"
-            />
-
-        <TextView
-            android:id="@+id/venueAddress"
-            style="@style/Text_Invitation_Body"
-            android:drawableStart="@drawable/ic_place_24dp"
-             />
-
-        <TextView
-            android:id="@+id/venuePhone"
-            style="@style/Text_Invitation_Action"
-            android:autoLink="phone"
-            android:drawableStart="@drawable/ic_call_24dp"
-             />
-
-        <TextView
-            android:id="@+id/venueWebsite"
-            style="@style/Text_Invitation_Action"
-            android:autoLink="web"
-            android:drawableStart="@drawable/ic_language_24dp"
-             />
-
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
 </RelativeLayout>

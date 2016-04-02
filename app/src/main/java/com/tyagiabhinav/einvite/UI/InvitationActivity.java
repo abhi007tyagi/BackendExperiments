@@ -11,12 +11,8 @@ package com.tyagiabhinav.einvite.UI;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 
 import com.tyagiabhinav.einvite.R;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Created by abhinavtyagi on 20/03/16.
@@ -27,22 +23,22 @@ public class InvitationActivity extends AppCompatActivity {
 
     private InvitationFragment invitationFragment;
 
-    @Bind(R.id.toolbar)
-    Toolbar toolbar;
+//    @Bind(R.id.toolbar)
+//    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invitation);
 
-        ButterKnife.bind(this);
+//        ButterKnife.bind(this);
 
 //        getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+//        if (toolbar != null) {
+//            setSupportActionBar(toolbar);
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        }
 
         if(savedInstanceState == null) {
             invitationFragment= new InvitationFragment();//set tag for fragment

@@ -13,10 +13,12 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -56,8 +58,8 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
     public static final String INVITATION_ID = "inviteID";
     private String lat = "", lon = "";
 
-//    @Bind(R.id.toolbar)
-//    Toolbar toolbar;
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
 
 
 //    @Bind(R.id.scrollView)
@@ -72,8 +74,8 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
 //    @Bind(R.id.title)
 //    TextView title;
 
-//    @Bind(R.id.collapsingToolbarLayout)
-//    CollapsingToolbarLayout collapsingToolbarLayout;
+    @Bind(R.id.collapsingToolbarLayout)
+    CollapsingToolbarLayout collapsingToolbarLayout;
 
     @Bind(R.id.typeImg)
     ImageView typeImg;
@@ -118,13 +120,14 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(LOG_TAG, "onCreateView");
-        rootView = inflater.inflate(R.layout.invitation_fragment_old, container, false);
+        rootView = inflater.inflate(R.layout.invitation_fragment, container, false);
         ButterKnife.bind(this, rootView);
 
 //        scrollView.setOnScrollChangedListener(this);
-//        if (toolbar != null) {
-//            ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-//        }
+        if (toolbar != null) {
+            ((InvitationActivity)getActivity()).setSupportActionBar(toolbar);
+            ((InvitationActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         inviteID = getArguments().getString(INVITATION_ID);
 
 //        parallaxFrame.setBackgroundResource(android.R.color.transparent);
@@ -235,7 +238,7 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
             //populate UI
 //            title.setText(invitation.getTitle());
             setInviteTypeImg(invitation.getType());
-            getActivity().setTitle(invitation.getTitle());
+            collapsingToolbarLayout.setTitle(invitation.getTitle());
             try {
                 message.setText(Encrypt.doAESDecryption(invitation.getMessage()));
                 timeDate.setText(Encrypt.doAESDecryption(invitation.getTime()) + " on " + Encrypt.doAESDecryption(invitation.getDate()));
@@ -321,12 +324,14 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
     private void setInviteTypeImg(String type) {
         if (type.equalsIgnoreCase("Birthday")) {
             typeImg.setImageResource(R.drawable.bday);
-//            collapsingToolbarLayout.setBackgroundResource(R.color.birthday_bg);
+            collapsingToolbarLayout.setBackgroundResource(R.color.birthday_bg);
+//            collapsingToolbarLayout.setContentScrimResource(R.color.birthday_bg);
 //            parallaxFrame.setBackgroundResource(R.color.birthday_bg);
 //            title.setBackgroundResource(R.color.birthday_bg);
         } else if (type.equalsIgnoreCase("Marriage")) {
             typeImg.setImageResource(R.drawable.wed);
-//            collapsingToolbarLayout.setBackgroundResource(R.color.wedding_bg);
+            collapsingToolbarLayout.setBackgroundResource(R.color.wedding_bg);
+//            collapsingToolbarLayout.setContentScrimResource(R.color.wedding_bg);
 //            parallaxFrame.setBackgroundResource(R.color.wedding_bg);
 //            title.setBackgroundResource(R.color.wedding_bg);
         }

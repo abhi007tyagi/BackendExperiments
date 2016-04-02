@@ -24,7 +24,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,7 +31,6 @@ import com.mypopsy.maps.StaticMap;
 import com.squareup.picasso.Picasso;
 import com.tyagiabhinav.backend.backendService.model.Invitation;
 import com.tyagiabhinav.backend.backendService.model.User;
-import com.tyagiabhinav.einvite.Custom.ParallaxScrollView;
 import com.tyagiabhinav.einvite.DB.DBContract;
 import com.tyagiabhinav.einvite.R;
 import com.tyagiabhinav.einvite.Util.Encrypt;
@@ -47,7 +45,7 @@ import butterknife.OnClick;
 /**
  * Created by abhinavtyagi on 20/03/16.
  */
-public class InvitationFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, ParallaxScrollView.OnScrollChangedListener {
+public class InvitationFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{//}, ParallaxScrollView.OnScrollChangedListener {
     private static final String LOG_TAG = InvitationFragment.class.getSimpleName();
     private View rootView;
     private String inviteID;
@@ -62,17 +60,20 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
 //    Toolbar toolbar;
 
 
-    @Bind(R.id.scrollView)
-    ParallaxScrollView scrollView;
+//    @Bind(R.id.scrollView)
+//    ParallaxScrollView scrollView;
 
 //    @Bind(R.id.imgLayout)
 //    LinearLayout imgLayout;
 
-    @Bind(R.id.parallaxFrame)
-    FrameLayout parallaxFrame;
+//    @Bind(R.id.parallaxFrame)
+//    FrameLayout parallaxFrame;
 
-    @Bind(R.id.title)
-    TextView title;
+//    @Bind(R.id.title)
+//    TextView title;
+
+//    @Bind(R.id.collapsingToolbarLayout)
+//    CollapsingToolbarLayout collapsingToolbarLayout;
 
     @Bind(R.id.typeImg)
     ImageView typeImg;
@@ -117,10 +118,10 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(LOG_TAG, "onCreateView");
-        rootView = inflater.inflate(R.layout.invitation_fragment, container, false);
+        rootView = inflater.inflate(R.layout.invitation_fragment_old, container, false);
         ButterKnife.bind(this, rootView);
 
-        scrollView.setOnScrollChangedListener(this);
+//        scrollView.setOnScrollChangedListener(this);
 //        if (toolbar != null) {
 //            ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 //        }
@@ -232,8 +233,9 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
 
 
             //populate UI
-            title.setText(invitation.getTitle());
+//            title.setText(invitation.getTitle());
             setInviteTypeImg(invitation.getType());
+            getActivity().setTitle(invitation.getTitle());
             try {
                 message.setText(Encrypt.doAESDecryption(invitation.getMessage()));
                 timeDate.setText(Encrypt.doAESDecryption(invitation.getTime()) + " on " + Encrypt.doAESDecryption(invitation.getDate()));
@@ -319,12 +321,14 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
     private void setInviteTypeImg(String type) {
         if (type.equalsIgnoreCase("Birthday")) {
             typeImg.setImageResource(R.drawable.bday);
-            parallaxFrame.setBackgroundResource(R.color.birthday_bg);
-            title.setBackgroundResource(R.color.birthday_bg);
+//            collapsingToolbarLayout.setBackgroundResource(R.color.birthday_bg);
+//            parallaxFrame.setBackgroundResource(R.color.birthday_bg);
+//            title.setBackgroundResource(R.color.birthday_bg);
         } else if (type.equalsIgnoreCase("Marriage")) {
             typeImg.setImageResource(R.drawable.wed);
-            parallaxFrame.setBackgroundResource(R.color.wedding_bg);
-            title.setBackgroundResource(R.color.wedding_bg);
+//            collapsingToolbarLayout.setBackgroundResource(R.color.wedding_bg);
+//            parallaxFrame.setBackgroundResource(R.color.wedding_bg);
+//            title.setBackgroundResource(R.color.wedding_bg);
         }
     }
 
@@ -333,28 +337,28 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
 
     }
 
-    @Override
-    public void onScrollChanged(int deltaX, int deltaY) {
-//        Log.d(LOG_TAG,"onScrollChanged dx:dy -> "+deltaX+":"+deltaY);
-        int scrollY = scrollView.getScrollY();
-
-        int max = title.getHeight();
-//        Log.d(LOG_TAG,"onScrollChanged max -> "+max);
-//        Log.d(LOG_TAG,"onScrollChanged title x -> "+title.getX());
-//        Log.d(LOG_TAG,"onScrollChanged title y -> "+title.getY());
-
-//        if(deltaY > 0){
-//            title.setTranslationY(Math.max(max, title.getTranslationY()-deltaY/2));
-//        } else {
-//            title.setTranslationY(Math.min(0, title.getTranslationY()-deltaY/2));
-//        }
-        // Add parallax effect
-        parallaxFrame.setTranslationY(scrollY * 0.7f);
-
-//        title.setTranslationY(scrollY * 0.1f);
-
-
-    }
+//    @Override
+//    public void onScrollChanged(int deltaX, int deltaY) {
+////        Log.d(LOG_TAG,"onScrollChanged dx:dy -> "+deltaX+":"+deltaY);
+//        int scrollY = scrollView.getScrollY();
+//
+//        int max = title.getHeight();
+////        Log.d(LOG_TAG,"onScrollChanged max -> "+max);
+////        Log.d(LOG_TAG,"onScrollChanged title x -> "+title.getX());
+////        Log.d(LOG_TAG,"onScrollChanged title y -> "+title.getY());
+//
+////        if(deltaY > 0){
+////            title.setTranslationY(Math.max(max, title.getTranslationY()-deltaY/2));
+////        } else {
+////            title.setTranslationY(Math.min(0, title.getTranslationY()-deltaY/2));
+////        }
+//        // Add parallax effect
+//        parallaxFrame.setTranslationY(scrollY * 0.7f);
+//
+////        title.setTranslationY(scrollY * 0.1f);
+//
+//
+//    }
 
 
 //    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {

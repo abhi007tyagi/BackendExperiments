@@ -38,7 +38,7 @@
     <dimen name="fab_size">56dp</dimen>
     <dimen name="fab_margin_bottom">24dp</dimen>
     <dimen name="fab_margin_end">24dp</dimen>
-    <dimen name="fab_elevation">8dp</dimen>
+    <dimen name="fab_elevation">4dp</dimen>
     <dimen name="z_transition_elevation">2dp</dimen>
 
     <dimen name="elevation">2dp</dimen>

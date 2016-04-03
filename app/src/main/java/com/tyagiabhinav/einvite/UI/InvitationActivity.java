@@ -9,9 +9,11 @@ package com.tyagiabhinav.einvite.UI;
         New Delhi-110018
         abhi007tyagi@gmail.com */
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
+import android.view.WindowManager;
 
 import com.tyagiabhinav.einvite.R;
 
@@ -30,7 +32,11 @@ public class InvitationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        supportRequestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            Window window = getWindow();
+//            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//            window.setStatusBarColor(getColor(android.R.color.transparent));
+//        }
         setContentView(R.layout.activity_invitation);
 
 

@@ -11,6 +11,7 @@ package com.tyagiabhinav.einvite.UI;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Window;
 
 import com.tyagiabhinav.einvite.R;
 
@@ -29,7 +30,9 @@ public class InvitationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        supportRequestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         setContentView(R.layout.activity_invitation);
+
 
 //        ButterKnife.bind(this);
 

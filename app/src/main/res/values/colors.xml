@@ -5,8 +5,8 @@
     <color name="colorAccent">#0094FF</color>
     <color name="textColorPrimary">#161616</color>
     <color name="textColorSecondary">#454545</color>
-    <color name="tileBackground">#FDFDFD</color>
+    <color name="tileBackground">#FFFDFDFD</color>
 
-    <color name="birthday_bg">#E3F2FD</color>
-    <color name="wedding_bg">#FFF3E0</color>
+    <color name="birthday_bg">#FFE3F2FD</color>
+    <color name="wedding_bg">#FFFFF3E0</color>
 </resources>

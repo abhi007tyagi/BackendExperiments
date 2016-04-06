@@ -322,19 +322,33 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
     }
 
     private void setInviteTypeImg(String type) {
-        if (type.equalsIgnoreCase("Birthday")) {
-            typeImg.setImageResource(R.drawable.bday);
-//            collapsingToolbarLayout.setBackgroundResource(R.color.birthday_bg);
-//            collapsingToolbarLayout.setContentScrimResource(R.color.birthday_bg);
-//            parallaxFrame.setBackgroundResource(R.color.birthday_bg);
-//            title.setBackgroundResource(R.color.birthday_bg);
-        } else if (type.equalsIgnoreCase("Marriage")) {
-            typeImg.setImageResource(R.drawable.wed);
-//            collapsingToolbarLayout.setBackgroundResource(R.color.wedding_bg);
-//            collapsingToolbarLayout.setContentScrimResource(R.color.wedding_bg);
-//            parallaxFrame.setBackgroundResource(R.color.wedding_bg);
-//            title.setBackgroundResource(R.color.wedding_bg);
+        try {
+            int inviteType = Integer.getInteger(type);
+            switch (inviteType) {
+                case Type.BIRTHDAY:
+                    typeImg.setImageResource(R.drawable.bday);
+                    break;
+                case Type.WEDDING:
+                    typeImg.setImageResource(R.drawable.wed);
+                    break;
+            }
+        }catch (NumberFormatException e){
+            e.printStackTrace();
+//            if (type.equalsIgnoreCase("Birthday")) {
+//                typeImg.setImageResource(R.drawable.bday);
+////            collapsingToolbarLayout.setBackgroundResource(R.color.birthday_bg);
+////            collapsingToolbarLayout.setContentScrimResource(R.color.birthday_bg);
+////            parallaxFrame.setBackgroundResource(R.color.birthday_bg);
+////            title.setBackgroundResource(R.color.birthday_bg);
+//            } else if (type.equalsIgnoreCase("Marriage")) {
+//                typeImg.setImageResource(R.drawable.wed);
+////            collapsingToolbarLayout.setBackgroundResource(R.color.wedding_bg);
+////            collapsingToolbarLayout.setContentScrimResource(R.color.wedding_bg);
+////            parallaxFrame.setBackgroundResource(R.color.wedding_bg);
+////            title.setBackgroundResource(R.color.wedding_bg);
+//            }
         }
+
     }
 
     @Override

@@ -13,20 +13,17 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class CronServlet extends HttpServlet {
 
-    private static final Logger _logger = Logger.getLogger(CronServlet.class.getName());
+    private static final Logger logger = Logger.getLogger(CronServlet.class.getName());
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
 
         try {
-            _logger.warning("Cron Job has been executed");
-            System.out.print("Chal gya !!");
+            logger.warning("Cron Job executing");
             MyEndpoint endpoint = new MyEndpoint();
             endpoint.cleanInvitation(null, null);
-            resp.getWriter().write("Hello Backend!!");
         }
         catch (Exception ex) {
-//Log any exceptions in your Cron Job
-            _logger.severe("CronJob Error : " + ex.getMessage());
+            logger.severe("CronJob Error : " + ex.getMessage());
         }
     }
 

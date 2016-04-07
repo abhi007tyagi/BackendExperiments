@@ -241,7 +241,7 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
             collapsingToolbarLayout.setTitle(invitation.getTitle());
             try {
                 message.setText(Encrypt.doAESDecryption(invitation.getMessage()));
-                timeDate.setText(Encrypt.doAESDecryption(invitation.getTime()) + " on " + Encrypt.doAESDecryption(invitation.getDate()));
+                timeDate.setText(invitation.getTime() + " on " + invitation.getDate());
             } catch (Exception e) {
                 e.printStackTrace();
             }

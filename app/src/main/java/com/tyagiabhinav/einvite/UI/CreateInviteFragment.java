@@ -150,8 +150,8 @@ public class CreateInviteFragment extends Fragment implements Validator.Validati
             Log.d(LOG_TAG, "Type-->" + type.getSelectedItem().toString());
             invite.setType(String.valueOf(type.getSelectedItemPosition()));//getSelectedItem().toString());
             try {
-                invite.setTime(Encrypt.doAESEncryption(time.getText().toString()));
-                invite.setDate(Encrypt.doAESEncryption(date.getText().toString()));
+                invite.setTime(time.getText().toString());
+                invite.setDate(date.getText().toString());
                 invite.setMessage(Encrypt.doAESEncryption(message.getText().toString()));
             } catch (Exception e) {
                 e.printStackTrace();

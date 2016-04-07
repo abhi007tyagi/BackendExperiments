@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 import static com.tyagiabhinav.backend.OfyService.ofy;
 
@@ -48,6 +49,8 @@ public class MyEndpoint {
 
     public static final String CALENDAR_FORMAT = "MM/dd/yyyy h:mm a";
     private long BUFFER_DAYS = 5;
+    private static final Logger logger = Logger.getLogger(CronServlet.class.getName());
+
 
 //    @ApiMethod(name = "listUsers")
 //    public CollectionResponse<User> listUser(@Nullable @Named("cursor") String cursorString,
@@ -350,16 +353,27 @@ public class MyEndpoint {
     @ApiMethod(name = "cleanInvitation", path = "cleanInvitation")
     public void cleanInvitation(@Nullable @Named("cursor") String cursorString,
                                 @Nullable @Named("count") Integer count) throws NotFoundException {
-        System.out.print("cleanInvitation... called");
         CollectionResponse<Invitation> invitations = listInvitations(cursorString, count);
         for (Invitation invite : invitations.getItems()) {
-            System.out.print("for..");
             if (isOld(invite.getTime(), invite.getDate())) {
                 removeInvitation(invite.getId());
-                System.out.print("removed.." + invite.getId());
+                logger.warning("Removing... " + invite.getId());
             }
         }
     }
+
+    /**
+     * This deletes all existing <code>Invitation</code> object.
+     */
+//    @ApiMethod(name = "deleteAll")
+//    public void deleteAll(@Nullable @Named("cursor") String cursorString,
+//                          @Nullable @Named("count") Integer count) throws NotFoundException {
+//        CollectionResponse<Invitation> invitations = listInvitations(cursorString, count);
+//        for (Invitation invite : invitations.getItems()) {
+//            removeInvitation(invite.getId());
+//            logger.warning("Removing... " + invite.getId());
+//        }
+//    }
 
     //Private method to retrieve a <code>Invitation</code> record
     private Invitation findInvitationRecord(String id) {

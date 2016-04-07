@@ -12,6 +12,15 @@
         <servlet-name>SystemServiceServlet</servlet-name>
         <url-pattern>/_ah/spi/*</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>cronjob</servlet-name>
+        <servlet-class>com.tyagiabhinav.backend.CronServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>cronjob</servlet-name>
+        <url-pattern>/cronjob</url-pattern>
+    </servlet-mapping>
     <filter>
         <filter-name>ObjectifyFilter</filter-name>
         <filter-class>com.googlecode.objectify.ObjectifyFilter</filter-class>
@@ -24,13 +33,13 @@
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
-    <security-constraint>
-        <web-resource-collection>
-            <web-resource-name>cron</web-resource-name>
-            <url-pattern>/cron/*</url-pattern>
-        </web-resource-collection>
-        <auth-constraint>
-            <role-name>admin</role-name>
-        </auth-constraint>
-    </security-constraint>
+    <!--<security-constraint>-->
+        <!--<web-resource-collection>-->
+            <!--<web-resource-name>cron</web-resource-name>-->
+            <!--<url-pattern>/*</url-pattern>-->
+        <!--</web-resource-collection>-->
+        <!--<auth-constraint>-->
+            <!--<role-name>admin</role-name>-->
+        <!--</auth-constraint>-->
+    <!--</security-constraint>-->
 </web-app>

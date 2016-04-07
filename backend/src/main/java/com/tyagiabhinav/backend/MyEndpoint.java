@@ -32,15 +32,17 @@ import java.util.List;
 import static com.tyagiabhinav.backend.OfyService.ofy;
 
 
-/** An endpoint class we are exposing */
+/**
+ * An endpoint class we are exposing
+ */
 @Api(
-  name = "backendService",
-  version = "v1",
-  namespace = @ApiNamespace(
-    ownerDomain = "backend.tyagiabhinav.com",
-    ownerName = "backend.tyagiabhinav.com",
-    packagePath=""
-  )
+        name = "backendService",
+        version = "v1",
+        namespace = @ApiNamespace(
+                ownerDomain = "backend.tyagiabhinav.com",
+                ownerName = "backend.tyagiabhinav.com",
+                packagePath = ""
+        )
 )
 public class MyEndpoint {
 
@@ -164,10 +166,9 @@ public class MyEndpoint {
 //    }
 
 
-
     @ApiMethod(name = "listInvitations")
     public CollectionResponse<Invitation> listInvitations(@Nullable @Named("cursor") String cursorString,
-                                             @Nullable @Named("count") Integer count) {
+                                                          @Nullable @Named("count") Integer count) {
 
         Query<Invitation> query = ofy().load().type(Invitation.class);
         if (count != null) query.limit(count);
@@ -199,13 +200,13 @@ public class MyEndpoint {
     @ApiMethod(name = "registerInvitation")
     public Invitation registerInvitation(Invitation invitation) throws ConflictException, NotFoundException {
         invitation.setId(IDGenerator.getRandomID());
-        if(invitation.getId() != null){
-            while(findInvitationRecord(invitation.getId()) != null){
+        if (invitation.getId() != null) {
+            while (findInvitationRecord(invitation.getId()) != null) {
 //                throw new ConflictException("Invitation already exists");
                 invitation.setId(IDGenerator.getRandomID());
             }
 //            else{
-                ofy().save().entity(invitation).now();
+            ofy().save().entity(invitation).now();
 //            }
         }
         return invitation;
@@ -213,34 +214,35 @@ public class MyEndpoint {
 
     /**
      * This updates an existing <code>Invitation</code> object.
+     *
      * @param invitation The object to be added.
      * @return The object to be updated.
      */
     @ApiMethod(name = "updateInvitation")
-    public Invitation updateInvitation(Invitation invitation)throws NotFoundException {
+    public Invitation updateInvitation(Invitation invitation) throws NotFoundException {
         Invitation savedInvitation = findInvitationRecord(invitation.getId());
         if (savedInvitation == null) {
             throw new NotFoundException("Invitation Record does not exist.. can't be updated");
-        }else{
-            if(invitation.getTitle() == null || invitation.getTitle().trim().isEmpty()){
+        } else {
+            if (invitation.getTitle() == null || invitation.getTitle().trim().isEmpty()) {
                 invitation.setTitle(savedInvitation.getTitle());
             }
-            if(invitation.getType() == null || invitation.getType().trim().isEmpty()){
+            if (invitation.getType() == null || invitation.getType().trim().isEmpty()) {
                 invitation.setType(savedInvitation.getType());
             }
-            if(invitation.getMessage() == null || invitation.getMessage().trim().isEmpty()){
+            if (invitation.getMessage() == null || invitation.getMessage().trim().isEmpty()) {
                 invitation.setMessage(savedInvitation.getMessage());
             }
-            if(invitation.getTime() == null || invitation.getTime().trim().isEmpty()){
+            if (invitation.getTime() == null || invitation.getTime().trim().isEmpty()) {
                 invitation.setTime(savedInvitation.getTime());
             }
-            if(invitation.getDate() == null || invitation.getDate().trim().isEmpty()){
+            if (invitation.getDate() == null || invitation.getDate().trim().isEmpty()) {
                 invitation.setDate(savedInvitation.getDate());
             }
-            if(invitation.getWebsite() == null || invitation.getWebsite().trim().isEmpty()){
+            if (invitation.getWebsite() == null || invitation.getWebsite().trim().isEmpty()) {
                 invitation.setWebsite(savedInvitation.getWebsite());
             }
-            if(invitation.getVenueName() == null || invitation.getVenueName().trim().isEmpty()){
+            if (invitation.getVenueName() == null || invitation.getVenueName().trim().isEmpty()) {
                 invitation.setVenueName(savedInvitation.getVenueName());
             }
 //            if(invitation.getVenueEmail() == null || invitation.getVenueEmail().trim().isEmpty()){
@@ -264,47 +266,50 @@ public class MyEndpoint {
 //            if(invitation.getVenueZip() == null || invitation.getVenueZip().trim().isEmpty()){
 //                invitation.setVenueZip(savedInvitation.getVenueZip());
 //            }
-            if(invitation.getVenueAddress() == null || invitation.getVenueAddress().trim().isEmpty()){
+            if (invitation.getVenueAddress() == null || invitation.getVenueAddress().trim().isEmpty()) {
                 invitation.setVenueAddress(savedInvitation.getVenueAddress());
             }
-            if(invitation.getPlaceID() == null || invitation.getPlaceID().trim().isEmpty()){
+            if (invitation.getPlaceID() == null || invitation.getPlaceID().trim().isEmpty()) {
                 invitation.setPlaceID(savedInvitation.getPlaceID());
             }
-            if(invitation.getLatitude() == null || invitation.getLatitude().trim().isEmpty()){
+            if (invitation.getLatitude() == null || invitation.getLatitude().trim().isEmpty()) {
                 invitation.setLatitude(savedInvitation.getLatitude());
             }
-            if(invitation.getLongitude() == null || invitation.getLongitude().trim().isEmpty()){
+            if (invitation.getLongitude() == null || invitation.getLongitude().trim().isEmpty()) {
                 invitation.setLongitude(savedInvitation.getLongitude());
             }
-            if(invitation.getInvitee() != null){
+            if (savedInvitation.getInvitee() != null) {
                 User savedUser = savedInvitation.getInvitee();
-                User user = invitation.getInvitee();
-                if(user.getName() == null || user.getName().trim().isEmpty()){
-                    user.setName(savedUser.getName());
+                if (invitation.getInvitee() == null) {
+                    invitation.setInvitee(savedUser);
+                } else {
+                    User user = invitation.getInvitee();
+                    if (user.getName() == null || user.getName().trim().isEmpty()) {
+                        user.setName(savedUser.getName());
+                    }
+                    if (user.getContact() == null || user.getContact().trim().isEmpty()) {
+                        user.setContact(savedUser.getContact());
+                    }
+                    if (user.getAdd1() == null || user.getAdd1().trim().isEmpty()) {
+                        user.setAdd1(savedUser.getAdd1());
+                    }
+                    if (user.getAdd2() == null || user.getAdd2().trim().isEmpty()) {
+                        user.setAdd2(savedUser.getAdd2());
+                    }
+                    if (user.getCity() == null || user.getCity().trim().isEmpty()) {
+                        user.setCity(savedUser.getCity());
+                    }
+                    if (user.getState() == null || user.getState().trim().isEmpty()) {
+                        user.setState(savedUser.getState());
+                    }
+                    if (user.getCountry() == null || user.getCountry().trim().isEmpty()) {
+                        user.setCountry(savedUser.getCountry());
+                    }
+                    if (user.getZip() == null || user.getZip().trim().isEmpty()) {
+                        user.setZip(savedUser.getZip());
+                    }
+                    invitation.setInvitee(user);
                 }
-                if(user.getContact() == null || user.getContact().trim().isEmpty()){
-                    user.setContact(savedUser.getContact());
-                }
-                if(user.getAdd1() == null || user.getAdd1().trim().isEmpty()){
-                    user.setAdd1(savedUser.getAdd1());
-                }
-                if(user.getAdd2() == null || user.getAdd2().trim().isEmpty()){
-                    user.setAdd2(savedUser.getAdd2());
-                }
-                if(user.getCity() == null || user.getCity().trim().isEmpty()){
-                    user.setCity(savedUser.getCity());
-                }
-                if(user.getState() == null || user.getState().trim().isEmpty()){
-                    user.setState(savedUser.getState());
-                }
-                if(user.getCountry() == null || user.getCountry().trim().isEmpty()){
-                    user.setCountry(savedUser.getCountry());
-                }
-                if(user.getZip() == null || user.getZip().trim().isEmpty()){
-                    user.setZip(savedUser.getZip());
-                }
-
-                invitation.setInvitee(user);
             }
         }
         ofy().save().entity(invitation).now();
@@ -313,12 +318,13 @@ public class MyEndpoint {
 
     /**
      * This deletes an existing <code>Invitation</code> object.
+     *
      * @param id The id of the object to be deleted.
      */
     @ApiMethod(name = "removeInvitation")
     public void removeInvitation(@Named("id") String id) throws NotFoundException {
         Invitation invitation = findInvitationRecord(id);
-        if(invitation == null) {
+        if (invitation == null) {
             throw new NotFoundException("Invitation Record does not exist.. can't be removed");
         }
         ofy().delete().entity(invitation).now();
@@ -326,12 +332,13 @@ public class MyEndpoint {
 
     /**
      * This fetches an existing <code>Invitation</code> object.
+     *
      * @param id The id of the object to be deleted.
      */
     @ApiMethod(name = "getInvitation")
     public Invitation getInvitation(@Named("id") String id) throws NotFoundException {
         Invitation invitation = ofy().load().type(Invitation.class).id(id).now();
-        if(invitation == null){
+        if (invitation == null) {
             throw new NotFoundException("Invitation Record does not exist");
         }
         return invitation;
@@ -340,17 +347,17 @@ public class MyEndpoint {
     /**
      * This deletes an existing <code>Invitation</code> object.
      */
-    @ApiMethod(name = "cleanInvitation")
+    @ApiMethod(name = "cleanInvitation", path = "cleanInvitation")
     public void cleanInvitation(@Nullable @Named("cursor") String cursorString,
                                 @Nullable @Named("count") Integer count) throws NotFoundException {
         System.out.print("cleanInvitation... called");
         CollectionResponse<Invitation> invitations = listInvitations(cursorString, count);
         for (Invitation invite : invitations.getItems()) {
             System.out.print("for..");
-                if(isOld(invite.getTime(), invite.getDate())){
-                    removeInvitation(invite.getId());
-                    System.out.print("removed.."+invite.getId());
-                }
+            if (isOld(invite.getTime(), invite.getDate())) {
+                removeInvitation(invite.getId());
+                System.out.print("removed.." + invite.getId());
+            }
         }
     }
 
@@ -359,7 +366,7 @@ public class MyEndpoint {
         return ofy().load().type(Invitation.class).id(id).now();
     }
 
-    private boolean isOld(String time, String date){
+    private boolean isOld(String time, String date) {
         Calendar today = Calendar.getInstance();
         Calendar inviteDate = Calendar.getInstance();
         inviteDate.set(Calendar.SECOND, 0);
@@ -367,20 +374,22 @@ public class MyEndpoint {
 
         SimpleDateFormat sdf = new SimpleDateFormat(CALENDAR_FORMAT);
         try {
-            Date selectedDate = sdf.parse(date+" "+time);
+            Date selectedDate = sdf.parse(date + " " + time);
             inviteDate.setTimeInMillis(selectedDate.getTime());
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        if(inviteDate.before(today)){
+        if (inviteDate.before(today)) {
             long difference = today.getTimeInMillis() - inviteDate.getTimeInMillis();
-            if(difference/(24 * 60 * 60 * 1000) > BUFFER_DAYS){
+            if (difference / (24 * 60 * 60 * 1000) > BUFFER_DAYS) {
+                System.out.print(time + " " + date + "is OLD");
                 return true;
-            }
-            else {
+            } else {
+                System.out.print(time + " " + date + "is not OLD");
                 return false;
             }
         } else {
+            System.out.print(time + " " + date + "is not OLD");
             return false;
         }
     }

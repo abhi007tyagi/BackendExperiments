@@ -276,9 +276,12 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
                 add.append(Encrypt.doAESDecryption(user.getState()) + ", ");
                 add.append(Encrypt.doAESDecryption(user.getCountry()));
 
-                String zip = Encrypt.doAESDecryption(user.getZip());
-                if (zip != null && !zip.trim().isEmpty() && !zip.equalsIgnoreCase("null")) {
-                    add.append("-" + zip);
+                String zip =user.getZip();
+                if (zip != null) {
+                    zip = Encrypt.doAESDecryption(zip);
+                    if (!zip.trim().isEmpty() && !zip.equalsIgnoreCase("null")) {
+                        add.append("-" + zip);
+                    }
                 }
 
                 address.setText(add.toString());
@@ -323,7 +326,7 @@ public class InvitationFragment extends Fragment implements LoaderManager.Loader
 
     private void setInviteTypeImg(String type) {
         try {
-            int inviteType = Integer.getInteger(type);
+            int inviteType = Integer.parseInt(type);
             switch (inviteType) {
                 case Type.BIRTHDAY:
                     typeImg.setImageResource(R.drawable.bday);

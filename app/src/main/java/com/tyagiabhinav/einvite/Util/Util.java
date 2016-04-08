@@ -72,6 +72,7 @@ public class Util {
         inviteValues.put(InviteEntry.COL_ID, invitation.getId());
         inviteValues.put(InviteEntry.COL_TITLE, invitation.getTitle());
         inviteValues.put(InviteEntry.COL_TYPE, invitation.getType());
+        inviteValues.put(InviteEntry.COL_IMG, invitation.getImage());
         inviteValues.put(InviteEntry.COL_MESSAGE, invitation.getMessage());
         inviteValues.put(InviteEntry.COL_TIME, invitation.getTime());
         inviteValues.put(InviteEntry.COL_DATE, invitation.getDate());

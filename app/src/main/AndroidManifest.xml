@@ -1,13 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-    <!--All rights reserved. No part of this project may be reproduced, distributed, copied, transmitted or-->
-    <!--transformed in any form or by any means, without the prior written permission of the developer. -->
-    <!--For permission requests, write to the developer, addressed “Attention: Permissions Coordinator,” -->
-    <!--at the address below.-->
+<?xml version="1.0" encoding="utf-8"?><!--All rights reserved. No part of this project may be reproduced, distributed, copied, transmitted or--><!--transformed in any form or by any means, without the prior written permission of the developer. --><!--For permission requests, write to the developer, addressed “Attention: Permissions Coordinator,” --><!--at the address below.-->
 
-    <!--Abhinav Tyagi-->
-    <!--DGIII-44 Vikas Puri,-->
-    <!--New Delhi - 110018-->
-    <!--abhi007tyagi@gmail.com-->
+<!--Abhinav Tyagi--><!--DGIII-44 Vikas Puri,--><!--New Delhi - 110018--><!--abhi007tyagi@gmail.com-->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tyagiabhinav.einvite">
@@ -48,9 +41,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".UI.RegistrationActivity"
-            android:parentActivityName="com.tyagiabhinav.einvite.UI.MainActivity" />
+        <activity android:name=".UI.RegistrationActivity" />
         <activity
             android:name=".UI.CreateInviteActivity"
             android:parentActivityName="com.tyagiabhinav.einvite.UI.MainActivity" />
@@ -66,12 +57,14 @@
             android:authorities="@string/content_authority"
             android:exported="false"
             android:syncable="true" />
-        <receiver android:name=".Widget.WidgetProvider"
+        <receiver
+            android:name=".Widget.WidgetProvider"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
-            <meta-data android:name="android.appwidget.provider"
+            <meta-data
+                android:name="android.appwidget.provider"
                 android:resource="@xml/widget_provider_info" />
         </receiver>
         <service

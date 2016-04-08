@@ -48,6 +48,7 @@ import com.tyagiabhinav.einvite.Invite;
 import com.tyagiabhinav.einvite.Network.BackgroundService;
 import com.tyagiabhinav.einvite.Network.ResponseReceiver;
 import com.tyagiabhinav.einvite.R;
+import com.tyagiabhinav.einvite.Util.PrefHelper;
 import com.tyagiabhinav.einvite.Util.Util;
 
 import java.util.List;
@@ -94,7 +95,8 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
     Invitation invite;
     private Validator validator;
     private static final int CURSOR_LOADER = 205;
-    private int PLACE_PICKER_REQUEST = 106;
+    private static final int PLACE_PICKER_REQUEST = 106;
+    private static final int REGISTRATION_REQUEST = 108;
 
 
     @Override
@@ -291,40 +293,85 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.d(LOG_TAG, "Request Code -->" + requestCode);
-        if (requestCode == PLACE_PICKER_REQUEST) {
-            if (resultCode == Activity.RESULT_OK) {
-                Place place = PlacePicker.getPlace(getActivity(), data);
-                if(place.getName()!=null) {
-                    name.setText(place.getName());
-                }
-                if(place.getPhoneNumber()!=null) {
-                    phone.setText(place.getPhoneNumber());
-                }
-                if(place.getWebsiteUri()!=null) {
-                    website.setText(place.getWebsiteUri().toString());
-                }
-                if(place.getAddress()!=null){
-                    address.setText(place.getAddress());
-                }
-                if(place.getId()!=null){
-                    placeId = place.getId();
-                }
-                if(place.getLatLng()!=null){
-                    latitude = String.valueOf(place.getLatLng().latitude);
-                    longitude = String.valueOf(place.getLatLng().longitude);
-                }
+        switch(requestCode){
+            case PLACE_PICKER_REQUEST:
+                if (resultCode == Activity.RESULT_OK) {
+                    Log.d(LOG_TAG, "PLACE PICKER OK");
+                    Place place = PlacePicker.getPlace(getActivity(), data);
+                    if(place.getName()!=null) {
+                        name.setText(place.getName());
+                    }
+                    if(place.getPhoneNumber()!=null) {
+                        phone.setText(place.getPhoneNumber());
+                    }
+                    if(place.getWebsiteUri()!=null) {
+                        website.setText(place.getWebsiteUri().toString());
+                    }
+                    if(place.getAddress()!=null){
+                        address.setText(place.getAddress());
+                    }
+                    if(place.getId()!=null){
+                        placeId = place.getId();
+                    }
+                    if(place.getLatLng()!=null){
+                        latitude = String.valueOf(place.getLatLng().latitude);
+                        longitude = String.valueOf(place.getLatLng().longitude);
+                    }
 
-                Uri uri = getActivity().getApplication().getContentResolver().insert(DBContract.PlaceEntry.CONTENT_URI, Util.getPlaceValues(place));
-                // check for return uri and take action
-                if (uri != null && uri.equals(DBContract.PlaceEntry.buildPlaceUri())) {
-                    Log.d(LOG_TAG, "Place inserted !!!");
+                    Uri uri = getActivity().getApplication().getContentResolver().insert(DBContract.PlaceEntry.CONTENT_URI, Util.getPlaceValues(place));
+                    // check for return uri and take action
+                    if (uri != null && uri.equals(DBContract.PlaceEntry.buildPlaceUri())) {
+                        Log.d(LOG_TAG, "Place inserted !!!");
+                    } else {
+                        Log.d(LOG_TAG, "Error inserting place !!!");
+                    }
                 } else {
-                    Log.d(LOG_TAG, "Error inserting place !!!");
+                    Log.d(LOG_TAG, "Result Code -->" + resultCode);
                 }
-            } else {
-                Log.d(LOG_TAG, "Result Code -->" + resultCode);
-            }
+                break;
+            case REGISTRATION_REQUEST:
+                if (resultCode == Activity.RESULT_OK) {
+                    Log.d(LOG_TAG, "REGISTRATION OK");
+
+                }else{
+                    Log.d(LOG_TAG, "Result Code -->" + resultCode);
+                }
+                break;
         }
+//        if (requestCode == PLACE_PICKER_REQUEST) {
+//            if (resultCode == Activity.RESULT_OK) {
+//                Place place = PlacePicker.getPlace(getActivity(), data);
+//                if(place.getName()!=null) {
+//                    name.setText(place.getName());
+//                }
+//                if(place.getPhoneNumber()!=null) {
+//                    phone.setText(place.getPhoneNumber());
+//                }
+//                if(place.getWebsiteUri()!=null) {
+//                    website.setText(place.getWebsiteUri().toString());
+//                }
+//                if(place.getAddress()!=null){
+//                    address.setText(place.getAddress());
+//                }
+//                if(place.getId()!=null){
+//                    placeId = place.getId();
+//                }
+//                if(place.getLatLng()!=null){
+//                    latitude = String.valueOf(place.getLatLng().latitude);
+//                    longitude = String.valueOf(place.getLatLng().longitude);
+//                }
+//
+//                Uri uri = getActivity().getApplication().getContentResolver().insert(DBContract.PlaceEntry.CONTENT_URI, Util.getPlaceValues(place));
+//                // check for return uri and take action
+//                if (uri != null && uri.equals(DBContract.PlaceEntry.buildPlaceUri())) {
+//                    Log.d(LOG_TAG, "Place inserted !!!");
+//                } else {
+//                    Log.d(LOG_TAG, "Error inserting place !!!");
+//                }
+//            } else {
+//                Log.d(LOG_TAG, "Result Code -->" + resultCode);
+//            }
+//        }
     }
 
     @Override
@@ -361,25 +408,31 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
             invite.setPlaceID(placeId);
 //        }
 
-        new AlertDialog.Builder(getActivity())
-                .setMessage(getString(R.string.create_invite_alert_msg))
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // continue with saving
-                        progressBar.setVisibility(View.VISIBLE);
-                        getLoaderManager().initLoader(CURSOR_LOADER, null, CreateVenueFragment.this);
-                        dialog.dismiss();
-                    }
-                })
-                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // do nothing
-                        dialog.dismiss();
-                    }
-                })
-                .show();
-
-
+        if (PrefHelper.isUserRegistered()) {
+            // show alert
+            new AlertDialog.Builder(getActivity())
+                    .setMessage(getString(R.string.create_invite_alert_msg))
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // continue with saving
+                            progressBar.setVisibility(View.VISIBLE);
+                            getLoaderManager().initLoader(CURSOR_LOADER, null, CreateVenueFragment.this);
+                            dialog.dismiss();
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // do nothing
+                            dialog.dismiss();
+                        }
+                    })
+                    .show();
+        } else {
+            // open user registration screen
+            Log.d(LOG_TAG, "Open Registration Screen");
+            Intent intent = new Intent(getActivity(), RegistrationActivity.class);
+            startActivityForResult(intent, REGISTRATION_REQUEST);
+        }
     }
 
     @Override

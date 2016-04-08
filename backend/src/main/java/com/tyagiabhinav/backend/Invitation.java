@@ -23,6 +23,7 @@ public class Invitation {
     String id;
     String title;
     String type;
+    Byte image;
     String message;
     User invitee;
     String time;
@@ -30,7 +31,6 @@ public class Invitation {
     String website;
     String venueName;
 //    String venueEmail;
-
     String venueContact;
 //    String venueAdd1;
 //    String venueAdd2;
@@ -65,6 +65,14 @@ public class Invitation {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public Byte getImage() {
+        return image;
+    }
+
+    public void setImage(Byte image) {
+        this.image = image;
     }
 
     public String getMessage() {

@@ -13,8 +13,8 @@ public class Type {
 
     private int type;
 
-    public static final int BIRTHDAY = 1;
-    public static final int WEDDING = 2;
+    public static final int BIRTHDAY = 0;
+    public static final int WEDDING = 1;
 
     @IntDef({BIRTHDAY, WEDDING})
     @Retention(RetentionPolicy.SOURCE)

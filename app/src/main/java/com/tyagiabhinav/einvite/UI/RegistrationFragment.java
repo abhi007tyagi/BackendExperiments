@@ -9,7 +9,7 @@ package com.tyagiabhinav.einvite.UI;
         New Delhi-110018
         abhi007tyagi@gmail.com */
 
-import android.content.Intent;
+import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -143,8 +143,9 @@ public class RegistrationFragment extends Fragment implements ValidationListener
         // check for return uri and take action
         if (uri != null && uri.equals(UserEntry.buildUserUri())) {
             PrefHelper.setUserRegistered(true);
-            Intent intent = new Intent(getActivity(), CreateInviteActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent((), CreateInviteActivity.class);
+//            startActivity(intent);
+            getActivity().setResult(Activity.RESULT_OK);
             getActivity().finish();
         } else {
             Toast.makeText(getActivity(), "Error registering user !!!", Toast.LENGTH_LONG).show();

@@ -49,7 +49,7 @@ public class MyEndpoint {
 
     public static final String CALENDAR_FORMAT = "MM/dd/yyyy h:mm a";
     private long BUFFER_DAYS = 5;
-    private static final Logger logger = Logger.getLogger(CronServlet.class.getName());
+    private static final Logger logger = Logger.getLogger(MyEndpoint.class.getName());
 
 
 //    @ApiMethod(name = "listUsers")
@@ -233,6 +233,9 @@ public class MyEndpoint {
             if (invitation.getType() == null || invitation.getType().trim().isEmpty()) {
                 invitation.setType(savedInvitation.getType());
             }
+            if (invitation.getImage() == null) {
+                invitation.setImage(savedInvitation.getImage());
+            }
             if (invitation.getMessage() == null || invitation.getMessage().trim().isEmpty()) {
                 invitation.setMessage(savedInvitation.getMessage());
             }
@@ -396,14 +399,14 @@ public class MyEndpoint {
         if (inviteDate.before(today)) {
             long difference = today.getTimeInMillis() - inviteDate.getTimeInMillis();
             if (difference / (24 * 60 * 60 * 1000) > BUFFER_DAYS) {
-                System.out.print(time + " " + date + "is OLD");
+//                System.out.print(time + " " + date + "is OLD");
                 return true;
             } else {
-                System.out.print(time + " " + date + "is not OLD");
+//                System.out.print(time + " " + date + "is not OLD");
                 return false;
             }
         } else {
-            System.out.print(time + " " + date + "is not OLD");
+//            System.out.print(time + " " + date + "is not OLD");
             return false;
         }
     }

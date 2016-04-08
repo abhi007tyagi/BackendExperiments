@@ -34,6 +34,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 DBContract.InviteEntry.COL_ID + " TEXT UNIQUE NOT NULL," +
                 DBContract.InviteEntry.COL_TITLE + " TEXT NOT NULL, " +
                 DBContract.InviteEntry.COL_TYPE + " TEXT NOT NULL, " +
+                DBContract.InviteEntry.COL_IMG + " BLOB, " +
                 DBContract.InviteEntry.COL_MESSAGE + " TEXT NOT NULL, " +
                 DBContract.InviteEntry.COL_TIME + " TEXT NOT NULL, " +
                 DBContract.InviteEntry.COL_DATE + " TEXT NOT NULL, " +

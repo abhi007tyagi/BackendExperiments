@@ -34,7 +34,6 @@ import com.tyagiabhinav.einvite.Invite;
 import com.tyagiabhinav.einvite.Network.BackgroundService;
 import com.tyagiabhinav.einvite.Network.ResponseReceiver;
 import com.tyagiabhinav.einvite.R;
-import com.tyagiabhinav.einvite.Util.PrefHelper;
 import com.tyagiabhinav.einvite.Util.Util;
 
 import butterknife.Bind;
@@ -148,17 +147,17 @@ public class HomeFragment extends Fragment implements ResponseReceiver.Receiver,
 
     @OnClick(R.id.createInviteFab)
     public void createInvite() {
-        if (PrefHelper.isUserRegistered()) {
+//        if (PrefHelper.isUserRegistered()) {
             // open invite screen
             Log.d(LOG_TAG, "Open Invitation Screen");
             Intent intent = new Intent(getActivity(), CreateInviteActivity.class);
             startActivity(intent);
-        } else {
-            // open user registration screen
-            Log.d(LOG_TAG, "Open Registration Screen");
-            Intent intent = new Intent(getActivity(), RegistrationActivity.class);
-            startActivity(intent);
-        }
+//        } else {
+//            // open user registration screen
+//            Log.d(LOG_TAG, "Open Registration Screen");
+//            Intent intent = new Intent(getActivity(), RegistrationActivity.class);
+//            startActivity(intent);
+//        }
     }
 
 

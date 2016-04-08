@@ -39,12 +39,13 @@ public class DBContract {
         public static final String COL_ID = "id";
         public static final String COL_TITLE = "title";
         public static final String COL_TYPE = "type";
+        public static final String COL_IMG = "image";
         public static final String COL_MESSAGE = "message";
         public static final String COL_TIME = "time";
         public static final String COL_DATE = "date";
         public static final String COL_WEBSITE = "website";
         public static final String COL_VENUE_NAME = "v_name";
-        public static final String COL_VENUE_EMAIL = "v_email";
+//        public static final String COL_VENUE_EMAIL = "v_email";
         public static final String COL_VENUE_CONTACT = "v_contact";
 //        public static final String COL_VENUE_ADD1 = "v_add1";
 //        public static final String COL_VENUE_ADD2 = "v_add2";

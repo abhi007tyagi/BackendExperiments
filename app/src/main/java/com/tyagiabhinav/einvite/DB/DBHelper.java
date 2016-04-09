@@ -67,6 +67,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 DBContract.PlaceEntry.COL_PLACE_ID + " TEXT UNIQUE NOT NULL, " +
                 DBContract.PlaceEntry.COL_PLACE_NAME + " TEXT NOT NULL, " +
                 DBContract.PlaceEntry.COL_PLACE_CONTACT + " TEXT, " +
+                DBContract.PlaceEntry.COL_PLACE_WEBSITE + " TEXT, " +
                 DBContract.PlaceEntry.COL_PLACE_ADDRESS + " TEXT, " +
                 DBContract.PlaceEntry.COL_PLACE_LATITUDE + " TEXT NOT NULL, " +
                 DBContract.PlaceEntry.COL_PLACE_LONGITUDE + " TEXT NOT NULL" +

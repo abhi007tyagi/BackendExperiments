@@ -101,9 +101,9 @@ public class Util {
         placeValues.put(PlaceEntry.COL_PLACE_NAME, place.getName().toString());
         placeValues.put(PlaceEntry.COL_PLACE_CONTACT, place.getPhoneNumber().toString());
         placeValues.put(PlaceEntry.COL_PLACE_ADDRESS, place.getAddress().toString());
-        placeValues.put(InviteEntry.COL_VENUE_LATITUDE, place.getLatLng().latitude);
-        placeValues.put(InviteEntry.COL_VENUE_LONGITUDE, place.getLatLng().longitude);
-        placeValues.put(InviteEntry.COL_PLACE_ID, place.getId());
+        placeValues.put(PlaceEntry.COL_PLACE_LATITUDE, place.getLatLng().latitude);
+        placeValues.put(PlaceEntry.COL_PLACE_LONGITUDE, place.getLatLng().longitude);
+        placeValues.put(PlaceEntry.COL_PLACE_ID, place.getId());
 
         return placeValues;
     }

@@ -377,7 +377,6 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
     @Override
     public void onValidationSucceeded() {
 
-
         invite = ((Invite) getActivity().getApplication()).getInvitation();
         invite.setVenueName(name.getText().toString());
         invite.setVenueContact(phone.getText().toString());

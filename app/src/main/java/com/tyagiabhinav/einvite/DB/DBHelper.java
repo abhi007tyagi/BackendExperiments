@@ -65,7 +65,7 @@ public class DBHelper extends SQLiteOpenHelper {
         final String SQL_CREATE_PLACE_TABLE = "CREATE TABLE " + DBContract.PlaceEntry.TABLE_NAME + " (" +
                 DBContract.PlaceEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 DBContract.PlaceEntry.COL_PLACE_ID + " TEXT UNIQUE NOT NULL, " +
-                DBContract.PlaceEntry.COL_PLACE_NAME + " TEXT NOT NULL, " +
+                DBContract.PlaceEntry.COL_PLACE_NAME + " TEXT, " +
                 DBContract.PlaceEntry.COL_PLACE_CONTACT + " TEXT, " +
                 DBContract.PlaceEntry.COL_PLACE_WEBSITE + " TEXT, " +
                 DBContract.PlaceEntry.COL_PLACE_ADDRESS + " TEXT, " +

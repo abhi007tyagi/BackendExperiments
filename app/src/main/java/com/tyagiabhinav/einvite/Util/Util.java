@@ -97,13 +97,38 @@ public class Util {
 
     public static ContentValues getPlaceValues(Place place) {
         ContentValues placeValues = new ContentValues();
-        placeValues.put(PlaceEntry.COL_PLACE_WEBSITE, place.getWebsiteUri().toString());
-        placeValues.put(PlaceEntry.COL_PLACE_NAME, place.getName().toString());
-        placeValues.put(PlaceEntry.COL_PLACE_CONTACT, place.getPhoneNumber().toString());
-        placeValues.put(PlaceEntry.COL_PLACE_ADDRESS, place.getAddress().toString());
-        placeValues.put(PlaceEntry.COL_PLACE_LATITUDE, place.getLatLng().latitude);
-        placeValues.put(PlaceEntry.COL_PLACE_LONGITUDE, place.getLatLng().longitude);
-        placeValues.put(PlaceEntry.COL_PLACE_ID, place.getId());
+        if(place.getWebsiteUri() != null) {
+            placeValues.put(PlaceEntry.COL_PLACE_WEBSITE, place.getWebsiteUri().toString());
+        }else{
+            placeValues.put(PlaceEntry.COL_PLACE_WEBSITE, "");
+        }
+        if(place.getName() != null) {
+            placeValues.put(PlaceEntry.COL_PLACE_NAME, place.getName().toString());
+        }else{
+            placeValues.put(PlaceEntry.COL_PLACE_NAME,"");
+        }
+        if(place.getPhoneNumber() != null) {
+            placeValues.put(PlaceEntry.COL_PLACE_CONTACT, place.getPhoneNumber().toString());
+        }else{
+            placeValues.put(PlaceEntry.COL_PLACE_CONTACT,"");
+        }
+        if(place.getAddress() != null) {
+            placeValues.put(PlaceEntry.COL_PLACE_ADDRESS, place.getAddress().toString());
+        }else{
+            placeValues.put(PlaceEntry.COL_PLACE_ADDRESS,"");
+        }
+        if(place.getLatLng() != null) {
+            placeValues.put(PlaceEntry.COL_PLACE_LATITUDE, place.getLatLng().latitude);
+            placeValues.put(PlaceEntry.COL_PLACE_LONGITUDE, place.getLatLng().longitude);
+        }else{
+            placeValues.put(PlaceEntry.COL_PLACE_LATITUDE, "");
+            placeValues.put(PlaceEntry.COL_PLACE_LONGITUDE, "");
+        }
+        if(place.getId() != null) {
+            placeValues.put(PlaceEntry.COL_PLACE_ID, place.getId());
+        }else{
+            placeValues.put(PlaceEntry.COL_PLACE_ID, "");
+        }
 
         return placeValues;
     }
@@ -219,6 +244,15 @@ public class Util {
         }
 
     }
+
+//    public static String getNullText(String text){
+//        if(text != null && !text.trim().isEmpty() && !text.equalsIgnoreCase("null")){
+//            return text;
+//        }else{
+//            return "";
+//        }
+//
+//    }
 
     public static String saveUncaughtError(Context context, String msg, String stackTrace){
 

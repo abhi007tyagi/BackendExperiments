@@ -24,6 +24,7 @@
 
     <dimen name="drawable_text_invitation_padding_small">4dp</dimen>
     <dimen name="drawable_text_invitation_padding_medium">8dp</dimen>
+    <dimen name="drawable_text_invitation_padding_large">16dp</dimen>
 
     <dimen name="text_margin_large">16dp</dimen>
     <dimen name="text_margin_medium">8dp</dimen>

@@ -24,6 +24,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,6 +32,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -43,6 +45,7 @@ import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.tyagiabhinav.backend.backendService.model.Invitation;
 import com.tyagiabhinav.backend.backendService.model.User;
 import com.tyagiabhinav.einvite.DB.DBContract;
+import com.tyagiabhinav.einvite.DB.DBContract.PlaceEntry;
 import com.tyagiabhinav.einvite.DB.DBContract.UserEntry;
 import com.tyagiabhinav.einvite.Invite;
 import com.tyagiabhinav.einvite.Network.BackgroundService;
@@ -56,6 +59,8 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnItemSelected;
+import butterknife.OnTouch;
 
 /**
  * Created by abhinavtyagi on 16/03/16.
@@ -64,26 +69,36 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
     private static final String LOG_TAG = CreateVenueFragment.class.getSimpleName();
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 7;
 
-    private static final String V_NAME = "venue";
-    private static final String V_PHONE = "phone";
-    private static final String V_WEB = "website";
-    private static final String V_ADD = "add";
-    private static final String V_LAT = "lat";
-    private static final String V_LON = "lon";
-    private static final String V_PLACE_ID = "placeId";
+    private static final int CURSOR_LOADER = 205;
+    private static final int CURSOR_SPINNER_LOADER = 207;
+    private static final int PLACE_PICKER_REQUEST = 106;
+    private static final int REGISTRATION_REQUEST = 108;
+
+//    private static final String V_NAME = "venue";
+//    private static final String V_PHONE = "phone";
+//    private static final String V_WEB = "website";
+//    private static final String V_ADD = "add";
+//    private static final String V_LAT = "lat";
+//    private static final String V_LON = "lon";
+//    private static final String V_PLACE_ID = "placeId";
 
     private View rootView;
 //    @Bind(R.id.toolbar)
 //    Toolbar toolbar;
+
+    @Bind(R.id.savedPalces)
+    Spinner savedPlaces;
+
     @NotEmpty
     @Bind(R.id.venueName)
     EditText name;
 
     @Bind(R.id.venuePhone)
     EditText phone;
-//    @Url
+    //    @Url
     @Bind(R.id.website)
     EditText website;
+
     @NotEmpty
     @Bind(R.id.address)
     EditText address;
@@ -91,12 +106,13 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
     @Bind(R.id.progressBar)
     ProgressBar progressBar;
 
-    String latitude, longitude, placeId;
-    Invitation invite;
+    private String latitude, longitude, placeId;
+    private Invitation invite;
     private Validator validator;
-    private static final int CURSOR_LOADER = 205;
-    private static final int PLACE_PICKER_REQUEST = 106;
-    private static final int REGISTRATION_REQUEST = 108;
+    private Loader<Cursor> loader;
+    private SimpleCursorAdapter spinAdapter;
+
+    private boolean isItemSelected = false;
 
 
     @Override
@@ -104,35 +120,64 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
         Log.d(LOG_TAG, "onCreateView");
         rootView = inflater.inflate(R.layout.create_venue_fragment, container, false);
         //reset back button flag
-        ((Invite)getActivity().getApplication()).setCreateVenueBackPressed(false);
+        ((Invite) getActivity().getApplication()).setCreateVenueBackPressed(false);
 
         ButterKnife.bind(this, rootView);
         validator = new Validator(this);
         validator.setValidationListener(this);
 
         //populate if not empty/null
-        invite = ((Invite)getActivity().getApplication()).getInvitation();
-        if(!Util.isNull(invite.getVenueName())) {
+        invite = ((Invite) getActivity().getApplication()).getInvitation();
+        if (!Util.isNull(invite.getVenueName())) {
             name.setText(invite.getVenueName());
         }
-        if(!Util.isNull(invite.getVenueContact())) {
+        if (!Util.isNull(invite.getVenueContact())) {
             phone.setText(invite.getVenueContact());
         }
-        if(!Util.isNull(invite.getWebsite())) {
+        if (!Util.isNull(invite.getWebsite())) {
             website.setText(invite.getWebsite());
         }
-        if(!Util.isNull(invite.getVenueAddress())) {
+        if (!Util.isNull(invite.getVenueAddress())) {
             address.setText(invite.getVenueAddress());
         }
-        if(!Util.isNull(invite.getLatitude())) {
+        if (!Util.isNull(invite.getLatitude())) {
             latitude = invite.getLatitude();
         }
-        if(!Util.isNull(invite.getLongitude())) {
+        if (!Util.isNull(invite.getLongitude())) {
             longitude = invite.getLongitude();
         }
-        if(!Util.isNull(invite.getPlaceID())) {
+        if (!Util.isNull(invite.getPlaceID())) {
             placeId = invite.getPlaceID();
         }
+
+        spinAdapter = new SimpleCursorAdapter(getActivity(),
+                android.R.layout.simple_spinner_item, null,
+                new String[]{PlaceEntry.COL_PLACE_NAME},
+                new int[] {android.R.id.text1}, 0);
+
+        spinAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        savedPlaces.setAdapter(spinAdapter);
+
+//        savedPlaces.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+//                Log.d(LOG_TAG, "selected position --> " + position);
+//                Cursor cursor = (Cursor) adapterView.getItemAtPosition(position);
+//                if (cursor != null) {
+//                    name.setText(cursor.getString(cursor.getColumnIndex(PlaceEntry.COL_PLACE_NAME)));
+//                    phone.setText(cursor.getString(cursor.getColumnIndex(PlaceEntry.COL_PLACE_CONTACT)));
+//                    website.setText(cursor.getString(cursor.getColumnIndex(PlaceEntry.COL_PLACE_WEBSITE)));
+//                    address.setText(cursor.getString(cursor.getColumnIndex(PlaceEntry.COL_PLACE_ADDRESS)));
+//                    placeId = cursor.getString(cursor.getColumnIndex(PlaceEntry.COL_PLACE_ID));
+//                    latitude = String.valueOf(cursor.getString(cursor.getColumnIndex(PlaceEntry.COL_PLACE_LATITUDE)));
+//                    longitude = String.valueOf(cursor.getString(cursor.getColumnIndex(PlaceEntry.COL_PLACE_LONGITUDE)));
+//                }
+//            }
+//        });
+
+
+        getLoaderManager().initLoader(CURSOR_SPINNER_LOADER, null, CreateVenueFragment.this);
 
 //        if (toolbar != null) {
 //            ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
@@ -155,7 +200,7 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
         invite.setLatitude(latitude);
         invite.setLongitude(longitude);
         invite.setPlaceID(placeId);
-        ((Invite)getActivity().getApplication()).setInvitation(invite);
+        ((Invite) getActivity().getApplication()).setInvitation(invite);
         Log.d(LOG_TAG, "onPause.. exiting");
         super.onPause();
     }
@@ -219,6 +264,34 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
         } catch (GooglePlayServicesRepairableException
                 | GooglePlayServicesNotAvailableException e) {
             e.printStackTrace();
+        }
+    }
+
+//    @OnItemSelected(value = R.id.savedPalces, callback = NOTHING_SELECTED)
+//    void onNothingSelected() {
+//        Log.d(LOG_TAG, "nothing selected");
+//    }
+//
+    @OnTouch(R.id.savedPalces)
+    public boolean onTouch() {
+        isItemSelected = true;
+        return false;
+    }
+    @OnItemSelected(R.id.savedPalces)
+    public void getSavedPlace(Spinner spinner, int position) {
+        Log.d(LOG_TAG, "selected position --> " + position);
+        if(isItemSelected) {
+            Cursor cursor = (Cursor) spinner.getAdapter().getItem(position);// getItemAtPosition(position);
+            if (cursor != null) {
+                name.setText(cursor.getString(cursor.getColumnIndex(PlaceEntry.COL_PLACE_NAME)));
+                phone.setText(cursor.getString(cursor.getColumnIndex(PlaceEntry.COL_PLACE_CONTACT)));
+                website.setText(cursor.getString(cursor.getColumnIndex(PlaceEntry.COL_PLACE_WEBSITE)));
+                address.setText(cursor.getString(cursor.getColumnIndex(PlaceEntry.COL_PLACE_ADDRESS)));
+                placeId = cursor.getString(cursor.getColumnIndex(PlaceEntry.COL_PLACE_ID));
+                latitude = String.valueOf(cursor.getString(cursor.getColumnIndex(PlaceEntry.COL_PLACE_LATITUDE)));
+                longitude = String.valueOf(cursor.getString(cursor.getColumnIndex(PlaceEntry.COL_PLACE_LONGITUDE)));
+            }
+            isItemSelected = false;
         }
     }
 
@@ -293,27 +366,27 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.d(LOG_TAG, "Request Code -->" + requestCode);
-        switch(requestCode){
+        switch (requestCode) {
             case PLACE_PICKER_REQUEST:
                 if (resultCode == Activity.RESULT_OK) {
                     Log.d(LOG_TAG, "PLACE PICKER OK");
                     Place place = PlacePicker.getPlace(getActivity(), data);
-                    if(place.getName()!=null) {
+                    if (place.getName() != null) {
                         name.setText(place.getName());
                     }
-                    if(place.getPhoneNumber()!=null) {
+                    if (place.getPhoneNumber() != null) {
                         phone.setText(place.getPhoneNumber());
                     }
-                    if(place.getWebsiteUri()!=null) {
+                    if (place.getWebsiteUri() != null) {
                         website.setText(place.getWebsiteUri().toString());
                     }
-                    if(place.getAddress()!=null){
+                    if (place.getAddress() != null) {
                         address.setText(place.getAddress());
                     }
-                    if(place.getId()!=null){
+                    if (place.getId() != null) {
                         placeId = place.getId();
                     }
-                    if(place.getLatLng()!=null){
+                    if (place.getLatLng() != null) {
                         latitude = String.valueOf(place.getLatLng().latitude);
                         longitude = String.valueOf(place.getLatLng().longitude);
                     }
@@ -333,7 +406,7 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
                 if (resultCode == Activity.RESULT_OK) {
                     Log.d(LOG_TAG, "REGISTRATION OK");
 
-                }else{
+                } else {
                     Log.d(LOG_TAG, "Result Code -->" + resultCode);
                 }
                 break;
@@ -382,7 +455,7 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
         invite.setVenueContact(phone.getText().toString());
         String webURL = website.getText().toString();
 //        if (webURL != null && !webURL.trim().isEmpty()) {
-            invite.setWebsite(webURL);
+        invite.setWebsite(webURL);
 //        }
         invite.setVenueAddress(address.getText().toString());
 //        invite.setVenueCountry(country.getText().toString());
@@ -398,13 +471,13 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
 //            invite.setVenueZip(pin);
 //        }
 //        if (latitude != null && !latitude.trim().isEmpty()) {
-            invite.setLatitude(latitude);
+        invite.setLatitude(latitude);
 //        }
 //        if (longitude != null && !longitude.trim().isEmpty()) {
-            invite.setLongitude(longitude);
+        invite.setLongitude(longitude);
 //        }
 //        if(placeId != null && !placeId.trim().isEmpty()) {
-            invite.setPlaceID(placeId);
+        invite.setPlaceID(placeId);
 //        }
 
         if (PrefHelper.isUserRegistered()) {
@@ -451,55 +524,97 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle bundle) {
-        Uri registeredUser = DBContract.UserEntry.buildUserDataUri(UserEntry.USER_TYPE_SELF);
-        return new CursorLoader(getContext(),
-                registeredUser,
-                null,
-                UserEntry.COL_USER_TYPE + " = ?",
-                null,
-                null);
+        switch (id) {
+            case CURSOR_LOADER:
+                Uri registeredUser = DBContract.UserEntry.buildUserDataUri(UserEntry.USER_TYPE_SELF);
+                loader = new CursorLoader(getContext(),
+                        registeredUser,
+                        null,
+                        UserEntry.COL_USER_TYPE + " = ?",
+                        null,
+                        null);
+                break;
+            case CURSOR_SPINNER_LOADER:
+                Uri savedPlaces = DBContract.PlaceEntry.buildPlaceUri();
+                loader = new CursorLoader(getContext(),
+                        savedPlaces,
+                        null,
+                        null,
+                        null,
+                        null);
+                break;
+        }
+        return loader;
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         Log.d(LOG_TAG, "onLoadFinished -->" + cursor.getCount());
-        if (cursor.getCount() > 0) {
-            cursor.moveToFirst();
-            User user = new User();
-            user.setName(cursor.getString(cursor.getColumnIndex(UserEntry.COL_USER_NAME)));
-            user.setEmail(cursor.getString(cursor.getColumnIndex(UserEntry.COL_USER_EMAIL)));
-            user.setContact(cursor.getString(cursor.getColumnIndex(UserEntry.COL_USER_CONTACT)));
-            user.setCountry(cursor.getString(cursor.getColumnIndex(UserEntry.COL_USER_COUNTRY)));
-            user.setState(cursor.getString(cursor.getColumnIndex(UserEntry.COL_USER_STATE)));
-            user.setAdd1(cursor.getString(cursor.getColumnIndex(UserEntry.COL_USER_ADD1)));
-            user.setAdd2(cursor.getString(cursor.getColumnIndex(UserEntry.COL_USER_ADD2)));
-            user.setCity(cursor.getString(cursor.getColumnIndex(UserEntry.COL_USER_CITY)));
-            user.setZip(cursor.getString(cursor.getColumnIndex(UserEntry.COL_USER_ZIP)));
-            user.setCity(cursor.getString(cursor.getColumnIndex(UserEntry.COL_USER_CITY)));
+        switch (loader.getId()) {
+            case CURSOR_LOADER:
+                if (cursor.getCount() > 0) {
+                    cursor.moveToFirst();
+                    User user = new User();
+                    user.setName(cursor.getString(cursor.getColumnIndex(UserEntry.COL_USER_NAME)));
+                    user.setEmail(cursor.getString(cursor.getColumnIndex(UserEntry.COL_USER_EMAIL)));
+                    user.setContact(cursor.getString(cursor.getColumnIndex(UserEntry.COL_USER_CONTACT)));
+                    user.setCountry(cursor.getString(cursor.getColumnIndex(UserEntry.COL_USER_COUNTRY)));
+                    user.setState(cursor.getString(cursor.getColumnIndex(UserEntry.COL_USER_STATE)));
+                    user.setAdd1(cursor.getString(cursor.getColumnIndex(UserEntry.COL_USER_ADD1)));
+                    user.setAdd2(cursor.getString(cursor.getColumnIndex(UserEntry.COL_USER_ADD2)));
+                    user.setCity(cursor.getString(cursor.getColumnIndex(UserEntry.COL_USER_CITY)));
+                    user.setZip(cursor.getString(cursor.getColumnIndex(UserEntry.COL_USER_ZIP)));
+                    user.setCity(cursor.getString(cursor.getColumnIndex(UserEntry.COL_USER_CITY)));
 
-            Log.d(LOG_TAG, "Name-->" + user.getName());
+                    Log.d(LOG_TAG, "Name-->" + user.getName());
 
 //            invite = ((Invite)getActivity().getApplication()).getInvitation();
-            invite.setInvitee(user);
+                    invite.setInvitee(user);
 
-            ((Invite) getActivity().getApplication()).setInvitation(invite);
+                    ((Invite) getActivity().getApplication()).setInvitation(invite);
 
-            ResponseReceiver receiver = new ResponseReceiver(new Handler());
-            receiver.setReceiver(this);
+                    ResponseReceiver receiver = new ResponseReceiver(new Handler());
+                    receiver.setReceiver(this);
 
-            ((Invite) getActivity().getApplication()).setReceiver(receiver);
+                    ((Invite) getActivity().getApplication()).setReceiver(receiver);
 
-            Intent intent = new Intent(Intent.ACTION_SYNC, null, getActivity(), BackgroundService.class);
-            intent.putExtra(BackgroundService.ACTION, BackgroundService.CREATE_INVITE);
-            getActivity().startService(intent);
+                    Intent intent = new Intent(Intent.ACTION_SYNC, null, getActivity(), BackgroundService.class);
+                    intent.putExtra(BackgroundService.ACTION, BackgroundService.CREATE_INVITE);
+                    getActivity().startService(intent);
+                }
+                Log.d(LOG_TAG, "Destroying Loader");
+                getLoaderManager().destroyLoader(CURSOR_LOADER);
+                break;
+            case CURSOR_SPINNER_LOADER:
+                if (cursor.getCount() > 0) {
+                    savedPlaces.setVisibility(View.VISIBLE);
+                    spinAdapter.swapCursor(cursor);
+//                    cursor.moveToFirst();
+//                    while(cursor.getCount() > 0) {
+//                        Places place = new Places();
+//                        place.setPlaceId(cursor.getString(cursor.getColumnIndex(PlaceEntry.COL_PLACE_ID)));
+//                        place.setPlaceName(cursor.getString(cursor.getColumnIndex(PlaceEntry.COL_PLACE_NAME)));
+//                        place.setPlaceAddress(cursor.getString(cursor.getColumnIndex(PlaceEntry.COL_PLACE_ADDRESS)));
+//                        place.setPlaceContact(cursor.getString(cursor.getColumnIndex(PlaceEntry.COL_PLACE_CONTACT)));
+//                        place.setPlaceWebsite(cursor.getString(cursor.getColumnIndex(PlaceEntry.COL_PLACE_WEBSITE)));
+//                        place.setPlaceLatitude(cursor.getString(cursor.getColumnIndex(PlaceEntry.COL_PLACE_LATITUDE)));
+//                        place.setPlaceLongitude(cursor.getString(cursor.getColumnIndex(PlaceEntry.COL_PLACE_LONGITUDE)));
+//                        Log.d(LOG_TAG,"Saved Place --> "+place.getPlaceName());
+//                        cursor.moveToNext();
+//                    }
+                }
+                else{
+                    savedPlaces.setVisibility(View.GONE);
+                }
+//                Log.d(LOG_TAG, "Destroying Loader");
+//                getLoaderManager().destroyLoader(CURSOR_SPINNER_LOADER);
+                break;
         }
-        Log.d(LOG_TAG, "Destroying Loader");
-        getLoaderManager().destroyLoader(CURSOR_LOADER);
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-
+        spinAdapter.swapCursor(null);
     }
 
     @Override
@@ -514,18 +629,17 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
                     invite.setId(id);
                     //save to db
                     Uri uri = getActivity().getApplication().getContentResolver().insert(DBContract.InviteEntry.CONTENT_URI, Util.getInvitationValues(invite));
-                    if(uri != null && uri.equals(DBContract.InviteEntry.buildInviteUri())){
+                    if (uri != null && uri.equals(DBContract.InviteEntry.buildInviteUri())) {
                         // success
                         Bundle bundle = new Bundle();
                         bundle.putString(InvitationFragment.INVITATION_ID, id);
 
-                        Intent intent = new Intent(getActivity(),InvitationActivity.class);
+                        Intent intent = new Intent(getActivity(), InvitationActivity.class);
                         intent.putExtras(bundle);
                         startActivity(intent);
-                    }
-                    else{
+                    } else {
                         // failed to save data
-                        Toast.makeText(getActivity(),"Error while saving invitation",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "Error while saving invitation", Toast.LENGTH_LONG).show();
                     }
                     // self user already registered
 //                    getActivity().getApplication().getContentResolver().insert(DBContract.UserEntry.CONTENT_URI, Util.getUserValues(invite.getInvitee(), true));
@@ -536,7 +650,7 @@ public class CreateVenueFragment extends Fragment implements Validator.Validatio
                 }
                 break;
             case BackgroundService.CREATE_INVITE_ERR:
-                Toast.makeText(getActivity(),resultData.getString(BackgroundService.ERROR),Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), resultData.getString(BackgroundService.ERROR), Toast.LENGTH_LONG).show();
                 break;
         }
         progressBar.setVisibility(View.GONE);
